@@ -1,9 +1,19 @@
 <h1>
   {{title}}
 </h1>
-
 <button routerLink="/user">Users</button>
 <button routerLink="/product">Orders</button>
+<button routerLink="/admin">admin</button>
 <button routerLink="">Home</button>
-
+<div class="dropdown">
+  <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+    Dropdown button
+  </button>
+  <div class="dropdown-menu">
+    <a class="dropdown-item" href="#">Link 1</a>
+    <a class="dropdown-item" href="#">Link 2</a>
+    <a class="dropdown-item-text" href="#">Text Link</a>
+    <span class="dropdown-item-text">Just Text</span>
+  </div>
+</div>
 <router-outlet></router-outlet>
