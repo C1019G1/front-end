@@ -3,17 +3,14 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { ProductsComponent } from './products.component';
 import { ProductListComponent } from './product-list/product-list.component';
-import {MaterialModule} from '../Common/material.module';
-import {Ng2Module} from '../Common/ng2.module';
 
-const routes: Routes = [{ path: '', component: ProductsComponent }];
+const routes: Routes = [
+  { path: '', component: ProductsComponent },
+  { path: 'list', component: ProductListComponent },
+];
 
 @NgModule({
-  imports: [
-    RouterModule.forChild(routes),
-    MaterialModule,
-    Ng2Module,
-  ],
+  imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
   declarations: [ProductListComponent]
 })
