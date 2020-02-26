@@ -11,6 +11,7 @@ import { HistoryRegisterAuctionComponent } from './history-register-auction/hist
 import { HistoryAuctionComponent } from './history-auction/history-auction.component';
 import {Ng2Module} from '../Common/ng2.module';
 import { AdvisoryComponent } from './advisory/advisory.component';
+import { GuideComponent } from './guide/guide.component';
 
 const routes: Routes = [
   {path: '', component: UsersComponent},
@@ -20,6 +21,7 @@ const routes: Routes = [
   {path: 'history-register', component: HistoryRegisterAuctionComponent},
   {path: 'history-auction', component: HistoryAuctionComponent},
   {path: 'advisory', component: AdvisoryComponent},
+  {path: 'guide', component: GuideComponent},
 ];
 
 @NgModule({
@@ -36,7 +38,8 @@ const routes: Routes = [
     UserUpdateInfoComponent,
     HistoryRegisterAuctionComponent,
     HistoryAuctionComponent,
-    AdvisoryComponent]
+    AdvisoryComponent,
+    GuideComponent]
 })
 export class UsersRoutingModule {
 }
