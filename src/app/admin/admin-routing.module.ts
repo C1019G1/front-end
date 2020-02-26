@@ -6,6 +6,7 @@ import { AdminUserManagerComponent } from './admin-user-manager/admin-user-manag
 import {MaterialModule} from '../Common/material.module';
 import {Ng2Module} from '../Common/ng2.module';
 import { AdminUserCreateComponent } from './admin-user-create/admin-user-create.component';
+import {ReactiveFormsModule} from '@angular/forms';
 
 const routes: Routes = [
   { path: '', component: AdminComponent },
@@ -17,6 +18,7 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     MaterialModule,
     Ng2Module,
+    ReactiveFormsModule,
   ],
   exports: [RouterModule],
   declarations: [AdminUserManagerComponent, AdminUserCreateComponent]

@@ -1,1 +1,52 @@
-<p>admin-user-create works!</p>
+<h3 class="text-center">Thêm mới khách hàng</h3>
+<form class="w-75 mx-auto mt-3" [formGroup]="formNewUser">
+  <div class="form-group d-flex">
+    <label>Họ và Tên*</label>
+    <input class="form-control" type="text" formControlName="name">
+    <!--    <p *ngIf="formNewUser.controls.fullName.errors?.required && formNewUser.controls.fullName.touched" class="text-danger">Vui lòng nhập vào</p>-->
+  </div>
+  <div class="form-group d-flex">
+    <label>Tên đăng nhập*</label>
+    <input class="form-control" type="text" formControlName="userName">
+    <!--    <p *ngIf="formNewUser.controls.fullName.errors?.required && formNewUser.controls.fullName.touched" class="text-danger">Vui lòng nhập vào</p>-->
+  </div>
+  <div class="form-group d-flex">
+    <label>Email*</label>
+    <input class="form-control" type="email" formControlName="email">
+    <!--    <p *ngIf="formNewUser.controls.email.errors?.required && formNewUser.controls.email.touched" class="text-danger">Vui lòng nhập vào</p>-->
+    <!--    <p *ngIf="formNewUser.controls.email.errors?.email && formNewUser.controls.email.touched" class="text-danger">Nhập sai định dạng Vd:abcabc@gmail.com</p>-->
+  </div>
+  <div class="form-group d-flex">
+    <label style="padding-top: 5%">Ngày sinh*</label>
+    <mat-form-field class="mx-0">
+      <input [max]="today" [min]="minDate" matInput [matDatepicker]="myDatepicker" class="form-control"
+             formControlName="dateOfBirth" placeholder="Chọn ngày sinh">
+      <mat-datepicker-toggle matSuffix [for]="myDatepicker"></mat-datepicker-toggle>
+      <mat-datepicker #myDatepicker></mat-datepicker>
+    </mat-form-field>
+    <!--    <p *ngIf="formNewUser.controls.dateOfBirth.errors?.required && formNewUser.controls.dateOfBirth.touched" class="text-danger">Vui lòng chọn một ngày</p>-->
+  </div>
+  <div class="form-group d-flex">
+    <label>Địa Chỉ*</label>
+    <input class="form-control" type="text" formControlName="address">
+    <!--    <p *ngIf="formNewUser.controls.address.errors?.required && formNewUser.controls.address.touched" class="text-danger">Vui lòng nhập vào</p>-->
+  </div>
+  <div class="form-group d-flex">
+    <label>SĐT*</label>
+    <input class="form-control" type="text" formControlName="phoneNumber">
+    <!--    <p *ngIf="formNewUser.controls.phoneNumber.errors?.required && formNewUser.controls.phoneNumber.touched" class="text-danger">Vui lòng nhập vào</p>-->
+    <!--    <p *ngIf="formNewUser.controls.phoneNumber.errors?.pattern && formNewUser.controls.phoneNumber.touched" class="text-danger">Số điện thoại không xác định</p>-->
+  </div>
+  <div class="form-group d-flex">
+    <label>CMND*</label>
+    <input class="form-control" type="text" formControlName="identityNumber">
+    <!--    <p *ngIf="formNewUser.controls.identityNumber.errors?.required && formNewUser.controls.identityNumber.touched" class="text-danger">Vui lòng nhập vào</p>-->
+    <!--    <p *ngIf="formNewUser.controls.identityNumber.errors?.pattern && formNewUser.controls.identityNumber.touched" class="text-danger">Không đúng. Vd: 201201201</p>-->
+  </div>
+  <div class=" form-group d-flex">
+    <label> </label>
+    <button class="btn btn-success mt-4 mr-4" (click)="addNewUser()">Thêm mới</button>
+    <button class="btn btn-success mt-4 mr-4" (click)="ngOnInit()">Nhập lại</button>
+    <button mat-dialog-close class="btn btn-success mt-4 mr-4" >Hủy</button>
+  </div>
+</form>
