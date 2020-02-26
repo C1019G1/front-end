@@ -32,7 +32,6 @@ export class AdminUserCreateComponent implements OnInit {
 
   addNewUser() {
     const day = new Date(this.formNewUser.value.dateOfBirth);
-    console.log(day.getDate() + '' + (day.getMonth() + 1) + day.getFullYear());
-    this.formNewUser.controls.password.setValue(12);
+    this.formNewUser.controls.password.setValue(day.getDate() + '' + (day.getMonth() + 1) + day.getFullYear());
   }
 }
