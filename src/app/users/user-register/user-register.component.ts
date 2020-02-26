@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
+
 function comparePassword(c: AbstractControl) {
   const v = c.value;
   return (v.password === v.confirmPassword) ? null : {
