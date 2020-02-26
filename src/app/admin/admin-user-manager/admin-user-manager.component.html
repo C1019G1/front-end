@@ -58,11 +58,11 @@
 <div class="row mt-4">
   <div class="col-2"></div>
   <div class="col-4">
-    <button mat-raised-button color="primary" [routerLink]="['']">Khóa
+    <button mat-raised-button color="primary" (click)="openUserLockDialog()">Khóa
       <i class="material-icons ml-2">
         lock
       </i></button>
-    <button mat-raised-button color="primary" [routerLink]="['']">Xóa
+    <button mat-raised-button color="primary" >Xóa
       <i class="material-icons ml-2">
         delete_forever
       </i></button>

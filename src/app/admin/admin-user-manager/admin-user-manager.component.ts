@@ -4,6 +4,7 @@ import {MatTableDataSource} from '@angular/material/table';
 import {SelectionModel} from '@angular/cdk/collections';
 import {MatDialog} from '@angular/material/dialog';
 import {AdminUserCreateComponent} from '../admin-user-create/admin-user-create.component';
+import {AdminUserLockComponent} from '../admin-user-lock/admin-user-lock.component';
 
 export interface User {
   id;
@@ -127,6 +128,17 @@ export class AdminUserManagerComponent implements OnInit {
     const dialogRef = this.dialog.open(AdminUserCreateComponent, {
       width: '50%',
       minWidth: '300px',
+    });
+    dialogRef.afterClosed().subscribe(result => {
+    });
+  }
+
+  openUserLockDialog(){
+    console.log(this.selection.selected)
+    const dialogRef = this.dialog.open(AdminUserLockComponent, {
+      width: '50%',
+      minWidth: '300px',
+      data:{users: this.selection.selected}
     });
     dialogRef.afterClosed().subscribe(result => {
     });
