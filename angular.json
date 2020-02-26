@@ -133,8 +133,5 @@
       }
     }
   },
-  "defaultProject": "font-end",
-  "cli": {
-    "analytics": "761d3850-651f-430c-bdb2-82a8c038f65f"
-  }
+  "defaultProject": "font-end"
 }

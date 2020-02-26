@@ -19,6 +19,7 @@ const routes: Routes = [
   {path: 'update', component: UserUpdateInfoComponent},
   {path: 'history-register', component: HistoryRegisterAuctionComponent},
   {path: 'history-auction', component: HistoryAuctionComponent},
+  {path: 'advisory', component: AdvisoryComponent},
 ];
 
 @NgModule({
