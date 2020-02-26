@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-user-login',
@@ -6,13 +8,25 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./user-login.component.css']
 })
 export class UserLoginComponent implements OnInit {
-  formUser: any;
+  loginForm: FormGroup;
+  constructor(
+    public formBuider: FormBuilder,
+    // public userService: any,
+    public router: Router
+  ) {
+  }
 
-  constructor() { }
-
-  ngOnInit(): void {
+  ngOnInit() {
+    this.loginForm = this.formBuider.group({
+      userName: ['', [Validators.required]],
+      password: ['', [Validators.required, Validators.email]],
+    })
+    ;
   }
 
   userLogin() {
+    // this.userService.login(this.formUser.value).subscribe(data => {
+    //   this.router.navigateByUrl('customer-list');
+    // });
   }
 }

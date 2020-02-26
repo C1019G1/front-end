@@ -43,7 +43,7 @@ export class UserRegisterComponent implements OnInit {
   }
 
   userRegister() {
-    // this.userService.addNewCustomer(this.formUser.value).subscribe(data => {
+    // this.userService.register(this.formUser.value).subscribe(data => {
     //   this.router.navigateByUrl('customer-list');
     // });
   }
