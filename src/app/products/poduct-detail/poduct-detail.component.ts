@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+
 export interface Product {
   ID: string;
   productName: string;
@@ -25,7 +26,7 @@ const products: Product[] = [
     currentPrice: 120,
     jump: 10,
     auctionPrice: 120,
-    image : ['../assets/hinh1/oto.jpg', '../assets/hinh1/oto.jpg', '../assets/hinh1/oto.jpg', '../assets/hinh1/oto.jpg'],
+    image : ['../assets/hinh1/oto.jpg', '../assets/hinh1/nha.jpg', '../assets/hinh1/moto.jpg', '../assets/hinh1/nha.jpg'],
     infoProduct: 'hàng dân dụng',
     address: 'đà nẵng',
   },
@@ -53,7 +54,7 @@ const products: Product[] = [
     currentPrice: 120,
     jump: 10,
     auctionPrice: 120,
-    image : ['../assets/hinh1/moto.jpg', '../assets/hinh1/nha.jpg', '../assets/hinh1/moto.jpg', 'assets/hinh1/iphone.jpg'],
+    image : ['../assets/hinh1/moto.jpg', '../assets/hinh1/moto.jpg', '../assets/hinh1/moto.jpg', '../assets/hinh1/moto.jpg'],
     infoProduct: 'hàng dân dụng',
     address: 'đà nẵng',
   },
@@ -67,7 +68,7 @@ const products: Product[] = [
     currentPrice: 120,
     jump: 10,
     auctionPrice: 120,
-    image : ['assets/hinh1/iphone.jpg', '../assets/hinh1/nha.jpg', '../assets/hinh1/moto.jpg', 'assets/hinh1/iphone.jpg'],
+    image : ['assets/hinh1/iphone.jpg', 'assets/hinh1/iphone.jpg', 'assets/hinh1/iphone.jpg', 'assets/hinh1/iphone.jpg'],
     infoProduct: 'hàng dân dụng',
     address: 'đà nẵng',
   },
@@ -81,22 +82,22 @@ const products: Product[] = [
     currentPrice: 120,
     jump: 10,
     auctionPrice: 120,
-    image : ['../assets/hinh1/oto.jpg', '../assets/hinh1/nha.jpg', '../assets/hinh1/moto.jpg', 'assets/hinh1/iphone.jpg'],
+    image : ['../assets/hinh1/oto.jpg', '../assets/hinh1/oto.jpg', '../assets/hinh1/oto.jpg', '../assets/hinh1/oto.jpg'],
     infoProduct: 'hàng dân dụng',
     address: 'đà nẵng',
   }
 ];
-
 @Component({
-  selector: 'app-product-list',
-  templateUrl: './product-list.component.html',
-  styleUrls: ['./product-list.component.css']
+  selector: 'app-poduct-detail',
+  templateUrl: './poduct-detail.component.html',
+  styleUrls: ['./poduct-detail.component.css']
 })
-export class ProductListComponent implements OnInit {
+export class PoductDetailComponent implements OnInit {
   public productList;
   constructor() { }
 
   ngOnInit(): void {
     this.productList = products;
   }
+
 }

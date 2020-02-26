@@ -1,4 +1,6 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {MatPaginator} from '@angular/material/paginator';
+import {MatTableDataSource} from '@angular/material/table';
 
 export interface Product {
   idProduct: number;
@@ -9,7 +11,7 @@ export interface Product {
   status: string;
 }
 
-const ELEMENT_DATA: Product[] = [
+const ProductList: Product[] = [
   {
     idProduct: 1001,
     nameProduct: 'Iphone X',
@@ -99,14 +101,16 @@ const ELEMENT_DATA: Product[] = [
 })
 
 export class HistoryAuctionComponent implements OnInit {
-  displayedColumns: string[] = ['index', 'idProduct', 'nameProduct', 'infoProduct', 'cost', 'registerDay', 'status'];
-  dataSource = ELEMENT_DATA;
+  displayedColumns: string[] = ['index', 'idProduct', 'nameProduct', 'infoProduct', 'cost', 'registerDay', 'status', 'cancel'];
+  dataSource = new MatTableDataSource<Product>(ProductList);
   p: any;
+
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
   constructor() {
   }
 
   ngOnInit(): void {
-    console.log(this.dataSource);
+    this.dataSource.paginator = this.paginator;
   }
 }

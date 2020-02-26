@@ -1,0 +1,91 @@
+<div class="container">
+  <h1>Tên sản phẩm</h1>
+  <div class="row" style="height: 50%">
+    <div class="col-4">
+      <img src="../assets/hinh1/oto.jpg" style="height: auto;width:100% ">
+    </div>
+    <div class="col-4">
+      <ul class="list-group">
+        <li class="list-group-item">ID:</li>
+        <li class="list-group-item">Bắt đầu</li>
+        <li class="list-group-item">Kết thúc</li>
+        <li class="list-group-item">Thời gian còn lại</li>
+        <li class="list-group-item">Giá gốc</li>
+        <li class="list-group-item">Giá hiện tại</li>
+        <li class="list-group-item">Mỗi lần tăng giá ít nhất</li>
+        <li class="list-group-item">
+          <form class="form-inline d-flex" action="/action_page.php">
+            <label for="price" class="mr-sm-2 ">Giá đấu giá:</label>
+            <input type="text" class="form-control my-auto mr-sm-2" placeholder="price" id="price" style="width: 100px">
+            <button type="submit" class="btn btn-outline-primary my-auto mx-3">Đấu giá</button>
+          </form>
+        </li>
+      </ul>
+    </div>
+    <div class="col-4">
+      <table class="table table-striped">
+        <thead>
+        <tr>
+          <th>STT</th>
+          <th>Số tiền</th>
+          <th>Thời gian đấu giá</th>
+          <th>Thành viên</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td>1</td>
+          <td>200</td>
+          <td>10:00:00-20/02/2020</td>
+          <td> chanhtv</td>
+        </tr>
+        <tr>
+          <td>1</td>
+          <td>200</td>
+          <td>10:00:00-20/02/2020</td>
+          <td> chanhtv</td>
+        </tr>
+        <tr>
+          <td>1</td>
+          <td>200</td>
+          <td>10:00:00-20/02/2020</td>
+          <td> chanhtv</td>
+        </tr>
+        <tr>
+          <td>1</td>
+          <td>200</td>
+          <td>10:00:00-20/02/2020</td>
+          <td> chanhtv</td>
+        </tr>
+        <tr>
+          <td>1</td>
+          <td>200</td>
+          <td>10:00:00-20/02/2020</td>
+          <td> chanhtv</td>
+        </tr>
+        </tbody>
+      </table>
+      <div class="row justify-content-end mr-3 ">
+        <a href="#" [routerLink]="['/showAll']"> Xem tất cả</a>
+      </div>
+    </div>
+  </div>
+  <h3 class="mb-1">Hình ảnh</h3>
+  <div class="d-flex">
+    <div class="m-2" *ngFor="let image of productList[0].image" style="height: 150px">
+      <img [src]="image" style="height: 100%;width:auto ">
+    </div>
+  </div>
+  <div>
+    <h1>Thông tin chi tiết</h1>
+    <div>
+      <p> sản phẩm</p>
+    </div>
+  </div>
+  <div>
+    <h1>Thông tin nhân hàng</h1>
+    <div>
+      <p> Đà nẵng</p>
+    </div>
+  </div>
+</div>
