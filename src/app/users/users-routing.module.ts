@@ -10,6 +10,7 @@ import {MaterialModule} from '../Common/material.module';
 import { HistoryRegisterAuctionComponent } from './history-register-auction/history-register-auction.component';
 import { HistoryAuctionComponent } from './history-auction/history-auction.component';
 import {Ng2Module} from '../Common/ng2.module';
+import { AdvisoryComponent } from './advisory/advisory.component';
 
 const routes: Routes = [
   {path: '', component: UsersComponent},
@@ -33,7 +34,8 @@ const routes: Routes = [
     UserRegisterComponent,
     UserUpdateInfoComponent,
     HistoryRegisterAuctionComponent,
-    HistoryAuctionComponent]
+    HistoryAuctionComponent,
+    AdvisoryComponent]
 })
 export class UsersRoutingModule {
 }
