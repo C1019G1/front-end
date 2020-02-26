@@ -1,0 +1,10 @@
+label{
+  width: 150px;
+  margin-left: 10px;
+}
+textarea{
+  border: solid 1px;
+}
+.mat-input-element{
+  width: 300px;
+}

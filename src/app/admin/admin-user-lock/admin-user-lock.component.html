@@ -1,0 +1,50 @@
+<h3 class="text-center">Khóa thành viên</h3>
+<div class="w-80 mx-auto mt-3">
+  <div class="row">
+      <label style="padding-top: 3%">Thời gian khóa</label>
+    <div class="col-xl-4 mr-2">
+      <mat-form-field class="mx-2 my-1">
+        <input [min]="today" [max]="(lockTimeEnd)? lockTimeEnd:null" matInput [matDatepicker]="myDatepicker"
+               [(ngModel)]="lockTimeStart" placeholder="Chọn ngày bắt đầu">
+        <mat-datepicker-toggle matSuffix [for]="myDatepicker"></mat-datepicker-toggle>
+        <mat-datepicker #myDatepicker></mat-datepicker>
+      </mat-form-field>
+    </div>
+    <div class="col-xl-4">
+      <mat-form-field class="mx-2 my-1">
+        <input [min]="(lockTimeStart)?lockTimeStart:today" matInput [matDatepicker]="myDatepicker1"
+               [(ngModel)]="lockTimeEnd" placeholder="Chọn ngày kết thúc">
+        <mat-datepicker-toggle matSuffix [for]="myDatepicker1"></mat-datepicker-toggle>
+        <mat-datepicker #myDatepicker1></mat-datepicker>
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="row d-flex">
+    <label>Bạn có thật sự muốn khóa</label>
+    <div class="ml-4">
+      <textarea matInput
+                cdkTextareaAutosize
+                #autosize="cdkTextareaAutosize"
+                cdkAutosizeMinRows="1"
+                cdkAutosizeMaxRows="5"
+                [value]="content"
+                disabled="true"
+                style="color: black"
+      ></textarea>
+    </div>
+  </div>
+  <div class="row d-flex mt-3">
+    <label>Lý do*</label>
+    <div class="ml-4 ">
+      <textarea matInput
+                style="min-height: 100px"
+                [(ngModel)]="reason"
+      ></textarea>
+    </div>
+  </div>
+  <div class="row d-flex mt-3">
+    <label></label>
+    <button class="btn btn-danger ml-4 mr-4">Khóa</button>
+    <button class="btn btn-warning">Hủy</button>
+  </div>
+</div>
