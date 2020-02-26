@@ -11,7 +11,9 @@ import { HistoryRegisterAuctionComponent } from './history-register-auction/hist
 import { HistoryAuctionComponent } from './history-auction/history-auction.component';
 import {Ng2Module} from '../Common/ng2.module';
 import { GuideComponent } from './guide/guide.component';
+import { PasswordResetComponent } from './password-reset/password-reset.component';
 import { AdvisoryComponent } from './advisory/advisory.component';
+
 
 const routes: Routes = [
   {path: '', component: UsersComponent},
@@ -22,6 +24,7 @@ const routes: Routes = [
   {path: 'history-auction', component: HistoryAuctionComponent},
   {path: 'advisory', component: AdvisoryComponent},
   {path: 'guide', component: GuideComponent},
+  {path: 'password_reset', component: PasswordResetComponent},
 ];
 
 @NgModule({
@@ -39,8 +42,9 @@ const routes: Routes = [
     UserUpdateInfoComponent,
     HistoryRegisterAuctionComponent,
     HistoryAuctionComponent,
+    AdvisoryComponent,
     GuideComponent,
-    AdvisoryComponent]
+    PasswordResetComponent]
 })
 export class UsersRoutingModule {
 }
