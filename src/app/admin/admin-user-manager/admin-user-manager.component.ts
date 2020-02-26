@@ -2,6 +2,9 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatTableDataSource} from '@angular/material/table';
 import {SelectionModel} from '@angular/cdk/collections';
+import {MatDialog} from '@angular/material/dialog';
+import {AdminUserCreateComponent} from '../admin-user-create/admin-user-create.component';
+import {AdminUserLockComponent} from '../admin-user-lock/admin-user-lock.component';
 
 export interface User {
   id;
@@ -83,13 +86,16 @@ const UserList: User[] = [
   styleUrls: ['./admin-user-manager.component.css']
 })
 export class AdminUserManagerComponent implements OnInit {
-  displayedColumns: string[] = ['id', 'name', 'address', 'rank', 'email', 'phoneNumber', 'lastLogin', 'contributePoint','select'];
+  displayedColumns: string[] = ['id', 'name', 'address', 'rank', 'email', 'phoneNumber', 'lastLogin', 'contributePoint', 'select'];
   dataSource = new MatTableDataSource<User>(UserList);
   selection = new SelectionModel<User>(true, []);
 
+
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
-  constructor() {
+  constructor(
+    public dialog: MatDialog
+  ) {
   }
 
   ngOnInit(): void {
@@ -116,5 +122,25 @@ export class AdminUserManagerComponent implements OnInit {
       return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
     }
     return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.id + 1}`;
+  }
+
+  openUserCreateDialog() {
+    const dialogRef = this.dialog.open(AdminUserCreateComponent, {
+      width: '50%',
+      minWidth: '300px',
+    });
+    dialogRef.afterClosed().subscribe(result => {
+    });
+  }
+
+  openUserLockDialog(){
+    console.log(this.selection.selected)
+    const dialogRef = this.dialog.open(AdminUserLockComponent, {
+      width: '50%',
+      minWidth: '300px',
+      data:{users: this.selection.selected}
+    });
+    dialogRef.afterClosed().subscribe(result => {
+    });
   }
 }
