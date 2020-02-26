@@ -4,16 +4,16 @@
     Đăng nhập
   </h1>
   <hr style="width: 40%">
-  <form class="w-75 mx-auto mt-3" [formGroup]="formUser">
+  <form class="w-75 mx-auto mt-3" [formGroup]="loginForm">
     <div class="form-group">
       <input class="form-control" type="text" formControlName="userName" placeholder="Nhập tài khoản">
-      <p *ngIf="formUser.controls.userName.errors?.required&&formUser.controls.userName.touched"
+      <p *ngIf="loginForm.controls.userName.errors?.required&&loginForm.controls.userName.touched"
          class="text-danger">vui lòng nhập tài khoản</p>
     </div>
     <div class="form-group">
       <input class="form-control" type="password" formControlName="password" placeholder="Nhập mật khẩu">
       <p
-        *ngIf="formUser.controls.password.errors?.required&&formUser.controls.password.touched"
+        *ngIf="loginForm.controls.password.errors?.required&&loginForm.controls.password.touched"
         class="text-danger">vui lòng nhập mật khẩu
       </p>
     </div>
