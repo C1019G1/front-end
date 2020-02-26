@@ -1,0 +1,9 @@
+table {
+  width: 100%;
+}
+.mat-header-cell{
+  background-color: #B7FF97;
+  font-family: Tahoma;
+  font-size: larger;
+  padding-bottom: 20px;
+}

@@ -1,76 +1,46 @@
-<div class="row justify-content-between" xmlns:paginate="http://www.w3.org/1999/xhtml"
-     xmlns:itemsPerPage="http://www.w3.org/1999/xhtml" xmlns:currentPage="http://www.w3.org/1999/xhtml">
-  <p>Lich sử đăng ký sản phẩm đấu giá</p>
-  <div class="row mt-3 px-3">
-    <table class="table mt-3 table-striped" style="font-size: 12px">
-      <thead>
-      <tr>
-        <th>STT</th>
-        <th>Tên sản phẩm</th>
-        <th>Tên thông tin</th>
-        <th>Ngày đăng ký</th>
-        <th>Trạng thái</th>
-        <th>Hủy đăng ký</th>
-      </tr>
-      </thead>
-<!--            <tbody paginate: { itemsPerPage: 2, currentPage: p } >-->
-      <tbody>
-      <tr>
-        <th>1</th>
-        <th>Keo dán chuột</th>
-        <th>Keo dán chuột chuyên dán chuột nè</th>
-        <th>24/02/2020</th>
-        <th>Đang đấu giá</th>
-        <th style="width: 12%">
-          <button>Hủy</button>
-        </th>
-<!--        <th style="width: 12%">-->
-<!--          <button class="btn btn-sm btn-warning mr-3" [routerLink]="['/customer-edit/' + customer.id]">Sửa</button>-->
-<!--          <button class="btn btn-sm btn-danger" (click)="openDialog(customer.id)">Xóa</button>-->
-<!--        </th>-->
-      </tr>
-      <tr>
-        <th>2</th>
-        <th>Xe đạp</th>
-        <th>Xe đạp chuyên đạp xe đạp</th>
-        <th>24/02/2020</th>
-        <th>Đang đấu giá</th>
-        <th style="width: 12%">
-          <button>Hủy</button>
-        </th>
-      </tr>
-      <tr>
-        <th>3</th>
-        <th>Xe máy</th>
-        <th>Xe đạp chuyên đạp xe đạp</th>
-        <th>24/02/2020</th>
-        <th>Đang đấu giá</th>
-        <th style="width: 12%">
-          <button>Hủy</button>
-        </th>
-      </tr>
-      <tr>
-        <th>4</th>
-        <th>Xe ô tô</th>
-        <th>Xe đạp chuyên đạp xe đạp</th>
-        <th>24/02/2020</th>
-        <th>Đang đấu giá</th>
-        <th style="width: 12%">
-          <button>Hủy</button>
-        </th>
-      </tr>
-      <tr>
-        <th>5</th>
-        <th>Macbook</th>
-        <th>Xe đạp chuyên đạp xe đạp</th>
-        <th>24/02/2020</th>
-        <th>Đang đấu giá</th>
-        <th style="width: 12%">
-          <button>Hủy</button>
-        </th>
-      </tr>
-      </tbody>
+<div>
+  <div class="container">
+    <h2 class="d-flex justify-content-center">Lich Sử Đăng Ký Đấu Giá Sản Phẩm</h2>
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 table table-striped" >
+      <!-- Position Column -->
+      <ng-container matColumnDef="idProduct">
+        <th mat-header-cell *matHeaderCellDef> Số Đơn Hàng </th>
+        <td mat-cell *matCellDef="let element"> {{element.idProduct}} </td>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="nameProduct">
+        <th mat-header-cell *matHeaderCellDef> Tên Sản Phẩm </th>
+        <td mat-cell *matCellDef="let element"> {{element.nameProduct}} </td>
+      </ng-container>
+
+      <!-- Weight Column -->
+      <ng-container matColumnDef="infoProduct">
+        <th mat-header-cell *matHeaderCellDef> Thông Tin Sản Phẩm </th>
+        <td mat-cell *matCellDef="let element"> {{element.infoProduct}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="registerDay">
+        <th mat-header-cell *matHeaderCellDef> Ngày Đăng Ký </th>
+        <td mat-cell *matCellDef="let element"> {{element.registerDay}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef> Tình Trạng </th>
+        <td mat-cell *matCellDef="let element"> {{element.status}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="cancel">
+        <th mat-header-cell *matHeaderCellDef> Hủy Trạng Thái </th>
+        <td mat-cell *matCellDef="let element"><button mat-button color="warn">Hủy</button></td>
+      </ng-container>
+
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
-<!--    <pagination-controls (pageChange)="p = $event"></pagination-controls>-->
+    <div class="col-6">
+      <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+    </div>
   </div>
 </div>
