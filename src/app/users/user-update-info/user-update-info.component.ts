@@ -35,6 +35,6 @@ export class UserUpdateInfoComponent implements OnInit {
     ;
   }
 
-  // updateInfo() {
-  // }
+  userRegister() {
+  }
 }

@@ -1,5 +1,5 @@
 <div>
-<div class="container">
+<div class="container-fluid">
   <h2 class="d-flex justify-content-center">Lich Sử Đấu Giá Sản Phẩm</h2>
 
 <!--    <table class="table mt-3 table-striped" style="font-size: 12px">-->
@@ -25,7 +25,7 @@
 
 
 
-
+    <div class="row mt-3 mx-5">
     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 table table-striped" >
 
       <!--- Note that these columns can be defined in any order.
@@ -78,6 +78,7 @@
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
+    </div>
   <div class="col-6">
     <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
   </div>
