@@ -3,22 +3,22 @@
   <div class="container-fluid">
   <a class="navbar-brand" href="#">Daugia.com</a>
   <div class="row justify-content-end">
-    <a href="/user/advisory" style="color: black">
+    <div style="color: black">
     <div class="d-flex">
       <div class="material-icons">
         chat_bubble_outline
       </div>
-      <div class="mt-auto mr-3">Tư vấn</div>
+      <button class="mt-auto mr-3" style="background: none; border: none" (click)="openDialogAdvisory()">Tư vấn</button>
     </div>
-    </a>
-    <a href="/user/guide" style="color: black">
+    </div>
+    <div  style="color: black">
     <div class="d-flex">
       <div class="material-icons">
         list_alt
       </div>
-      <div class="mt-auto mr-3">Hướng dẫn</div>
+      <button class="mt-auto mr-3"style="background: none; border: none" (click)="openDialogGuide()">Hướng dẫn</button>
     </div>
-    </a>
+    </div>
     <a href="/user/login" style="color: black">
       <div class="d-flex">
         <div class="material-icons">
