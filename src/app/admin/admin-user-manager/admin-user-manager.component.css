@@ -14,7 +14,7 @@ th.mat-column-select,td.mat-column-select{
   width: 50px;
 }
 .mat-header-cell{
-  background-color: #B7FF97;
+  background-color: #b7ff97;
   font-size: larger;
   padding-left: 8px;
   padding-right: 8px;
@@ -33,3 +33,6 @@ th.mat-column-select,td.mat-column-select{
 button {
   margin-right: 5px;
 }
+.mat-row.selected {
+   background: #fffa7e;
+ }
