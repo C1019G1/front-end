@@ -1,37 +1,38 @@
-<nav class="navbar navbar-expand-sm" style="background-color: #ffba00;border-color: #ffa100;">
-  <!-- Brand -->
-  <div class="container-fluid">
-  <a class="navbar-brand" href="#">Daugia.com</a>
-  <div class="row justify-content-end">
-    <div style="color: black">
-    <div class="d-flex">
-      <div class="material-icons">
-        chat_bubble_outline
-      </div>
-      <button class="mt-auto mr-3" style="background: none; border: none" (click)="openDialogAdvisory()">Tư vấn</button>
-    </div>
-    </div>
-    <div  style="color: black">
-    <div class="d-flex">
-      <div class="material-icons">
-        list_alt
-      </div>
-      <button class="mt-auto mr-3"style="background: none; border: none" (click)="openDialogGuide()">Hướng dẫn</button>
-    </div>
-    </div>
-    <a href="/user/login" style="color: black">
-      <div class="d-flex">
-        <div class="material-icons">
-          account_circle
+<div class="container-fluid px-0">
+  <nav class="navbar navbar-expand-sm sticky-top"  style="background-color: #ffba00;border-color: #ffa100;">
+    <!-- Brand -->
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Daugia.com</a>
+      <div class="row justify-content-end">
+        <div style="color: black">
+          <div class="d-flex">
+            <div class="material-icons">
+              chat_bubble_outline
+            </div>
+            <button class="mt-auto mr-3" style="background: none; border: none" (click)="openDialogAdvisory()">Tư vấn</button>
+          </div>
         </div>
-        <div class="mt-auto mr-3">
-          Đăng nhập / Đăng ký
+        <div  style="color: black">
+          <div class="d-flex">
+            <div class="material-icons">
+              list_alt
+            </div>
+            <button class="mt-auto mr-3"style="background: none; border: none" (click)="openDialogGuide()">Hướng dẫn</button>
+          </div>
         </div>
+        <a href="/user/login" style="color: black">
+          <div class="d-flex">
+            <div class="material-icons">
+              account_circle
+            </div>
+            <div class="mt-auto mr-3">
+              Đăng nhập / Đăng ký
+            </div>
+          </div>
+        </a>
       </div>
-    </a>
-
+    </div>
+  </nav>
+  <router-outlet class="main-body"></router-outlet>
   </div>
-  </div>
-</nav>
 
-<router-outlet></router-outlet>

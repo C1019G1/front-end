@@ -1,5 +1,5 @@
-<div class="container-fluid">
-  <h2 class="ml-5">Quản lý thành viên</h2>
+<div class="container-fluid ">
+  <h2 class="mt-2 ml-5">Quản lý thành viên</h2>
   <div class="row d-flex mt-2 mx-5">
     <form class="form-inline " action="/">
       <label for="id" class="mr-sm-2 ">Id:</label>
@@ -21,7 +21,7 @@
       <button type="submit" class="btn btn-outline-primary my-auto mx-3">Lọc kết quả</button>
     </form>
   </div>
-  <div class="row mt-3 mx-5">
+  <div class="row example-container mt-3 mx-5" (scroll)="onTableScroll($event)">
     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 table-striped" >
       <ng-container matColumnDef="id" sticky>
         <th mat-header-cell *matHeaderCellDef> ID</th>
@@ -94,9 +94,9 @@
           person_add
         </i></button>
     </div>
-    <div class="col-6 ">
-      <mat-paginator [pageSizeOptions]="[5, 10]" showFirstLastButtons></mat-paginator>
-    </div>
+<!--    <div class="col-6 ">-->
+<!--      <mat-paginator [pageSizeOptions]="[10]" showFirstLastButtons></mat-paginator>-->
+<!--    </div>-->
   </div>
 </div>
 
