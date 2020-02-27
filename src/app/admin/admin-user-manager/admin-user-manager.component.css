@@ -36,3 +36,12 @@ button {
 .mat-row.selected {
    background: #fffa7e;
  }
+mat-table {
+  overflow: auto
+}
+.example-container {
+  height: 500px;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+}

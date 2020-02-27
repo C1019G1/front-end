@@ -79,7 +79,68 @@ const UserList: User[] = [
     contributePoint: '8'
   },
 ];
-
+const UserList2: User[] = [
+  {
+    id: 7,
+    name: 'test5',
+    address: 'Huế',
+    rank: 'đồng',
+    email: 'a@gmail.com',
+    phoneNumber: '090090090',
+    lastLogin: '12/1/2011',
+    contributePoint: '8'
+  },
+  {
+    id: 8,
+    name: 'test5',
+    address: 'Huế',
+    rank: 'đồng',
+    email: 'a@gmail.com',
+    phoneNumber: '090090090',
+    lastLogin: '12/1/2011',
+    contributePoint: '8'
+  },
+  {
+    id: 9,
+    name: 'test5',
+    address: 'Huế',
+    rank: 'đồng',
+    email: 'a@gmail.com',
+    phoneNumber: '090090090',
+    lastLogin: '12/1/2011',
+    contributePoint: '8'
+  },
+  {
+    id: 10,
+    name: 'test5',
+    address: 'Huế',
+    rank: 'đồng',
+    email: 'a@gmail.com',
+    phoneNumber: '090090090',
+    lastLogin: '12/1/2011',
+    contributePoint: '8'
+  },
+  {
+    id: 11,
+    name: 'test5',
+    address: 'Huế',
+    rank: 'đồng',
+    email: 'a@gmail.com',
+    phoneNumber: '090090090',
+    lastLogin: '12/1/2011',
+    contributePoint: '8'
+  },
+  {
+    id: 12,
+    name: 'test5',
+    address: 'Huế',
+    rank: 'đồng',
+    email: 'a@gmail.com',
+    phoneNumber: '090090090',
+    lastLogin: '12/1/2011',
+    contributePoint: '8'
+  },
+]
 @Component({
   selector: 'app-admin-user-manager',
   templateUrl: './admin-user-manager.component.html',
@@ -87,11 +148,12 @@ const UserList: User[] = [
 })
 export class AdminUserManagerComponent implements OnInit {
   displayedColumns: string[] = ['id', 'name', 'address', 'rank', 'email', 'phoneNumber', 'lastLogin', 'contributePoint', 'select'];
-  dataSource = new MatTableDataSource<User>(UserList);
+  // dataSource = new MatTableDataSource<User>(UserList);
+   dataSource = UserList;
   selection = new SelectionModel<User>(true, []);
 
 
-  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+  // @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
   constructor(
     public dialog: MatDialog
@@ -99,13 +161,14 @@ export class AdminUserManagerComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.dataSource.paginator = this.paginator;
+    // this.dataSource.paginator = this.paginator;
+    this.dataSource = this.dataSource.concat(UserList)
   }
 
   /** Whether the number of selected elements matches the total number of rows. */
   isAllSelected() {
     const numSelected = this.selection.selected.length;
-    const numRows = this.dataSource.data.length;
+    const numRows = this.dataSource.length;
     return numSelected === numRows;
   }
 
@@ -113,7 +176,7 @@ export class AdminUserManagerComponent implements OnInit {
   masterToggle() {
     this.isAllSelected() ?
       this.selection.clear() :
-      this.dataSource.data.forEach(row => this.selection.select(row));
+      this.dataSource.forEach(row => this.selection.select(row));
   }
 
   /** The label for the checkbox on the passed row */
@@ -142,5 +205,18 @@ export class AdminUserManagerComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
     });
+  }
+
+  onTableScroll(e) {
+    const tableViewHeight = e.target.offsetHeight // viewport: ~500px
+    const tableScrollHeight = e.target.scrollHeight // length of all table
+    const scrollLocation = e.target.scrollTop; // how far user scrolled
+    console.log(e.target.scrollTop)
+    // If the user has scrolled within 200px of the bottom, add more data
+    const buffer = 50;
+    const limit = tableScrollHeight - tableViewHeight - buffer;
+    if (scrollLocation > limit) {
+      this.dataSource = this.dataSource.concat(UserList2);
+    }
   }
 }
