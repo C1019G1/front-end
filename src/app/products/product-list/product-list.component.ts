@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {ProductRegisterService} from '../../services/product-register.service';
+import {MatDialog} from '@angular/material/dialog';
 export interface Product {
   ID: string;
   productName: string;
@@ -93,10 +95,17 @@ const products: Product[] = [
   styleUrls: ['./product-list.component.css']
 })
 export class ProductListComponent implements OnInit {
-  public productList;
-  constructor() { }
+  public productRegisterList;
+  p: any;
+  term: any;
+  constructor(public productRegisterServiece: ProductRegisterService,
+              public  dialog: MatDialog
+  ) { }
 
-  ngOnInit(): void {
-    this.productList = products;
+  ngOnInit() {
+    this.productRegisterServiece.getAllProduct().subscribe(data => {
+      this.productRegisterList = data;
+      console.log(this.productRegisterList);
+    });
   }
 }

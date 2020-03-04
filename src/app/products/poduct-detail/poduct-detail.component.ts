@@ -83,7 +83,7 @@ const products: Product[] = [
     currentPrice: 120,
     jump: 10,
     auctionPrice: 120,
-    image : ['../assets/hinh1/oto.jpg', '../assets/hinh1/oto.jpg', '../assets/hinh1/oto.jpg', '../assets/hinh1/oto.jpg'],
+    image : ['n', '../assets/hinh1/oto.jpg', '../assets/hinh1/oto.jpg', '../assets/hinh1/oto.jpg'],
     infoProduct: 'hàng dân dụng',
     address: 'đà nẵng',
   }
