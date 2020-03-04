@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {ProductRegisterService} from '../../services/product-register.service';
+import {MatDialog} from '@angular/material/dialog';
 export interface Product {
   ID: string;
   productName: string;
@@ -19,7 +21,7 @@ const products: Product[] = [
     ID: '0001',
     productName: 'oto',
     startDay: 'Date1',
-    endDay: 'Date2',
+    endDay: 'Mar 5, 2020 23:50:00',
     remainTime: 12,
     originPrince: 100,
     currentPrice: 120,
@@ -33,7 +35,7 @@ const products: Product[] = [
     ID: '0002',
     productName: 'nhà',
     startDay: 'Date1',
-    endDay: 'Date2',
+    endDay: 'Mar 10, 2020 23:50:00',
     remainTime: 12,
     originPrince: 100,
     currentPrice: 120,
@@ -47,7 +49,7 @@ const products: Product[] = [
     ID: '0003',
     productName: 'moto',
     startDay: 'Date1',
-    endDay: 'Date2',
+    endDay: 'Mar 15, 2020 23:50:00',
     remainTime: 12,
     originPrince: 100,
     currentPrice: 120,
@@ -61,7 +63,7 @@ const products: Product[] = [
     ID: '0004',
     productName: 'iphone',
     startDay: 'Date1',
-    endDay: 'Date2',
+    endDay: 'Mar 20, 2020 23:50:00',
     remainTime: 12,
     originPrince: 100,
     currentPrice: 120,
@@ -75,7 +77,7 @@ const products: Product[] = [
     ID: '0005',
     productName: 'oto',
     startDay: 'Date1',
-    endDay: 'Date2',
+    endDay: 'Mar 6, 2020 23:50:00',
     remainTime: 12,
     originPrince: 100,
     currentPrice: 120,
@@ -93,10 +95,17 @@ const products: Product[] = [
   styleUrls: ['./product-list.component.css']
 })
 export class ProductListComponent implements OnInit {
-  public productList;
-  constructor() { }
+  public productRegisterList;
+  p: any;
+  term: any;
+  constructor(public productRegisterServiece: ProductRegisterService,
+              public  dialog: MatDialog
+  ) { }
 
-  ngOnInit(): void {
-    this.productList = products;
+  ngOnInit() {
+    this.productRegisterServiece.getAllProduct().subscribe(data => {
+      this.productRegisterList = data;
+      console.log(this.productRegisterList);
+    });
   }
 }

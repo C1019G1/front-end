@@ -1,4 +1,6 @@
 import {Component, OnInit} from '@angular/core';
+import {ProductRegisterService} from '../services/product-register.service';
+import {MatDialog} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-products',
@@ -7,9 +9,17 @@ import {Component, OnInit} from '@angular/core';
 })
 
 export class ProductsComponent implements OnInit {
-  constructor() {
-  }
+  public productRegisterList;
+  p: any;
+  term: any;
+  constructor(public productRegisterServiece: ProductRegisterService,
+              public  dialog: MatDialog
+  ) { }
 
-  ngOnInit(): void {
+  ngOnInit() {
+    this.productRegisterServiece.getAllProduct().subscribe(data => {
+      this.productRegisterList = data;
+      console.log(this.productRegisterList);
+    });
   }
 }
