@@ -105,7 +105,7 @@ export class ProductListComponent implements OnInit {
   ngOnInit() {
     this.productRegisterServiece.getAllProduct().subscribe(data => {
       this.productRegisterList = data;
-      console.log(this.productRegisterList);
+      // console.log(this.productRegisterList);
     });
   }
 }
