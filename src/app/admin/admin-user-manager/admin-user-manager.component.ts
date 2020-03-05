@@ -1,12 +1,21 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {MatPaginator} from '@angular/material/paginator';
+import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
+import {MatPaginator, PageEvent} from '@angular/material/paginator';
 import {MatTableDataSource} from '@angular/material/table';
 import {SelectionModel} from '@angular/cdk/collections';
 import {MatDialog} from '@angular/material/dialog';
 import {AdminUserCreateComponent} from '../admin-user-create/admin-user-create.component';
 import {AdminUserLockComponent} from '../admin-user-lock/admin-user-lock.component';
+import {AdminUserListService} from '../../services/admin-user-list.service';
+import {HttpClient} from '@angular/common/http';
+import {merge, of as observableOf} from 'rxjs';
+import {catchError, map, startWith, switchMap} from 'rxjs/operators';
 
-export interface User {
+export interface UserProfilebApi {
+  content: UserProfileDTO[];
+  totalElements: number;
+}
+
+export interface UserProfileDTO {
   id;
   name;
   address;
@@ -17,158 +26,62 @@ export interface User {
   contributePoint;
 }
 
-const UserList: User[] = [
-  {
-    id: 1,
-    name: 'test1',
-    address: 'đà nẵng',
-    rank: 'kim cương',
-    email: 'a@gmail.com',
-    phoneNumber: '090090090',
-    lastLogin: '12/1/2011',
-    contributePoint: '8'
-  },
-  {
-    id: 2,
-    name: 'test2',
-    address: 'đà nẵng',
-    rank: 'vàng',
-    email: 'a@gmail.com',
-    phoneNumber: '090090090',
-    lastLogin: '12/1/2011',
-    contributePoint: '10'
-  },
-  {
-    id: 3,
-    name: 'test3',
-    address: 'quảng nam',
-    rank: 'bạc',
-    email: 'a@gmail.com',
-    phoneNumber: '090090090',
-    lastLogin: '12/1/2011',
-    contributePoint: '12'
-  },
-  {
-    id: 4,
-    name: 'test4',
-    address: 'quảng nam',
-    rank: 'bạc',
-    email: 'a@gmail.com',
-    phoneNumber: '090090090',
-    lastLogin: '12/1/2011',
-    contributePoint: '13'
-  },
-  {
-    id: 5,
-    name: 'test5',
-    address: 'Huế',
-    rank: 'đồng',
-    email: 'a@gmail.com',
-    phoneNumber: '090090090',
-    lastLogin: '12/1/2011',
-    contributePoint: '2'
-  },
-  {
-    id: 6,
-    name: 'test5',
-    address: 'Huế',
-    rank: 'đồng',
-    email: 'a@gmail.com',
-    phoneNumber: '090090090',
-    lastLogin: '12/1/2011',
-    contributePoint: '8'
-  },
-];
-const UserList2: User[] = [
-  {
-    id: 7,
-    name: 'test5',
-    address: 'Huế',
-    rank: 'đồng',
-    email: 'a@gmail.com',
-    phoneNumber: '090090090',
-    lastLogin: '12/1/2011',
-    contributePoint: '8'
-  },
-  {
-    id: 8,
-    name: 'test5',
-    address: 'Huế',
-    rank: 'đồng',
-    email: 'a@gmail.com',
-    phoneNumber: '090090090',
-    lastLogin: '12/1/2011',
-    contributePoint: '8'
-  },
-  {
-    id: 9,
-    name: 'test5',
-    address: 'Huế',
-    rank: 'đồng',
-    email: 'a@gmail.com',
-    phoneNumber: '090090090',
-    lastLogin: '12/1/2011',
-    contributePoint: '8'
-  },
-  {
-    id: 10,
-    name: 'test5',
-    address: 'Huế',
-    rank: 'đồng',
-    email: 'a@gmail.com',
-    phoneNumber: '090090090',
-    lastLogin: '12/1/2011',
-    contributePoint: '8'
-  },
-  {
-    id: 11,
-    name: 'test5',
-    address: 'Huế',
-    rank: 'đồng',
-    email: 'a@gmail.com',
-    phoneNumber: '090090090',
-    lastLogin: '12/1/2011',
-    contributePoint: '8'
-  },
-  {
-    id: 12,
-    name: 'test5',
-    address: 'Huế',
-    rank: 'đồng',
-    email: 'a@gmail.com',
-    phoneNumber: '090090090',
-    lastLogin: '12/1/2011',
-    contributePoint: '8'
-  },
-]
 @Component({
   selector: 'app-admin-user-manager',
   templateUrl: './admin-user-manager.component.html',
   styleUrls: ['./admin-user-manager.component.css']
 })
-export class AdminUserManagerComponent implements OnInit {
+export class AdminUserManagerComponent implements AfterViewInit, OnInit {
   displayedColumns: string[] = ['id', 'name', 'address', 'rank', 'email', 'phoneNumber', 'lastLogin', 'contributePoint', 'select'];
-  // dataSource = new MatTableDataSource<User>(UserList);
-   dataSource = UserList;
-  selection = new SelectionModel<User>(true, []);
-
-
-  // @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
-
+  adminUserListService: AdminUserListService | null;
+  data: UserProfileDTO[] = [];
+  resultsLength = 0;
+  isLoadingResults = true;
+  isRateLimitReached = false;
+  selection = new SelectionModel<UserProfileDTO>(true, []);
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+  searchId;
+  searchFullName;
+  searchEmail;
+  searchRank;
   constructor(
-    public dialog: MatDialog
+    private dialog: MatDialog,
+    private _httpClient: HttpClient
   ) {
   }
 
   ngOnInit(): void {
-    // this.dataSource.paginator = this.paginator;
-    this.dataSource = this.dataSource.concat(UserList)
+  }
+
+  ngAfterViewInit(): void {
+    this.adminUserListService = new AdminUserListService(this._httpClient);
+    merge(this.paginator.page)
+      .pipe(
+        startWith({}),
+        switchMap(() => {
+          this.isLoadingResults = true;
+          return this.adminUserListService.getUserProfileList(
+            this.paginator.pageIndex, this.paginator.pageSize, '');
+        }),
+        map(data => {
+          this.isLoadingResults = false;
+          this.isRateLimitReached = false;
+          this.resultsLength = data.totalElements;
+          return data.content;
+        }),
+        catchError(() => {
+          this.isLoadingResults = false;
+          // Catch if the GitHub API has reached its rate limit. Return empty data.
+          this.isRateLimitReached = true;
+          return observableOf([]);
+        })
+      ).subscribe(data => this.data = data);
   }
 
   /** Whether the number of selected elements matches the total number of rows. */
   isAllSelected() {
     const numSelected = this.selection.selected.length;
-    const numRows = this.dataSource.length;
+    const numRows = this.data.length;
     return numSelected === numRows;
   }
 
@@ -176,11 +89,11 @@ export class AdminUserManagerComponent implements OnInit {
   masterToggle() {
     this.isAllSelected() ?
       this.selection.clear() :
-      this.dataSource.forEach(row => this.selection.select(row));
+      this.data.forEach(row => this.selection.select(row));
   }
 
   /** The label for the checkbox on the passed row */
-  checkboxLabel(row?: User): string {
+  checkboxLabel(row?: UserProfileDTO): string {
     if (!row) {
       return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
     }
@@ -196,27 +109,28 @@ export class AdminUserManagerComponent implements OnInit {
     });
   }
 
-  openUserLockDialog(){
-    console.log(this.selection.selected)
+  openUserLockDialog() {
+    console.log(this.selection.selected);
     const dialogRef = this.dialog.open(AdminUserLockComponent, {
       width: '50%',
       minWidth: '300px',
-      data:{users: this.selection.selected}
+      data: {users: this.selection.selected}
     });
     dialogRef.afterClosed().subscribe(result => {
     });
   }
 
-  onTableScroll(e) {
-    const tableViewHeight = e.target.offsetHeight // viewport: ~500px
-    const tableScrollHeight = e.target.scrollHeight // length of all table
-    const scrollLocation = e.target.scrollTop; // how far user scrolled
-    console.log(e.target.scrollTop)
-    // If the user has scrolled within 200px of the bottom, add more data
-    const buffer = 50;
-    const limit = tableScrollHeight - tableViewHeight - buffer;
-    if (scrollLocation > limit) {
-      this.dataSource = this.dataSource.concat(UserList2);
-    }
-  }
+  // onTableScroll(e) {
+  //   const tableViewHeight = e.target.offsetHeight // viewport: ~500px
+  //   const tableScrollHeight = e.target.scrollHeight // length of all table
+  //   const scrollLocation = e.target.scrollTop; // how far user scrolled
+  //   console.log(e.target.scrollTop)
+  //   // If the user has scrolled within 200px of the bottom, add more data
+  //   const buffer = 50;
+  //   const limit = tableScrollHeight - tableViewHeight - buffer;
+  //   if (scrollLocation > limit) {
+  //     this.dataSource = this.dataSource.concat(UserList2);
+  //   }
+  // }
+
 }
