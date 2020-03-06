@@ -11,7 +11,7 @@ export class RankListService {
   constructor(public http: HttpClient) {
   }
 
-  getRankList(page: number, size: number, search: string): Observable<any> {
+  getRankList(): Observable<any> {
     return this.http.get(this.API + '');
   }
 }
