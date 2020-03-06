@@ -13,6 +13,7 @@ import {Ng2Module} from '../Common/ng2.module';
 import { GuideComponent } from './guide/guide.component';
 import { PasswordResetComponent } from './password-reset/password-reset.component';
 import { AdvisoryComponent } from './advisory/advisory.component';
+import {HelloComponent} from './hello/hello.component';
 
 
 const routes: Routes = [
@@ -25,6 +26,7 @@ const routes: Routes = [
   {path: 'advisory', component: AdvisoryComponent},
   {path: 'guide', component: GuideComponent},
   {path: 'password_reset', component: PasswordResetComponent},
+  {path: 'hello', component: HelloComponent},
 ];
 
 @NgModule({
