@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
+import {ProductRegisterService} from '../../services/product-register.service';
 
 export interface Product {
   ID: string;
@@ -27,7 +28,7 @@ const products: Product[] = [
     currentPrice: 120,
     jump: 10,
     auctionPrice: 120,
-    image : ['../assets/hinh1/oto.jpg', '../assets/hinh1/nha.jpg', '../assets/hinh1/moto.jpg', '../assets/hinh1/nha.jpg'],
+    image: ['../assets/hinh1/oto.jpg', '../assets/hinh1/nha.jpg', '../assets/hinh1/moto.jpg', '../assets/hinh1/nha.jpg'],
     infoProduct: 'hàng dân dụng',
     address: 'đà nẵng',
   },
@@ -41,7 +42,7 @@ const products: Product[] = [
     currentPrice: 120,
     jump: 10,
     auctionPrice: 120,
-    image : ['../assets/hinh1/nha.jpg', '../assets/hinh1/nha.jpg', '../assets/hinh1/nha.jpg', '../assets/hinh1/nha.jpg'],
+    image: ['../assets/hinh1/nha.jpg', '../assets/hinh1/nha.jpg', '../assets/hinh1/nha.jpg', '../assets/hinh1/nha.jpg'],
     infoProduct: 'hàng dân dụng',
     address: 'đà nẵng',
   },
@@ -55,7 +56,7 @@ const products: Product[] = [
     currentPrice: 120,
     jump: 10,
     auctionPrice: 120,
-    image : ['../assets/hinh1/moto.jpg', '../assets/hinh1/moto.jpg', '../assets/hinh1/moto.jpg', '../assets/hinh1/moto.jpg'],
+    image: ['../assets/hinh1/moto.jpg', '../assets/hinh1/moto.jpg', '../assets/hinh1/moto.jpg', '../assets/hinh1/moto.jpg'],
     infoProduct: 'hàng dân dụng',
     address: 'đà nẵng',
   },
@@ -69,7 +70,7 @@ const products: Product[] = [
     currentPrice: 120,
     jump: 10,
     auctionPrice: 120,
-    image : ['assets/hinh1/iphone.jpg', 'assets/hinh1/iphone.jpg', 'assets/hinh1/iphone.jpg', 'assets/hinh1/iphone.jpg'],
+    image: ['assets/hinh1/iphone.jpg', 'assets/hinh1/iphone.jpg', 'assets/hinh1/iphone.jpg', 'assets/hinh1/iphone.jpg'],
     infoProduct: 'hàng dân dụng',
     address: 'đà nẵng',
   },
@@ -83,11 +84,12 @@ const products: Product[] = [
     currentPrice: 120,
     jump: 10,
     auctionPrice: 120,
-    image : ['n', '../assets/hinh1/oto.jpg', '../assets/hinh1/oto.jpg', '../assets/hinh1/oto.jpg'],
+    image: ['n', '../assets/hinh1/oto.jpg', '../assets/hinh1/oto.jpg', '../assets/hinh1/oto.jpg'],
     infoProduct: 'hàng dân dụng',
     address: 'đà nẵng',
   }
 ];
+
 @Component({
   selector: 'app-poduct-detail',
   templateUrl: './poduct-detail.component.html',
@@ -95,19 +97,27 @@ const products: Product[] = [
 })
 export class PoductDetailComponent implements OnInit {
   public productList;
-  private productOfId: any;
+  public productDetail;
+  public productOfId;
 
   constructor(
+    public productRegisterService: ProductRegisterService,
     public activeedRoute: ActivatedRoute
-  ) { }
+  ) {
+  }
 
   ngOnInit(): void {
     this.productList = products;
     this.activeedRoute.params.subscribe(data => {
       this.productOfId = data.id;
-      // this.customerService.getCustomerById(this.productOfId).subscribe(data1 => {
-      //   this.formEditCustomer.patchValue(data1);
+      console.log(this.productOfId);
+      this.productRegisterService.getProductById(this.productOfId).subscribe(data1 => {
+        this.productDetail = data1;
+        // console.log(this.productOfId);
+        console.log(this.productDetail);
       });
-  }
+    });
 
+  }
 }
+

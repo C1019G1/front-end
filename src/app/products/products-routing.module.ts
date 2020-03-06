@@ -10,7 +10,7 @@ import { CountDownComponent } from './count-down/count-down.component';
 const routes: Routes = [
   {path: '', component: ProductsComponent},
   {path: 'list', component: ProductListComponent},
-  {path: 'productDetail/:ID', component: PoductDetailComponent}
+  {path: 'productDetail/:id', component: PoductDetailComponent}
 ];
 
 @NgModule({
