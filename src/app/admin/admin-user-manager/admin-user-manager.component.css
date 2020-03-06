@@ -30,18 +30,44 @@ th.mat-column-select,td.mat-column-select{
   padding-left: 8px;
   padding-right: 8px;
 }
-button {
-  margin-right: 5px;
-}
 .mat-row.selected {
-   background: #fffa7e;
+   background: #fffaad;
  }
-mat-table {
-  overflow: auto
-}
+
 .example-container {
-  height: 500px;
+  position: relative;
+  min-height: 200px;
+}
+.example-table-container {
+  position: relative;
+  max-height: 400px;
   overflow: auto;
+}
+.example-loading-shade {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 56px;
+  right: 0;
+  background: rgba(0, 0, 0, 0.15);
+  z-index: 1;
   display: flex;
-  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.example-rate-limit-reached {
+  color: #980000;
+  max-width: 360px;
+  text-align: center;
+}
+.button-container{
+  position: relative;
+}
+.action-button{
+  margin-right: 5px;
+  margin-top: 8px;
+  padding-top: 2px ;
+  justify-content: center;
+  height: 40px;
+  width: 130px;
 }
