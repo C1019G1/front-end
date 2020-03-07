@@ -1,94 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ProductRegisterService} from '../../services/product-register.service';
 import {MatDialog} from '@angular/material/dialog';
+import {FormBuilder, FormGroup} from '@angular/forms';
+import {any} from 'codelyzer/util/function';
+
 export interface Product {
-  ID: string;
-  productName: string;
-  startDay: string;
-  endDay: string;
-  remainTime: number;
-  originPrince: number;
-  currentPrice: number;
-  jump: number;
-  auctionPrice: number;
-  image: string[];
-  infoProduct: string;
-  address: string;
+  id;
+  name_product;
+  current_price;
+  end_day;
+  img;
+  catalogue;
 }
-
-const products: Product[] = [
-  {
-    ID: '0001',
-    productName: 'oto',
-    startDay: 'Date1',
-    endDay: 'Mar 5, 2020 23:50:00',
-    remainTime: 12,
-    originPrince: 100,
-    currentPrice: 120,
-    jump: 10,
-    auctionPrice: 120,
-    image : ['../assets/hinh1/oto.jpg', '../assets/hinh1/oto.jpg', '../assets/hinh1/oto.jpg', '../assets/hinh1/oto.jpg'],
-    infoProduct: 'hàng dân dụng',
-    address: 'đà nẵng',
-  },
-  {
-    ID: '0002',
-    productName: 'nhà',
-    startDay: 'Date1',
-    endDay: 'Mar 10, 2020 23:50:00',
-    remainTime: 12,
-    originPrince: 100,
-    currentPrice: 120,
-    jump: 10,
-    auctionPrice: 120,
-    image : ['../assets/hinh1/nha.jpg', '../assets/hinh1/nha.jpg', '../assets/hinh1/nha.jpg', '../assets/hinh1/nha.jpg'],
-    infoProduct: 'hàng dân dụng',
-    address: 'đà nẵng',
-  },
-  {
-    ID: '0003',
-    productName: 'moto',
-    startDay: 'Date1',
-    endDay: 'Mar 15, 2020 23:50:00',
-    remainTime: 12,
-    originPrince: 100,
-    currentPrice: 120,
-    jump: 10,
-    auctionPrice: 120,
-    image : ['../assets/hinh1/moto.jpg', '../assets/hinh1/nha.jpg', '../assets/hinh1/moto.jpg', 'assets/hinh1/iphone.jpg'],
-    infoProduct: 'hàng dân dụng',
-    address: 'đà nẵng',
-  },
-  {
-    ID: '0004',
-    productName: 'iphone',
-    startDay: 'Date1',
-    endDay: 'Mar 20, 2020 23:50:00',
-    remainTime: 12,
-    originPrince: 100,
-    currentPrice: 120,
-    jump: 10,
-    auctionPrice: 120,
-    image : ['assets/hinh1/iphone.jpg', '../assets/hinh1/nha.jpg', '../assets/hinh1/moto.jpg', 'assets/hinh1/iphone.jpg'],
-    infoProduct: 'hàng dân dụng',
-    address: 'đà nẵng',
-  },
-  {
-    ID: '0005',
-    productName: 'oto',
-    startDay: 'Date1',
-    endDay: 'Mar 6, 2020 23:50:00',
-    remainTime: 12,
-    originPrince: 100,
-    currentPrice: 120,
-    jump: 10,
-    auctionPrice: 120,
-    image : ['../assets/hinh1/oto.jpg', '../assets/hinh1/nha.jpg', '../assets/hinh1/moto.jpg', 'assets/hinh1/iphone.jpg'],
-    infoProduct: 'hàng dân dụng',
-    address: 'đà nẵng',
-  }
-];
-
 @Component({
   selector: 'app-product-list',
   templateUrl: './product-list.component.html',
@@ -96,16 +19,74 @@ const products: Product[] = [
 })
 export class ProductListComponent implements OnInit {
   public productRegisterList;
-  p: any;
-  term: any;
+  public dataGet: [];
+  page = 0;
+  notLoad = false;
+  public formSearch: FormGroup;
+
   constructor(public productRegisterServiece: ProductRegisterService,
-              public  dialog: MatDialog
-  ) { }
+              public  dialog: MatDialog,
+              public formBuilder: FormBuilder
+  ) {
+  }
 
   ngOnInit() {
-    this.productRegisterServiece.getAllProduct().subscribe(data => {
+    this.formSearch = this.formBuilder.group({
+      name: [''],
+      catalogue: [''],
+      price: [''],
+    });
+    this.productRegisterServiece.getAllProduct(0).subscribe(data => {
       this.productRegisterList = data;
-      // console.log(this.productRegisterList);
+      console.log(this.productRegisterList);
+    });
+    console.log(this.formSearch.value === 0);
+  }
+
+  more() {
+    // if(this.formSearch ==)
+    this.productRegisterServiece.getAllProduct(++this.page).subscribe(data => {
+      console.log(data);
+      this.dataGet = data;
+      console.log(this.dataGet.length);
+      if (this.dataGet.length !== 0) {
+        this.productRegisterList = this.productRegisterList.concat(data);
+      } else {
+        this.notLoad = true;
+      }
+    });
+  }
+
+  search() {
+    let price1;
+    let price2;
+    let price;
+    price = parseFloat(this.formSearch.value.price);
+    // tslint:disable-next-line:no-conditional-assignment
+    if (price === 100000) {
+      price1 = 0;
+      price2 = 100000;
+    } else if (price === 500000) {
+      price1 = 100000;
+      price2 = 500000;
+    } else if (price === 1000000) {
+      price1 = 500000;
+      price2 = 1000000;
+    } else if (price === 5000000) {
+      price1 = 1000000;
+      price2 = 5000000;
+    } else {
+      price1 = 5000000;
+      price2 = 10000000000;
+    }
+    console.log(price1 + '-' + price2);
+    // tslint:disable-next-line:max-line-length
+    this.productRegisterServiece.searchByNameCataloguePrice(0, this.formSearch.value.name,
+                                                            this.formSearch.value.catalogue,
+                                                            price1, price2).subscribe(data => {
+      console.log(data);
+      this.productRegisterList = data;
+      console.log(this.formSearch.value);
     });
   }
 }

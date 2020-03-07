@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {ProductRegisterService} from '../../services/product-register.service';
+import {FormBuilder, FormGroup} from '@angular/forms';
 
 export interface Product {
   ID: string;
@@ -96,18 +97,22 @@ const products: Product[] = [
   styleUrls: ['./poduct-detail.component.css']
 })
 export class PoductDetailComponent implements OnInit {
-  public productList;
+  public formAuction: FormGroup;
   public productDetail;
   public productOfId;
 
   constructor(
     public productRegisterService: ProductRegisterService,
+    public formBuilder: FormBuilder,
     public activeedRoute: ActivatedRoute
   ) {
   }
 
   ngOnInit(): void {
-    this.productList = products;
+    this.formAuction = this.formBuilder.group({
+      betPrice: [''],
+    });
+    // this.productList = products;
     this.activeedRoute.params.subscribe(data => {
       this.productOfId = data.id;
       console.log(this.productOfId);
