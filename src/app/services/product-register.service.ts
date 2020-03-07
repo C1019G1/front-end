@@ -21,7 +21,7 @@ export class ProductRegisterService {
 
   searchByNameCataloguePrice(page: number, name: string, catalogue: string, price1: number, price2: number): Observable<any> {
     return this.http.get(this.API + '/search?' +
-      'page=' + page + '&size=4&name=' + name + '&catalogue=' + catalogue + '&price1=' + price1 + '&price2=' + price2);
+      'page=' + page + '&size=1&name=' + name + '&catalogue=' + catalogue + '&price1=' + price1 + '&price2=' + price2);
   //  search?page=0&size=9&name=iph&catalogue=Công nghệ&price1=0&price2=9000000
   }
 }
