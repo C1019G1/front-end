@@ -42,13 +42,16 @@ export class UserLoginComponent implements OnInit {
   public login(userInfo) {
     this.auth.attemptAuth(userInfo).subscribe(
       data => {
-        console.log(data.token);
         this.tokenStorage.saveToken(data.token);
         this.tokenStorage.saveUsername(data.username);
-        this.router.navigateByUrl('/user/hello');
+        console.log(data.token);
+        console.log(data.username);
+        console.log(data.rolename);
+        this.tokenStorage.saveRoleName(data.rolename);
+        this.router.navigateByUrl('/product/list');
       },
       error => {
-        console.log('Error ', error);
+        alert('thông tin bạn nhập không chính xác , vui lòng nhập lại !!!') ;
       }
     );
   }
