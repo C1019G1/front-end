@@ -8,10 +8,11 @@ import {Ng2Module} from '../Common/ng2.module';
 import { AdminUserCreateComponent } from './admin-user-create/admin-user-create.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { AdminUserLockComponent } from './admin-user-lock/admin-user-lock.component';
+import {AdminGuard} from '../guard/admin.guard';
 
 const routes: Routes = [
-  { path: '', component: AdminComponent },
-  { path: 'user-manager', component: AdminUserManagerComponent },
+  { path: '', component: AdminComponent , canActivate: [AdminGuard]},
+  { path: 'user-manager', component: AdminUserManagerComponent , canActivate: [AdminGuard] },
   ];
 
 @NgModule({
