@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {AuthLoginInfo} from '../../services/auth/login-info';
 import {AuthJwtService} from '../../services/auth/auth-jwt.service';
 import {TokenStorageService} from '../../services/auth/token-storage.service';
+import {AppComponent} from '../../app.component';
 
 @Component({
   selector: 'app-user-login',
@@ -19,6 +20,7 @@ export class UserLoginComponent implements OnInit {
     private auth: AuthJwtService,
     private tokenStorage: TokenStorageService,
     public router: Router,
+    public appComponent: AppComponent
   ) { }
 
   ngOnInit() {
@@ -48,6 +50,7 @@ export class UserLoginComponent implements OnInit {
         console.log(data.username);
         console.log(data.rolename);
         this.tokenStorage.saveRoleName(data.rolename);
+        this.appComponent.ngOnInit();
         this.router.navigateByUrl('/product/list');
       },
       error => {
