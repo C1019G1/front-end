@@ -11,7 +11,6 @@ import {merge, of as observableOf} from 'rxjs';
 import {catchError, map, startWith, switchMap} from 'rxjs/operators';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {RankListService} from '../../services/rank-list.service';
-import {AdminUserProfileSearchDialogComponent} from '../admin-user-profile-search-dialog/admin-user-profile-search-dialog.component';
 
 export interface UserProfilebApi {
   content: UserProfileDTO[];
