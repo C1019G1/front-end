@@ -10,9 +10,9 @@ export class RankListService {
   public API = 'http://localhost:8080/admin/rank-list';
   httpOptions: any;
 
-  constructor(private http: HttpClient, private tokenStorage: TokenStorageService) {
+  constructor(public http: HttpClient, private tokenStorage: TokenStorageService) {
     this.httpOptions = {
-      headers: new HttpHeaders({'Content-Type': 'application/json', 'Authorization': `Bearer ` + this.tokenStorage.getToken()})
+      headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization' : `Bearer `  + this.tokenStorage.getToken()})
       , 'Access-Control-Allow-Origin': 'http://localhost:4200', 'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS'
     };
   }

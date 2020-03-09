@@ -20,19 +20,40 @@
             <button class="mt-auto mr-3"style="background: none; border: none" (click)="openDialogGuide()">Hướng dẫn</button>
           </div>
         </div>
-        <a href="/user/login" style="color: black">
+
           <div class="d-flex">
             <div class="material-icons">
               account_circle
             </div>
-            <div class="mt-auto mr-3">
+
+            <div class="mt-auto mr-3" *ngIf=showLoginBox>
+              <a href="/user/login" style="color: black">
               Đăng nhập / Đăng ký
+              </a>
+            </div>
+            <div class="mt-auto mr-3" *ngIf=!showLoginBox>
+              {{username}}
+            </div>
+            <div class="mt-auto mr-3" *ngIf=!showLoginBox>
+              <button class="btn-danger" (click)=logOut()>thoát</button>
             </div>
           </div>
-        </a>
+
       </div>
     </div>
   </nav>
-  <router-outlet class="main-body"></router-outlet>
+  <div class="row px-0 mx-0" style="height: 90%">
+    <div class="col-2 px-0 mx-0 rounded">
+      <div class="list-group px-0 mx-0 border border-primary h-100">
+        <a href="#" class="list-group-item text-secondary" >Tât cả</a>
+        <a href="#" class="list-group-item text-secondary" [routerLink]="['/product/list/' + 'Dân dụng']">Dân dụng</a>
+        <a href="#" class="list-group-item text-secondary" [routerLink]="['/product/list/' + 'Công nghệ']">Công nghệ</a>
+        <a href="#" class="list-group-item text-secondary">Khác</a>
+      </div>
+    </div>
+    <div class="col-10 p-0">
+      <router-outlet class="main-body"></router-outlet>
+    </div>
+  </div>
   </div>
 

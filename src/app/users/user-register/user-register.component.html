@@ -24,18 +24,18 @@
       </div>
       <div class="form-group">
         <mat-form-field>
-          <input [min]="minDate" [max]="maxDate" class="form-control" formControlName="dateOfBirth" matInput [matDatepicker]="myDatepicker" placeholder="Chọn Ngày Sinh">
+          <input [min]="minDate" [max]="maxDate" class="form-control" formControlName="dayOfBirth" matInput [matDatepicker]="myDatepicker" placeholder="Chọn Ngày Sinh">
           <mat-datepicker-toggle matSuffix [for]="myDatepicker"></mat-datepicker-toggle>
           <mat-datepicker #myDatepicker></mat-datepicker>
         </mat-form-field>
-        <p *ngIf="registerForm.controls.dateOfBirth.errors?.required&&registerForm.controls.dateOfBirth.touched"
+        <p *ngIf="registerForm.controls.dayOfBirth.errors?.required&&registerForm.controls.dayOfBirth.touched"
            class="text-danger">vui lòng nhập ngày sinh</p>
       </div>
       <div class="form-group">
-        <input class="form-control" type="text" formControlName="phoneNumber" placeholder="Nhập số điện thoại">
-        <p *ngIf="registerForm.controls.phoneNumber.errors?.required&&registerForm.controls.phoneNumber.touched"
+        <input class="form-control" type="text" formControlName="phone" placeholder="Nhập số điện thoại">
+        <p *ngIf="registerForm.controls.phone.errors?.required&&registerForm.controls.phone.touched"
            class="text-danger">vui lòng nhập số điện thoại</p>
-        <p *ngIf="registerForm.controls.phoneNumber.errors?.pattern&&registerForm.controls.phoneNumber.touched"
+        <p *ngIf="registerForm.controls.phone.errors?.pattern&&registerForm.controls.phone.touched"
            class="text-danger">số điện thoại không đúng định dạng</p>
       </div>
       <div class="form-group">
@@ -58,7 +58,7 @@
         <div class="form-group row">
           <label class="col">
             Password
-            <input type="password" class="form-control" formControlName="password">
+            <input type="password" class="form-control" formControlName="_password">
           </label>
         </div>
         <div class="form-group row">
@@ -75,10 +75,9 @@
       <input type="checkbox" value="lsRememberMe" id="rememberMe"> <label for="rememberMe">Đồng ý với điều khoản website</label>
     </form>
     <hr style="width: 90%">
-    <div class="row d-flex justify-content-center mt-3 mb-3" >
-      <button class="btn btn-success" (click)="userRegister()" style="background-color: #ffa100;width: 80%">
-        Đăng ký
-      </button>
+    <div class="row d-flex justify-content-center mb-3">
+      <a href="user/register" class="btn btn-success" role="button" aria-pressed="true"
+         style="width: 30%">Tạo tài khoản</a>
     </div>
   </div>
 </div>
