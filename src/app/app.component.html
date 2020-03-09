@@ -42,6 +42,18 @@
       </div>
     </div>
   </nav>
-  <router-outlet class="main-body"></router-outlet>
+  <div class="row px-0 mx-0" style="height: 90%">
+    <div class="col-2 px-0 mx-0 rounded">
+      <div class="list-group px-0 mx-0 border border-primary h-100">
+        <a href="#" class="list-group-item text-secondary" >Tât cả</a>
+        <a href="#" class="list-group-item text-secondary" [routerLink]="['/product/list/' + 'Dân dụng']">Dân dụng</a>
+        <a href="#" class="list-group-item text-secondary" [routerLink]="['/product/list/' + 'Công nghệ']">Công nghệ</a>
+        <a href="#" class="list-group-item text-secondary">Khác</a>
+      </div>
+    </div>
+    <div class="col-10 p-0">
+      <router-outlet class="main-body"></router-outlet>
+    </div>
+  </div>
   </div>
 

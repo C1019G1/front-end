@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
 import {AdvisoryComponent} from './users/advisory/advisory.component';
 import {GuideComponent} from './users/guide/guide.component';
+import {ProductListComponent} from './products/product-list/product-list.component';
 import {TokenStorageService} from './services/auth/token-storage.service';
 import {Validators} from '@angular/forms';
 import {Router} from '@angular/router';

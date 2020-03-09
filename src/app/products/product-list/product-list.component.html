@@ -1,4 +1,4 @@
-<div class="d-flex justify-content-between mx-3">
+<div class="d-flex justify-content-between mx-1">
   <ul class="nav nav-tabs ">
     <li class="nav-item ">
       <a class="nav-link " style="color: black" href="#">Đang đấu giá</a>
@@ -13,25 +13,8 @@
       <a class="nav-link " style="color: black" href="#">Top đấu giá</a>
     </li>
   </ul>
-  <ul class="nav nav-tabs ">
-    <li class="nav-item ">
-      <a class="nav-link " style="color: black" href="#">Tất cả</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" style="color: black" href="#">Dân Dụng</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" style="color: black" href="#">Công nghệ</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link " style="color: black" href="#">Hot</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link " style="color: black" href="#">Khác</a>
-    </li>
-  </ul>
 </div>
-<div class="row m-2 justify-content-end mt-3">
+<div class="row m-2 justify-content-end mt-0">
   <form class="form-inline " action="/action_page.php" [formGroup]="formSearch">
     <label for="productName" class="mr-sm-2 ">Tên sản phẩm:</label>
     <input type="email" class="form-control my-auto mr-sm-2" placeholder="Search" id="productName" formControlName="name">
@@ -66,7 +49,7 @@
           <app-count-down [endDay]="productRegister.end_day"></app-count-down>
         </div>
         <div class="row d-flex justify-content-center ">
-          <a href="#" class="btn btn-outline-warning ">Đấu giá</a>
+          <a href="#" class="btn btn-outline-warning " [routerLink]="['/product/detail/'+ productRegister.id]">Đấu giá</a>
         </div>
       </div>
     </div>
