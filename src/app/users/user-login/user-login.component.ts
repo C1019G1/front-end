@@ -12,6 +12,7 @@ import {AppComponent} from '../../app.component';
   styleUrls: ['./user-login.component.css']
 })
 export class UserLoginComponent implements OnInit {
+  @Output() myEvent = new EventEmitter();
   loginForm: FormGroup;
   submitted = false;
   userInfo: AuthLoginInfo;
