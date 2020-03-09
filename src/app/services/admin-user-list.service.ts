@@ -10,7 +10,7 @@ import {TokenStorageService} from './auth/token-storage.service';
 
 export class AdminUserListService {
   httpOptions: any;
-  public API = 'http://localhost:8080/admin/user-list';
+  public API = 'http://localhost:8080/admin/';
 
   constructor(private http: HttpClient, private tokenStorage: TokenStorageService) {
     this.httpOptions = {
@@ -19,7 +19,10 @@ export class AdminUserListService {
     };
   }
 
-  getUserProfileList(page: number, size: number, search: string): Observable<any> {
-    return this.http.get<UserProfilebApi>(this.API + '?page=' + page + '&size=' + size + '&search=' + search, this.httpOptions);
+  getUserProfileList(page: number, size: number, name: string, rank: string): Observable<any> {
+    return this.http.get<UserProfilebApi>(this.API + 'user-list?page=' + page + '&size=' + size + '&name=' + name+'&rank=' + rank, this.httpOptions);
+  }
+  findUserProfile(id:number, email:string): Observable<any>{
+    return this.http.get<UserProfilebApi>(this.API + '?find?id=' + id + '&email=' + email, this.httpOptions);
   }
 }
