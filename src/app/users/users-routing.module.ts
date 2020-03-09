@@ -14,12 +14,14 @@ import { GuideComponent } from './guide/guide.component';
 import { PasswordResetComponent } from './password-reset/password-reset.component';
 import { AdvisoryComponent } from './advisory/advisory.component';
 import {HelloComponent} from './hello/hello.component';
+import {AdminGuard} from '../guard/admin.guard';
+import {LoginCheckGuard} from '../guard/login-check.guard';
 
 
 const routes: Routes = [
   {path: '', component: UsersComponent},
-  {path: 'login', component: UserLoginComponent},
-  {path: 'register', component: UserRegisterComponent},
+  {path: 'login', component: UserLoginComponent  , canActivate: [LoginCheckGuard]},
+  {path: 'register', component: UserRegisterComponent , canActivate: [LoginCheckGuard]},
   {path: 'update', component: UserUpdateInfoComponent},
   {path: 'history-register', component: HistoryRegisterAuctionComponent},
   {path: 'history-auction', component: HistoryAuctionComponent},
