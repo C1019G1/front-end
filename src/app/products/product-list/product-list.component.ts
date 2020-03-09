@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ProductRegisterService} from '../../services/product-register.service';
 import {MatDialog} from '@angular/material/dialog';
 import {FormBuilder, FormGroup} from '@angular/forms';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-product-list',
@@ -17,10 +18,12 @@ export class ProductListComponent implements OnInit {
   private price1;
   private price2;
   private price;
+  private catalogue?: string;
 
   constructor(public productRegisterServiece: ProductRegisterService,
               public  dialog: MatDialog,
-              public formBuilder: FormBuilder
+              public formBuilder: FormBuilder,
+              public activeedRoute: ActivatedRoute
   ) {
   }
 
@@ -30,11 +33,19 @@ export class ProductListComponent implements OnInit {
       catalogue: [''],
       price: [''],
     });
-    this.findAll();
+    this.activeedRoute.params.subscribe(data => {
+      if (data.catalogue == null) {
+        this.catalogue = '';
+      } else {
+        this.catalogue = data.catalogue;
+      }
+    });
+    console.log('catalogue: ' + this.catalogue);
+    this.findAll(this.catalogue);
   }
 
-  findAll() {
-    this.productRegisterServiece.getAllProduct(0).subscribe(data => {
+  findAll(catalogue: string) {
+    this.productRegisterServiece.getAllProduct(0, catalogue).subscribe(data => {
       this.productRegisterList = data;
       console.log(this.productRegisterList);
     });
@@ -46,30 +57,9 @@ export class ProductListComponent implements OnInit {
       this.formSearch.value.price === '';
     console.log('trang thai: ' + searchStatus);
     if (searchStatus) {
-      this.productRegisterServiece.getAllProduct(++this.page).subscribe(data => {
-        console.log(data);
-        this.dataGet = data;
-        console.log('chieu dai lengh: ' + this.dataGet.length);
-        if (this.dataGet.length !== 0) {
-          this.productRegisterList = this.productRegisterList.concat(data);
-        } else {
-          this.notLoad = true;
-        }
-      });
+      this.moreAll();
     } else {
-      this.productRegisterServiece.searchByNameCataloguePrice(++this.page, this.formSearch.value.name,
-        this.formSearch.value.catalogue,
-        this.price1, this.price2).subscribe(data => {
-        console.log('du lieu xuong: ' + data);
-        this.dataGet = data;
-        console.log('chieu dai lengh: ' + this.dataGet.length);
-        if (this.dataGet.length !== 0) {
-          this.productRegisterList = this.productRegisterList.concat(data);
-          console.log('du lieu show: ' + data);
-        } else {
-          this.notLoad = true;
-        }
-      });
+      this.moreSearch();
     }
   }
 
@@ -78,7 +68,7 @@ export class ProductListComponent implements OnInit {
       this.formSearch.value.catalogue === '' &&
       this.formSearch.value.price === '';
     if (searchStatus) {
-      this.findAll();
+      this.findAll(this.catalogue);
     } else {
       console.log('name=' + this.formSearch.value.name +
         'catalogue=' + this.formSearch.value.catalogue +
@@ -115,4 +105,32 @@ export class ProductListComponent implements OnInit {
     }
   }
 
+  moreAll() {
+    this.productRegisterServiece.getAllProduct(++this.page, this.catalogue).subscribe(data => {
+      console.log('catalogue:' + this.catalogue);
+      this.dataGet = data;
+      console.log('chieu dai lengh: ' + this.dataGet.length);
+      if (this.dataGet.length !== 0) {
+        this.productRegisterList = this.productRegisterList.concat(data);
+      } else {
+        this.notLoad = true;
+      }
+    });
+  }
+
+  moreSearch() {
+    this.productRegisterServiece.searchByNameCataloguePrice(++this.page, this.formSearch.value.name,
+      this.formSearch.value.catalogue,
+      this.price1, this.price2).subscribe(data => {
+      console.log('du lieu xuong: ' + data);
+      this.dataGet = data;
+      console.log('chieu dai lengh: ' + this.dataGet.length);
+      if (this.dataGet.length !== 0) {
+        this.productRegisterList = this.productRegisterList.concat(data);
+        console.log('du lieu show: ' + data);
+      } else {
+        this.notLoad = true;
+      }
+    });
+  }
 }

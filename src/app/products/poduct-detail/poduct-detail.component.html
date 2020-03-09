@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container-fluid m-0">
   <h1 class="mt-3">{{productDetail.name_product}}</h1>
   <div class="row" style="height: 50%">
     <div class="col-4">
@@ -43,33 +43,33 @@
         <tbody>
         <tr>
           <td>1</td>
-          <td>200</td>
-          <td>10:00:00-20/02/2020</td>
-          <td> chanhtv</td>
+          <td>{{productDetail.betPriceList[0]}}</td>
+          <td>{{productDetail.betTimeList[0]|date:'medium'}}</td>
+          <td>{{productDetail.userList[0]}}</td>
         </tr>
         <tr>
-          <td>1</td>
-          <td>200</td>
-          <td>10:00:00-20/02/2020</td>
-          <td> chanhtv</td>
+          <td>2</td>
+          <td>{{productDetail.betPriceList[1]}}</td>
+          <td>{{productDetail.betTimeList[1]|date:'medium'}}</td>
+          <td>{{productDetail.userList[1]}}</td>
         </tr>
         <tr>
-          <td>1</td>
-          <td>200</td>
-          <td>10:00:00-20/02/2020</td>
-          <td> chanhtv</td>
+          <td>3</td>
+          <td>{{productDetail.betPriceList[2]}}</td>
+          <td>{{productDetail.betTimeList[2]|date:'medium'}}</td>
+          <td>{{productDetail.userList[2]}}</td>
         </tr>
         <tr>
-          <td>1</td>
-          <td>200</td>
-          <td>10:00:00-20/02/2020</td>
-          <td> chanhtv</td>
+          <td>4</td>
+          <td>{{productDetail.betPriceList[3]}}</td>
+          <td>{{productDetail.betTimeList[3]|date:'medium'}}</td>
+          <td>{{productDetail.userList[3]}}</td>
         </tr>
         <tr>
-          <td>1</td>
-          <td>200</td>
-          <td>10:00:00-20/02/2020</td>
-          <td> chanhtv</td>
+          <td>5</td>
+          <td>{{productDetail.betPriceList[4]}}</td>
+          <td>{{productDetail.betTimeList[4]|date:'medium'}}</td>
+          <td>{{productDetail.userList[4]}}</td>
         </tr>
         </tbody>
       </table>
