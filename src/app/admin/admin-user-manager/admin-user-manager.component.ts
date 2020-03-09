@@ -26,6 +26,7 @@ export interface UserProfileDTO {
   phoneNumber;
   lastLogin;
   contributePoint;
+  status;
 }
 
 @Component({
@@ -36,13 +37,16 @@ export interface UserProfileDTO {
 export class AdminUserManagerComponent implements AfterViewInit, OnInit {
   displayedColumns: string[] = ['id', 'name', 'address', 'rank', 'email', 'phoneNumber', 'lastLogin', 'contributePoint', 'select'];
   data: UserProfileDTO[] = [];
+  userDTO: UserProfileDTO;
   resultsLength = 0;
   isLoadingResults = true;
   isRateLimitReached = false;
-  selection = new SelectionModel<UserProfileDTO>(true, [])
-  rankList=[];
+  selection = new SelectionModel<UserProfileDTO>(true, []);
+  rankList = [];
+  size: number;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
-  public formUserSearch: FormGroup;
+  formUserSearch: FormGroup;
+
   constructor(
     private dialog: MatDialog,
     private formBuilder: FormBuilder,
@@ -52,14 +56,15 @@ export class AdminUserManagerComponent implements AfterViewInit, OnInit {
   }
 
   ngOnInit(): void {
-    this.rankListService.getRankList().subscribe(data=>{
-      this.rankList=data
-    })
+    this.size = 5;
+    this.rankListService.getRankList().subscribe(data => {
+      this.rankList = data;
+    });
     this.formUserSearch = this.formBuilder.group({
-      searchId: ['',Validators.pattern('^[0-9]+$')],
-      searchFullName: [''],
-      searchEmail: ['', [Validators.email]],
-      searchRank: [''],
+      name: [''],
+      rank: [''],
+      id: ['', Validators.pattern('^[0-9]+$')],
+      email: ['', [Validators.email]],
     });
   }
 
@@ -70,7 +75,7 @@ export class AdminUserManagerComponent implements AfterViewInit, OnInit {
         switchMap(() => {
           this.isLoadingResults = true;
           return this.adminUserListService.getUserProfileList(
-            this.paginator.pageIndex, this.paginator.pageSize, '');
+            this.paginator.pageIndex, this.paginator.pageSize, this.formUserSearch.controls.name.value, this.formUserSearch.controls.rank.value);
         }),
         map(data => {
           this.isLoadingResults = false;
@@ -84,7 +89,9 @@ export class AdminUserManagerComponent implements AfterViewInit, OnInit {
           this.isRateLimitReached = true;
           return observableOf([]);
         })
-      ).subscribe(data => this.data = data);
+      ).subscribe(data => {
+      this.data = data;
+    });
   }
 
   /** Whether the number of selected elements matches the total number of rows. */
@@ -113,6 +120,7 @@ export class AdminUserManagerComponent implements AfterViewInit, OnInit {
     const dialogRef = this.dialog.open(AdminUserCreateComponent, {
       width: '50%',
       minWidth: '300px',
+      disableClose: true,
     });
     dialogRef.afterClosed().subscribe(result => {
     });
@@ -123,6 +131,7 @@ export class AdminUserManagerComponent implements AfterViewInit, OnInit {
     const dialogRef = this.dialog.open(AdminUserLockComponent, {
       width: '50%',
       minWidth: '300px',
+      disableClose: true,
       data: {users: this.selection.selected}
     });
     dialogRef.afterClosed().subscribe(result => {
@@ -142,4 +151,25 @@ export class AdminUserManagerComponent implements AfterViewInit, OnInit {
   //   }
   // }
 
+  filter() {
+    if (confirm('Hành động này sẽ làm mới bản ghi!!!')) {
+      this.ngAfterViewInit();
+    }
+  }
+
+  search() {
+    if (confirm('Hành động này sẽ làm mới bản ghi!!!')) {
+      console.log(123);
+      this.adminUserListService.findUserProfile(this.formUserSearch.controls.id.value, this.formUserSearch.controls.email.value)
+        .subscribe(data => {
+          if (data != null) {
+            this.userDTO = data;
+            this.data=[this.userDTO];
+          } else {
+            this.data=[];
+          }
+          this.resultsLength = this.data.length;
+        });
+    }
+  }
 }

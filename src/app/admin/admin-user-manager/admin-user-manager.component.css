@@ -47,7 +47,7 @@ th.mat-column-select,td.mat-column-select{
   position: relative;
   top: 0;
   left: 0;
-  bottom: 56px;
+  bottom: 20px;
   right: 0;
   background: rgba(0, 0, 0, 0.15);
   z-index: 1;
@@ -73,4 +73,5 @@ th.mat-column-select,td.mat-column-select{
 }
 .search-input{
   width: 250px;
+  margin-right: 50px;
 }
