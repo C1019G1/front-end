@@ -9,6 +9,7 @@ import {TokenStorageService} from './auth/token-storage.service';
 export class RankListService {
   public API = 'http://localhost:8080/admin/rank-list';
   httpOptions: any;
+
   constructor(public http: HttpClient, private tokenStorage: TokenStorageService) {
     this.httpOptions = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization' : `Bearer `  + this.tokenStorage.getToken()})
