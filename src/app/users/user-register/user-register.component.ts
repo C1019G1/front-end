@@ -1,13 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
+import {UserService} from '../../services/user.service';
+import {absoluteFromSourceFile} from '@angular/compiler-cli/src/ngtsc/file_system';
 
 function comparePassword(c: AbstractControl) {
   const v = c.value;
-  return (v.password === v.confirmPassword) ? null : {
+  return (v._password === v.confirmPassword) ? null : {
     passwordnotmatch: true
   };
 }
+
 @Component({
   selector: 'app-user-register',
   templateUrl: './user-register.component.html',
@@ -17,10 +20,11 @@ export class UserRegisterComponent implements OnInit {
   registerForm: FormGroup;
   maxDate = new Date();
   minDate = new Date(1900, 0, 1);
+  private password: AbstractControl;
 
   constructor(
     public formBuider: FormBuilder,
-    // public userService: any,
+    public userService: UserService,
     public router: Router
   ) {
   }
@@ -30,13 +34,14 @@ export class UserRegisterComponent implements OnInit {
       fullName: ['', [Validators.required]],
       userName: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
-      dateOfBirth: ['', [Validators.required]],
-      phoneNumber: ['', [Validators.required, Validators.pattern('^(090|091|([\(]84[\)][\+]90)|([\(]84[\)][\+]91))([0-9]{7})$')]],
+      dayOfBirth: ['', [Validators.required]],
+      phone: ['', [Validators.required, Validators.pattern('^(090|091|([\(]84[\)][\+]90)|([\(]84[\)][\+]91))([0-9]{7})$')]],
       customerType: ['', [Validators.required]],
       identityNumber: ['', [Validators.required, Validators.pattern('^[0-9]{9}$')]],
+      password : ['', []],
       address: ['', [Validators.required]],
       pwGroup: this.formBuider.group({
-        password: ['', [Validators.required, Validators.minLength(6)]],
+        _password: ['', [Validators.required, Validators.minLength(6)]],
         confirmPassword: ['', [Validators.required, Validators.minLength(6)]]
       }, {validator: comparePassword}),
     })
@@ -44,8 +49,13 @@ export class UserRegisterComponent implements OnInit {
   }
 
   userRegister() {
-    // this.userService.register(this.formUser.value).subscribe(data => {
-    //   this.router.navigateByUrl('customer-list');
-    // });
+    this.password = this.registerForm.get('pwGroup').get('_password');
+    this.registerForm.patchValue({
+      password: this.password.value,
+    });
+    console.log(this.registerForm.get('password'));
+    this.userService.register(this.registerForm.value).subscribe(data => {
+     // this.router.navigateByUrl('user/login');
+    });
   }
 }

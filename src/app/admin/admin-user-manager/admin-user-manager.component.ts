@@ -9,6 +9,8 @@ import {AdminUserListService} from '../../services/admin-user-list.service';
 import {HttpClient} from '@angular/common/http';
 import {merge, of as observableOf} from 'rxjs';
 import {catchError, map, startWith, switchMap} from 'rxjs/operators';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {RankListService} from '../../services/rank-list.service';
 
 export interface UserProfilebApi {
   content: UserProfileDTO[];
@@ -33,28 +35,35 @@ export interface UserProfileDTO {
 })
 export class AdminUserManagerComponent implements AfterViewInit, OnInit {
   displayedColumns: string[] = ['id', 'name', 'address', 'rank', 'email', 'phoneNumber', 'lastLogin', 'contributePoint', 'select'];
-  adminUserListService: AdminUserListService | null;
   data: UserProfileDTO[] = [];
   resultsLength = 0;
   isLoadingResults = true;
   isRateLimitReached = false;
-  selection = new SelectionModel<UserProfileDTO>(true, []);
+  selection = new SelectionModel<UserProfileDTO>(true, [])
+  rankList=[];
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
-  searchId;
-  searchFullName;
-  searchEmail;
-  searchRank;
+  public formUserSearch: FormGroup;
   constructor(
     private dialog: MatDialog,
-    private _httpClient: HttpClient
+    private formBuilder: FormBuilder,
+    private rankListService: RankListService,
+    private adminUserListService: AdminUserListService
   ) {
   }
 
   ngOnInit(): void {
+    this.rankListService.getRankList().subscribe(data=>{
+      this.rankList=data
+    })
+    this.formUserSearch = this.formBuilder.group({
+      searchId: ['',Validators.pattern('^[0-9]+$')],
+      searchFullName: [''],
+      searchEmail: ['', [Validators.email]],
+      searchRank: [''],
+    });
   }
 
   ngAfterViewInit(): void {
-    this.adminUserListService = new AdminUserListService(this._httpClient);
     merge(this.paginator.page)
       .pipe(
         startWith({}),

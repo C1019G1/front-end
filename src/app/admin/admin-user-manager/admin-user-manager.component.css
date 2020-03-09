@@ -44,7 +44,7 @@ th.mat-column-select,td.mat-column-select{
   overflow: auto;
 }
 .example-loading-shade {
-  position: absolute;
+  position: relative;
   top: 0;
   left: 0;
   bottom: 56px;
@@ -70,4 +70,7 @@ th.mat-column-select,td.mat-column-select{
   justify-content: center;
   height: 40px;
   width: 130px;
+}
+.search-input{
+  width: 250px;
 }
