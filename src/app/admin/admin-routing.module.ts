@@ -9,6 +9,7 @@ import { AdminUserCreateComponent } from './admin-user-create/admin-user-create.
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { AdminUserLockComponent } from './admin-user-lock/admin-user-lock.component';
 import {AdminGuard} from '../guard/admin.guard';
+import { AdminUserProfileSearchDialogComponent } from './admin-user-profile-search-dialog/admin-user-profile-search-dialog.component';
 
 const routes: Routes = [
   { path: '', component: AdminComponent , canActivate: [AdminGuard]},
@@ -24,6 +25,6 @@ const routes: Routes = [
     FormsModule,
   ],
   exports: [RouterModule],
-  declarations: [AdminUserManagerComponent, AdminUserCreateComponent, AdminUserLockComponent]
+  declarations: [AdminUserManagerComponent, AdminUserCreateComponent, AdminUserLockComponent, AdminUserProfileSearchDialogComponent]
 })
 export class AdminRoutingModule { }

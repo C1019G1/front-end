@@ -20,15 +20,15 @@ export class AdminUserLockComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<AdminUserLockComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private _ngZone: NgZone
+    private ngZone: NgZone
   ) {
   }
 
   ngOnInit(): void {
     this.userList = this.data.users;
     let count = 1;
-    for (let user of this.userList) {
-      if (count != this.userList.length) {
+    for (const user of this.userList) {
+      if (count !== this.userList.length) {
         this.content += user.name + '(' + user.id + '),\n';
       } else {
         this.content += user.name + '(' + user.id + ')';
@@ -39,7 +39,7 @@ export class AdminUserLockComponent implements OnInit {
 
   triggerResize() {
     // Wait for changes to be applied, then trigger textarea resize.
-    this._ngZone.onStable.pipe(take(1))
+    this.ngZone.onStable.pipe(take(1))
       .subscribe(() => this.autosize.resizeToFitContent(true));
   }
 }
