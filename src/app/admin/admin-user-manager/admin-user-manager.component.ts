@@ -57,6 +57,12 @@ export class AdminUserManagerComponent implements AfterViewInit, OnInit {
 
   ngOnInit(): void {
     this.size = 5;
+    this.paginator._intl.itemsPerPageLabel = 'Hiển thị:';
+    this.paginator._intl.getRangeLabel = (page: number, pageSize: number, length: number) => {
+      const start = page * pageSize + 1;
+      const end = (page + 1) * pageSize;
+      return `${start} - ${end} trên ${length}`;
+    };
     this.rankListService.getRankList().subscribe(data => {
       this.rankList = data;
     });
