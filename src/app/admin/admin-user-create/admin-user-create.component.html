@@ -1,52 +1,124 @@
 <h3 class="text-center">Thêm mới thành viên</h3>
-<form class="w-75 mx-auto mt-3" [formGroup]="formNewUser">
-  <div class="form-group d-flex">
-    <label>Họ và Tên*</label>
-    <input class="form-control" type="text" formControlName="name">
-    <!--    <p *ngIf="formNewUser.controls.fullName.errors?.required && formNewUser.controls.fullName.touched" class="text-danger">Vui lòng nhập vào</p>-->
+<form class="w-75 mx-auto mt-3" [formGroup]="adminUserRegisterForm">
+  <div class="row">
+    <div class="col-lg-6">
+      <mat-form-field class="register-input">
+        <mat-label>Tên đăng nhập<b>*</b></mat-label>
+        <input matInput formControlName="userName" placeholder="Vd. Levan123">
+        <mat-error
+          *ngIf="adminUserRegisterForm.controls.userName.errors?.required && adminUserRegisterForm.controls.userName.touched"
+          class="text-danger">Vui lòng <strong>nhập vào</strong> tên đăng nhập của bạn
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="col-lg-6">
+      <mat-form-field class="register-input">
+        <mat-label>Họ và Tên<b>*</b></mat-label>
+        <input matInput formControlName="fullName" placeholder="Vd. Lê Văn A">
+        <mat-error
+          *ngIf="adminUserRegisterForm.controls.fullName.errors?.required && adminUserRegisterForm.controls.fullName.touched"
+          class="text-danger">Vui lòng <strong>nhập vào</strong> họ tên của bạn
+        </mat-error>
+      </mat-form-field>
+    </div>
   </div>
-  <div class="form-group d-flex">
-    <label>Tên đăng nhập*</label>
-    <input class="form-control" type="text" formControlName="userName">
-    <!--    <p *ngIf="formNewUser.controls.fullName.errors?.required && formNewUser.controls.fullName.touched" class="text-danger">Vui lòng nhập vào</p>-->
+  <div class="row">
+    <div class="col-lg-12">
+      <mat-form-field class="register-input w-75">
+        <mat-label>Email<b>*</b></mat-label>
+        <input matInput formControlName="email" placeholder="Vd. abc@gmail.com">
+        <mat-error
+          *ngIf="adminUserRegisterForm.controls.email.errors?.required && adminUserRegisterForm.controls.email.touched"
+          class="text-danger">Vui lòng <strong>nhập vào email</strong> của bạn
+        </mat-error>
+        <mat-error
+          *ngIf="adminUserRegisterForm.controls.email.errors?.email && adminUserRegisterForm.controls.email.touched"
+          class="text-danger"><strong>Email</strong> không xác định
+        </mat-error>
+      </mat-form-field>
+    </div>
   </div>
-  <div class="form-group d-flex">
-    <label>Email*</label>
-    <input class="form-control" type="email" formControlName="email">
-    <!--    <p *ngIf="formNewUser.controls.email.errors?.required && formNewUser.controls.email.touched" class="text-danger">Vui lòng nhập vào</p>-->
-    <!--    <p *ngIf="formNewUser.controls.email.errors?.email && formNewUser.controls.email.touched" class="text-danger">Nhập sai định dạng Vd:abcabc@gmail.com</p>-->
+  <div class="row">
+    <div class="col-lg-12">
+      <mat-form-field class="register-input">
+        <mat-label>Ngày sinh<b>*</b></mat-label>
+        <input [max]="today" [min]="minDate" matInput [matDatepicker]="myDatepicker" class="form-control"
+               formControlName="dayOfBirth" placeholder="Chọn ngày sinh">
+        <mat-datepicker-toggle matSuffix [for]="myDatepicker"></mat-datepicker-toggle>
+        <mat-datepicker #myDatepicker  startView="multi-year" [startAt]="minDate"></mat-datepicker>
+        <mat-error
+          *ngIf="adminUserRegisterForm.controls.dayOfBirth.errors?.required && adminUserRegisterForm.controls.dayOfBirth.touched"
+          class="text-danger">Vui lòng chọn một ngày
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="col-lg-12">
+      <mat-form-field class="register-input">
+        <mat-label>Xếp hạng<b>*</b></mat-label>
+        <mat-select formControlName="rank" placeholder="4">
+          <mat-option *ngFor="let rank of rankList" [value]="rank">
+            {{rank.name| titlecase}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
   </div>
-  <div class="form-group d-flex">
-    <label style="padding-top: 5%">Ngày sinh*</label>
-    <mat-form-field class="mx-0">
-      <input [max]="today" [min]="minDate" matInput [matDatepicker]="myDatepicker" class="form-control"
-             formControlName="dateOfBirth" placeholder="Chọn ngày sinh">
-      <mat-datepicker-toggle matSuffix [for]="myDatepicker"></mat-datepicker-toggle>
-      <mat-datepicker #myDatepicker></mat-datepicker>
-    </mat-form-field>
-    <!--    <p *ngIf="formNewUser.controls.dateOfBirth.errors?.required && formNewUser.controls.dateOfBirth.touched" class="text-danger">Vui lòng chọn một ngày</p>-->
+  <div class="row ">
+    <div class="col-lg-12">
+      <mat-form-field class="register-input w-75">
+        <mat-label>Địa Chỉ<b>*</b></mat-label>
+        <input matInput formControlName="address" placeholder="Vd. Đà nẵng, Sơn trà">
+        <mat-error
+          *ngIf="adminUserRegisterForm.controls.address.errors?.required && adminUserRegisterForm.controls.address.touched"
+          class="text-danger">Vui lòng <strong>nhập vào</strong> địa chỉ của bạn
+        </mat-error>
+      </mat-form-field>
+    </div>
   </div>
-  <div class="form-group d-flex">
-    <label>Địa Chỉ*</label>
-    <input class="form-control" type="text" formControlName="address">
-    <!--    <p *ngIf="formNewUser.controls.address.errors?.required && formNewUser.controls.address.touched" class="text-danger">Vui lòng nhập vào</p>-->
+  <div class="row">
+    <div class="col-lg-6">
+      <mat-form-field class="register-input">
+        <mat-label>SĐT<b>*</b></mat-label>
+        <input matInput formControlName="phone" placeholder="Vd.0901234567">
+        <mat-error
+          *ngIf="adminUserRegisterForm.controls.phone.errors?.required && adminUserRegisterForm.controls.phone.touched"
+          class="text-danger">Vui lòng <strong>nhập vào</strong> SĐT của bạn
+        </mat-error>
+        <mat-error
+          *ngIf="adminUserRegisterForm.controls.phone.errors?.pattern && adminUserRegisterForm.controls.phone.touched"
+          class="text-danger"><strong>SĐT</strong> không đúng
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="col-lg-6">
+      <mat-form-field class="register-input">
+        <mat-label>CMND<b>*</b></mat-label>
+        <input matInput formControlName="identityNumber" placeholder="Vd.201201201">
+        <mat-error
+          *ngIf="adminUserRegisterForm.controls.identityNumber.errors?.required && adminUserRegisterForm.controls.identityNumber.touched"
+          class="text-danger">Vui lòng <strong>nhập vào</strong> CMND của bạn
+        </mat-error>
+        <mat-error
+          *ngIf="adminUserRegisterForm.controls.identityNumber.errors?.pattern && adminUserRegisterForm.controls.identityNumber.touched"
+          class="text-danger"><strong>CMND</strong> không đúng
+        </mat-error>
+      </mat-form-field>
+    </div>
   </div>
-  <div class="form-group d-flex">
-    <label>SĐT*</label>
-    <input class="form-control" type="text" formControlName="phoneNumber">
-    <!--    <p *ngIf="formNewUser.controls.phoneNumber.errors?.required && formNewUser.controls.phoneNumber.touched" class="text-danger">Vui lòng nhập vào</p>-->
-    <!--    <p *ngIf="formNewUser.controls.phoneNumber.errors?.pattern && formNewUser.controls.phoneNumber.touched" class="text-danger">Số điện thoại không xác định</p>-->
-  </div>
-  <div class="form-group d-flex">
-    <label>CMND*</label>
-    <input class="form-control" type="text" formControlName="identityNumber">
-    <!--    <p *ngIf="formNewUser.controls.identityNumber.errors?.required && formNewUser.controls.identityNumber.touched" class="text-danger">Vui lòng nhập vào</p>-->
-    <!--    <p *ngIf="formNewUser.controls.identityNumber.errors?.pattern && formNewUser.controls.identityNumber.touched" class="text-danger">Không đúng. Vd: 201201201</p>-->
-  </div>
-  <div class=" form-group d-flex">
-    <label> </label>
-    <button class="btn btn-success mt-4 mr-4" (click)="addNewUser()">Thêm mới</button>
-    <button class="btn btn-success mt-4 mr-4" (click)="ngOnInit()">Nhập lại</button>
-    <button mat-dialog-close class="btn btn-success mt-4 mr-4" >Hủy</button>
+  <div class=" form-group d-flex mt-3">
+    <button mat-raised-button class="action-button ml-2" color="primary" (click)="saveNewUser()">Lưu vào<i
+      class="material-icons">
+      save_alt
+    </i>
+    </button>
+    <button mat-raised-button class="action-button ml-2" color="primary" (click)="reType()">Nhập lại<i
+      class="material-icons">
+      refresh
+    </i>
+    </button>
+    <button mat-dialog-close mat-raised-button class="action-button ml-2" color="primary">Hủy<i class="material-icons">
+      cancel
+    </i>
+    </button>
   </div>
 </form>
