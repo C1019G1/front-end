@@ -124,9 +124,11 @@ export class AdminUserManagerComponent implements AfterViewInit, OnInit {
 
   openUserCreateDialog() {
     const dialogRef = this.dialog.open(AdminUserCreateComponent, {
-      width: '50%',
+      width: '60%',
       minWidth: '300px',
+      position: {top: '5%'},
       disableClose: true,
+      data: {rankList: this.rankList}
     });
     dialogRef.afterClosed().subscribe(result => {
     });
@@ -170,9 +172,9 @@ export class AdminUserManagerComponent implements AfterViewInit, OnInit {
         .subscribe(data => {
           if (data != null) {
             this.userDTO = data;
-            this.data=[this.userDTO];
+            this.data = [this.userDTO];
           } else {
-            this.data=[];
+            this.data = [];
           }
           this.resultsLength = this.data.length;
         });
