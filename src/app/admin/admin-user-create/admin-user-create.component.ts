@@ -9,9 +9,9 @@ import {AdminUserListService} from '../../services/admin-user-list.service';
   styleUrls: ['./admin-user-create.component.css']
 })
 export class AdminUserCreateComponent implements OnInit {
-  public adminUserRegisterForm: FormGroup;
+  adminUserRegisterForm: FormGroup;
   today = new Date();
-  public minDate = new Date(1950, 0, 1);
+  minDate = new Date(1950, 0, 1);
   rankList = [];
 
   constructor(
