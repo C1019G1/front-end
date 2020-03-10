@@ -5,6 +5,7 @@ label{
 textarea{
   border: solid 1px;
   max-height: 300px;
+  min-height: 100px;
 }
 .mat-input-element{
   width: 300px;

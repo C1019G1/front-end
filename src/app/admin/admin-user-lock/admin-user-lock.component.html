@@ -1,21 +1,33 @@
 <h3 class="text-center">Khóa thành viên</h3>
-<div class="w-80 mx-auto mt-3">
+<form class="w-80 mx-auto mt-3" [formGroup]="adminUserLockForm">
   <div class="row">
     <label style="padding-top: 3%">Thời gian khóa<b>*</b></label>
     <div class="col-xl-4 mr-2">
       <mat-form-field class="mx-2 my-1">
-        <input [min]="today" [max]="(lockTimeEnd)? lockTimeEnd:null" matInput [matDatepicker]="myDatepicker"
-               [(ngModel)]="lockTimeStart" placeholder="Chọn ngày bắt đầu">
+        <mat-label>Từ:</mat-label>
+        <input [min]="today" [max]="adminUserLockForm.controls.dayLockEnd.value" matInput [matDatepicker]="myDatepicker"
+               formControlName="dayLockStart" placeholder="Chọn ngày bắt đầu">
         <mat-datepicker-toggle matSuffix [for]="myDatepicker"></mat-datepicker-toggle>
         <mat-datepicker #myDatepicker></mat-datepicker>
+        <mat-error
+          *ngIf="adminUserLockForm.controls.dayLockStart.errors?.required && adminUserLockForm.controls.dayLockStart.touched"
+          class="text-danger">Vui lòng <strong>chọn</strong> một ngày
+        </mat-error>
       </mat-form-field>
     </div>
     <div class="col-xl-4">
       <mat-form-field class="ml-4 my-1">
-        <input [min]="(lockTimeStart)?lockTimeStart:today" matInput [matDatepicker]="myDatepicker1"
-               [(ngModel)]="lockTimeEnd" placeholder="Chọn ngày kết thúc">
+        <mat-label>Đến:</mat-label>
+        <input
+          [min]="(adminUserLockForm.controls.dayLockStart.value)?adminUserLockForm.controls.dayLockStart.value:today"
+          matInput [matDatepicker]="myDatepicker1"
+          formControlName="dayLockEnd" placeholder="Chọn ngày kết thúc">
         <mat-datepicker-toggle matSuffix [for]="myDatepicker1"></mat-datepicker-toggle>
         <mat-datepicker #myDatepicker1></mat-datepicker>
+        <mat-error
+          *ngIf="adminUserLockForm.controls.dayLockEnd.errors?.required && adminUserLockForm.controls.dayLockEnd.touched"
+          class="text-danger">Vui lòng <strong>chọn</strong> một ngày
+        </mat-error>
       </mat-form-field>
     </div>
   </div>
@@ -24,8 +36,9 @@
     <label>Danh sách:</label>
     <div class="col mr-2">
       <mat-chip-list aria-label="User selection">
-        <mat-chip *ngFor="let user of userList" [removable]="removable" color="primary" (removed)="remove(user)" selected>
-          {{user.fullName+'('+user.id+')'}}
+        <mat-chip *ngFor="let user of userList" [removable]="removable" color="primary" (removed)="remove(user)"
+                  selected>
+          {{user.fullName + '(' + user.id + ')'}}
           <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
         </mat-chip>
       </mat-chip-list>
@@ -34,22 +47,32 @@
   <hr>
   <div class="row d-flex mt-3">
     <label>Lý do<b>*</b></label>
-    <div class="ml-4 ">
-      <textarea matInput
-                style="min-height: 100px"
-                [(ngModel)]="reason"
-      ></textarea>
-    </div>
+    <mat-form-field class="ml-xl-4 w-50" >
+      <mat-label></mat-label>
+      <textarea matInput formControlName="reasonLock" class="w-100" placeholder="Vd: Spam quá nhiều"></textarea>
+      <mat-error
+        *ngIf="adminUserLockForm.controls.reasonLock.errors?.required && adminUserLockForm.controls.reasonLock.touched"
+        class="text-danger">Vui <strong>nhập vào</strong>  lý do
+      </mat-error>
+    </mat-form-field>
+
   </div>
 
   <div class="row d-flex mt-3">
     <label></label>
     <div class="col">
-      <button mat-button mat-raised-button color="primary" class="action-button ml-2">
-        Gửi<mat-icon class="ml-3">send</mat-icon></button>
+      <button mat-button mat-raised-button color="primary" class="action-button ml-2" (click)="onSendClick()">
+        Gửi
+        <mat-icon class="ml-3">send</mat-icon>
+      </button>
       <button mat-button mat-raised-button color="primary" class="action-button" (click)="onCancelClick()">
-        Thoát<mat-icon  class="ml-3">cancel</mat-icon></button>
+        Thoát
+        <mat-icon class="ml-3">cancel</mat-icon>
+      </button>
+      <button mat-button mat-raised-button color="primary" class="action-button" (click)="onResetClick()"
+      *ngIf="userList.length!=data.users.length">Nhập lại
+        <mat-icon class="ml-3">replay</mat-icon>
+      </button>
     </div>
-
   </div>
-</div>
+</form>
