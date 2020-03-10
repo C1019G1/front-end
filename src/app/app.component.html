@@ -42,18 +42,41 @@
       </div>
     </div>
   </nav>
-  <div class="row px-0 mx-0" style="height: 90%">
-    <div class="col-2 px-0 mx-0 rounded">
-      <div class="list-group px-0 mx-0 border border-primary h-100">
-        <a href="#" class="list-group-item text-secondary" >Tât cả</a>
-        <a href="#" class="list-group-item text-secondary" [routerLink]="['/product/list/' + 'Dân dụng']">Dân dụng</a>
-        <a href="#" class="list-group-item text-secondary" [routerLink]="['/product/list/' + 'Công nghệ']">Công nghệ</a>
-        <a href="#" class="list-group-item text-secondary">Khác</a>
-      </div>
-    </div>
-    <div class="col-10 p-0">
-      <router-outlet class="main-body"></router-outlet>
-    </div>
+  <div class="w3-sidebar w3-light-grey w3-bar-block" style="width:15%">
+    <a href="#" class="w3-bar-item w3-button mt-3" style="font-size: 16px">Tất cả</a>
+    <a href="#" class="w3-bar-item w3-button mt-3" style="font-size: 16px" [routerLink]="['/product/list/' + 'Dân dụng']">Dân dụng</a>
+    <a href="#" class="w3-bar-item w3-button mt-3" style="font-size: 16px" [routerLink]="['/product/list/' + 'Công nghệ']">Cộng nghệ</a>
+    <a href="#" class="w3-bar-item w3-button mt-3" style="font-size: 16px" >Khác</a>
   </div>
+  <div style="margin-left:16%">
+    <router-outlet class="main-body"></router-outlet>-->
   </div>
+<!--    <div class="w3-container w3-teal">-->
+<!--      <h1>My Page</h1>-->
+<!--    </div>-->
+
+<!--    <img src="img_car.jpg" alt="Car" style="width:100%">-->
+
+<!--    <div class="w3-container">-->
+<!--      <h2>Sidebar Navigation Example</h2>-->
+<!--      <p>The sidebar with is set with "style="width:25%".</p>-->
+<!--      <p>The left margin of the page content is set to the same value.</p>-->
+<!--    </div>-->
+
+<!--  </div>-->
+<!--  <div class="row px-0 mx-0" style="height: 500px">-->
+<!--    <div class="col-2 px-0 mx-0 rounded">-->
+<!--      <div class="list-group px-0 mx-0 border border-primary h-100">-->
+<!--        <a href="#" class="list-group-item text-secondary" >Tât cả</a>-->
+<!--        <a href="#" class="list-group-item text-secondary" [routerLink]="['/product/list/' + 'Dân dụng']">Dân dụng</a>-->
+<!--        <a href="#" class="list-group-item text-secondary" [routerLink]="['/product/list/' + 'Công nghệ']">Công nghệ</a>-->
+<!--        <a href="#" class="list-group-item text-secondary">Khác</a>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--    <div class="col-10 p-0">-->
+<!--      <router-outlet class="main-body"></router-outlet>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--  </div>-->
+
 
