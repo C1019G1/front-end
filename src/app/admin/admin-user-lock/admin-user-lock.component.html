@@ -1,7 +1,7 @@
 <h3 class="text-center">Khóa thành viên</h3>
 <div class="w-80 mx-auto mt-3">
   <div class="row">
-      <label style="padding-top: 3%">Thời gian khóa</label>
+    <label style="padding-top: 3%">Thời gian khóa<b>*</b></label>
     <div class="col-xl-4 mr-2">
       <mat-form-field class="mx-2 my-1">
         <input [min]="today" [max]="(lockTimeEnd)? lockTimeEnd:null" matInput [matDatepicker]="myDatepicker"
@@ -11,7 +11,7 @@
       </mat-form-field>
     </div>
     <div class="col-xl-4">
-      <mat-form-field class="mx-2 my-1">
+      <mat-form-field class="ml-4 my-1">
         <input [min]="(lockTimeStart)?lockTimeStart:today" matInput [matDatepicker]="myDatepicker1"
                [(ngModel)]="lockTimeEnd" placeholder="Chọn ngày kết thúc">
         <mat-datepicker-toggle matSuffix [for]="myDatepicker1"></mat-datepicker-toggle>
@@ -19,19 +19,21 @@
       </mat-form-field>
     </div>
   </div>
-  <div class="row d-flex">
+  <hr>
+  <div class="row">
     <label>Danh sách:</label>
-    <div class="ml-4">
+    <div class="col mr-2">
       <mat-chip-list aria-label="User selection">
-        <mat-chip *ngFor="let user of data.users" [removable]="removable" color="primary" (removed)="remove(user)" selected>
+        <mat-chip *ngFor="let user of userList" [removable]="removable" color="primary" (removed)="remove(user)" selected>
           {{user.fullName+'('+user.id+')'}}
           <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
         </mat-chip>
       </mat-chip-list>
     </div>
   </div>
+  <hr>
   <div class="row d-flex mt-3">
-    <label>Lý do*</label>
+    <label>Lý do<b>*</b></label>
     <div class="ml-4 ">
       <textarea matInput
                 style="min-height: 100px"
@@ -39,11 +41,15 @@
       ></textarea>
     </div>
   </div>
+
   <div class="row d-flex mt-3">
     <label></label>
-    <button mat-button mat-raised-button color="primary" class="action-button">Ok</button>
-    <button mat-button mat-raised-button color="primary"
-            class="action-button" (click)="onCancelClick()">
-      <mat-icon>cancel</mat-icon>Thoát</button>
+    <div class="col">
+      <button mat-button mat-raised-button color="primary" class="action-button ml-2">
+        Gửi<mat-icon class="ml-3">send</mat-icon></button>
+      <button mat-button mat-raised-button color="primary" class="action-button" (click)="onCancelClick()">
+        Thoát<mat-icon  class="ml-3">cancel</mat-icon></button>
+    </div>
+
   </div>
 </div>

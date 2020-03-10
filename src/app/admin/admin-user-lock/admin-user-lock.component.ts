@@ -13,7 +13,7 @@ export class AdminUserLockComponent implements OnInit {
   lockTimeStart;
   lockTimeEnd;
   today = new Date();
-  content = '';
+  userList:UserProfileDTO[] =[];
   reason = '';
   @ViewChild('autosize') autosize: CdkTextareaAutosize;
   removable = true;
@@ -26,6 +26,8 @@ export class AdminUserLockComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.userList=Object.assign([], this.data.users);
+    console.log(this.userList);
   }
 
   triggerResize() {
@@ -35,14 +37,19 @@ export class AdminUserLockComponent implements OnInit {
   }
 
   remove(user: UserProfileDTO): void {
-    const index = this.data.users.indexOf(user);
+    const index = this.userList.indexOf(user);
 
     if (index >= 0) {
-      this.data.users.splice(index, 1);
+      this.userList.splice(index, 1);
     }
   }
 
   onCancelClick() {
+    if(this.userList.length!=this.data.users.length){
+      if(confirm("Bạn có muốn lưu danh sách mới này không?")){
+        this.data.users=this.userList;
+      }
+    }
     this.dialogRef.close({users:this.data.users});
   }
 }
