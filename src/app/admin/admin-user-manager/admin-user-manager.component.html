@@ -1,137 +1,164 @@
-<div class="container-fluid ">
-  <h2 class="mt-2 ml-5">Quản lý thành viên</h2>
-  <div class="row d-flex mt-2 mx-5">
-    <form [formGroup]="formUserSearch">
-      <div class="row d-flex">
-        <div class="mx-5">
+<h2 class="mt-2 ml-5">Quản lý thành viên</h2>
+<div class="row d-flex mt-2 mx-5">
+  <mat-accordion>
+    <mat-expansion-panel style="width: 650px">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Tìm kiếm
+        </mat-panel-title>
+        <mat-panel-description>
+          Tìm kiếm thành viên theo id và email
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="row mx-5">
+        <form [formGroup]="formUserSearch">
           <mat-form-field class="search-input">
             <mat-label>ID</mat-label>
-            <input matInput formControlName="searchId" placeholder="Vd: 1">
-            <mat-error *ngIf="formUserSearch.controls.searchId.errors?.pattern && formUserSearch.controls.searchId.dirty">
+            <input matInput formControlName="id" placeholder="Vd: 1">
+            <mat-error *ngIf="formUserSearch.controls.id.errors?.pattern && formUserSearch.controls.id.dirty">
               ID phải là số nguyên dương
             </mat-error>
           </mat-form-field>
-          <br>
           <mat-form-field class="search-input">
             <mat-label>Email</mat-label>
-            <input matInput formControlName="searchEmail" placeholder="Vd: abc@gmail.com">
-            <mat-error *ngIf="formUserSearch.controls.searchEmail.errors?.email && formUserSearch.controls.searchEmail.dirty">
-              Nhập đúng email
+            <input matInput formControlName="email" placeholder="Vd: abc@gmail.com">
+            <mat-error *ngIf="formUserSearch.controls.email.errors?.email && formUserSearch.controls.email.dirty">
+              Không xác định được địa chỉ email
             </mat-error>
           </mat-form-field>
-        </div>
-        <div class="mx-5">
+        </form>
+        <button mat-raised-button class="action-button" color="primary" (click)="search()"
+                [disabled]="formUserSearch.controls.email.hasError('email')
+          ||formUserSearch.controls.id.hasError('pattern')
+          ||(formUserSearch.controls.email.value==''&&formUserSearch.controls.id.value=='')">Tìm
+          <i class="material-icons ml-2">5
+            search
+          </i></button>
+      </div>
+    </mat-expansion-panel>
+    <mat-expansion-panel style="width: 650px">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Phân loại
+        </mat-panel-title>
+        <mat-panel-description>
+          Phân loại theo tên gần đúng hoặc xếp hạng
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <form [formGroup]="formUserSearch">
+        <div class="row mx-5">
           <mat-form-field class="search-input">
             <mat-label>Tên</mat-label>
-            <input matInput formControlName="searchFullName" placeholder="Vd: Tuấn hoặc Nguyễn Văn A">
-            <mat-error *ngIf="formUserSearch.controls.searchFullName.errors?.pattern && formUserSearch.controls.searchFullName.dirty">
-              Nhập đúng định dạng tên
-            </mat-error>
+            <input matInput formControlName="name" placeholder="Vd: Tuấn hoặc Nguyễn Văn A">
+            <mat-hint align="start">Để trống để lọc tất cả tên</mat-hint>
           </mat-form-field>
-          <br>
           <mat-form-field>
             <mat-label>Xếp hạng</mat-label>
-            <mat-select formControlName="searchRank">
+            <mat-select formControlName="rank">
               <mat-option value="">Tất cả</mat-option>
-              <mat-option *ngFor="let rank of rankList" [value]="rank">
-                {{rank| titlecase}}
+              <mat-option *ngFor="let rank of rankList" [value]="rank.name">
+                {{rank.name| titlecase}}
               </mat-option>
             </mat-select>
           </mat-form-field>
-        </div>
-        <div class="mx-5">
-          <button mat-raised-button class="action-button" color="primary">Tìm kiếm
+          <button mat-raised-button class="action-button" color="primary" (click)="filter()">Lọc
             <i class="material-icons ml-2">
-              search
+              filter_list
             </i></button>
         </div>
+      </form>
+    </mat-expansion-panel>
+  </mat-accordion>
+
+
+</div>
+<div class="row mt-3 mx-5">
+  <div>
+    <table mat-table [dataSource]="data" class="mat-elevation-z8 table-striped">
+      <ng-container matColumnDef="id" sticky>
+        <th mat-header-cell *matHeaderCellDef> ID</th>
+        <td mat-cell *matCellDef="let element">{{element.id}}</td>
+      </ng-container>
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef> Họ và tên</th>
+        <td mat-cell *matCellDef="let element"> {{element.fullName |titlecase}}</td>
+      </ng-container>
+      <ng-container matColumnDef="address">
+        <th mat-header-cell *matHeaderCellDef> Địa chỉ</th>
+        <td mat-cell *matCellDef="let element"> {{element.address}}</td>
+      </ng-container>
+      <ng-container matColumnDef="rank">
+        <th mat-header-cell *matHeaderCellDef>Xếp hạng</th>
+        <td mat-cell *matCellDef="let element">{{element.rank | titlecase}}  </td>
+      </ng-container>
+      <ng-container matColumnDef="email">
+        <th mat-header-cell *matHeaderCellDef>Email</th>
+        <td mat-cell *matCellDef="let element">{{element.email}}  </td>
+      </ng-container>
+      <ng-container matColumnDef="phoneNumber">
+        <th mat-header-cell *matHeaderCellDef>Số điện thoại</th>
+        <td mat-cell *matCellDef="let element">{{element.phoneNumber}}  </td>
+      </ng-container>
+      <ng-container matColumnDef="lastLogin">
+        <th mat-header-cell *matHeaderCellDef>Đăng nhập lần cuối</th>
+        <td mat-cell *matCellDef="let element">{{element.lastLogin|date:'medium'}}  </td>
+      </ng-container>
+      <ng-container matColumnDef="contributePoint">
+        <th mat-header-cell *matHeaderCellDef>Điểm cống hiến</th>
+        <td mat-cell *matCellDef="let element">{{element.contributePoint}}  </td>
+      </ng-container>
+      <!-- Checkbox Column -->
+      <ng-container matColumnDef="select" stickyEnd>
+        <th mat-header-cell *matHeaderCellDef>
+          <mat-checkbox (change)="$event ? masterToggle() : null"
+                        [checked]="selection.hasValue() && isAllSelected()"
+                        [indeterminate]="selection.hasValue() && !isAllSelected()"
+                        [aria-label]="checkboxLabel()">
+          </mat-checkbox>
+        </th>
+        <td mat-cell *matCellDef="let row">
+          <mat-checkbox (click)="$event.stopPropagation()"
+                        (change)="$event ? selection.toggle(row) : null"
+                        [checked]="selection.isSelected(row)"
+                        [aria-label]="checkboxLabel(row)">
+          </mat-checkbox>
+        </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+          [ngClass]="{ 'selected': selection.isSelected(row)}"
+          (click)="selection.toggle(row)"></tr>
+    </table>
+    <div class="example-loading-shade"
+         *ngIf="isLoadingResults || isRateLimitReached">
+      <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
+      <div class="example-rate-limit-reached" *ngIf="isRateLimitReached">
+        Đã đến cuối bản ghi.
       </div>
-    </form>
-  </div>
-  <div class="row mt-3 mx-5">
-    <div>
-      <table mat-table [dataSource]="data" class="mat-elevation-z8 table-striped" >
-        <ng-container matColumnDef="id" sticky>
-          <th mat-header-cell *matHeaderCellDef> ID</th>
-          <td mat-cell *matCellDef="let element">{{element.id}}</td>
-        </ng-container>
-        <ng-container matColumnDef="name">
-          <th mat-header-cell *matHeaderCellDef> Họ và tên</th>
-          <td mat-cell *matCellDef="let element"> {{element.fullName |titlecase}}</td>
-        </ng-container>
-        <ng-container matColumnDef="address">
-          <th mat-header-cell *matHeaderCellDef> Địa chỉ</th>
-          <td mat-cell *matCellDef="let element"> {{element.address}}</td>
-        </ng-container>
-        <ng-container matColumnDef="rank">
-          <th mat-header-cell *matHeaderCellDef>Xếp hạng</th>
-          <td mat-cell *matCellDef="let element">{{element.rank | titlecase}}  </td>
-        </ng-container>
-        <ng-container matColumnDef="email">
-          <th mat-header-cell *matHeaderCellDef>Email</th>
-          <td mat-cell *matCellDef="let element">{{element.email}}  </td>
-        </ng-container>
-        <ng-container matColumnDef="phoneNumber">
-          <th mat-header-cell *matHeaderCellDef>Số điện thoại</th>
-          <td mat-cell *matCellDef="let element">{{element.phoneNumber}}  </td>
-        </ng-container>
-        <ng-container matColumnDef="lastLogin">
-          <th mat-header-cell *matHeaderCellDef>Đăng nhập lần cuối</th>
-          <td mat-cell *matCellDef="let element">{{element.lastLogin|date:'medium'}}  </td>
-        </ng-container>
-        <ng-container matColumnDef="contributePoint">
-          <th mat-header-cell *matHeaderCellDef>Điểm cống hiến</th>
-          <td mat-cell *matCellDef="let element">{{element.contributePoint}}  </td>
-        </ng-container>
-        <!-- Checkbox Column -->
-        <ng-container matColumnDef="select" stickyEnd>
-          <th mat-header-cell *matHeaderCellDef>
-            <mat-checkbox (change)="$event ? masterToggle() : null"
-                          [checked]="selection.hasValue() && isAllSelected()"
-                          [indeterminate]="selection.hasValue() && !isAllSelected()"
-                          [aria-label]="checkboxLabel()">
-            </mat-checkbox>
-          </th>
-          <td mat-cell *matCellDef="let row">
-            <mat-checkbox (click)="$event.stopPropagation()"
-                          (change)="$event ? selection.toggle(row) : null"
-                          [checked]="selection.isSelected(row)"
-                          [aria-label]="checkboxLabel(row)">
-            </mat-checkbox>
-          </td>
-        </ng-container>
-        <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"
-            [ngClass]="{ 'selected': selection.isSelected(row)}"
-            (click)="selection.toggle(row)"></tr>
-      </table>
-      <div class="example-loading-shade"
-           *ngIf="isLoadingResults || isRateLimitReached">
-        <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
-        <div class="example-rate-limit-reached" *ngIf="isRateLimitReached">
-          Đã đến cuối bản ghi.
-        </div>
-        <div class="example-rate-limit-reached" *ngIf="data.length==0">
-          Không có kết quả tìm kiếm
-        </div>
+      <div class="example-rate-limit-reached" *ngIf="data.length==0">
+        Không có kết quả tìm kiếm
       </div>
     </div>
+    <div class="example-rate-limit-reached" *ngIf="data.length==0">
+      Không có kết quả để hiển thị
+    </div>
+  </div>
 
-  </div>
-  <div class=" button-container row mt-4 mx-5">
-      <button mat-raised-button class="action-button" color="primary" (click)="openUserLockDialog()">Khóa
-        <i class="material-icons ml-2">
-          lock
-        </i></button>
-      <button mat-raised-button class="action-button" color="primary" >Xóa
-        <i class="material-icons ml-2">
-          delete_forever
-        </i></button>
-      <button mat-raised-button class="action-button" color="primary" (click)="openUserCreateDialog()">Thêm mới
-        <i class="material-icons ml-2">
-          person_add
-        </i></button>
-      <mat-paginator [length]="resultsLength" [pageSizeOptions]="[2,5,10,25,100]" showFirstLastButtons></mat-paginator>
-  </div>
 </div>
+<div class=" button-container row mt-4 mx-5">
+  <button mat-raised-button class="action-button" color="primary" (click)="openUserLockDialog()">Khóa
+    <i class="material-icons ml-2">
+      lock
+    </i></button>
+  <button mat-raised-button class="action-button" color="primary">Xóa
+    <i class="material-icons ml-2">
+      delete_forever
+    </i></button>
+  <button mat-raised-button class="action-button" color="primary" (click)="openUserCreateDialog()">Thêm mới
+    <i class="material-icons ml-2">
+      person_add
+    </i></button>
+  <mat-paginator [length]="resultsLength" [pageSizeOptions]="[5,10,25,100]" showFirstLastButtons></mat-paginator>
+</div>
+
 

@@ -2,6 +2,7 @@ import {Component, Inject, OnInit, NgZone, ViewChild} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {CdkTextareaAutosize} from '@angular/cdk/text-field';
 import {take} from 'rxjs/operators';
+import {UserProfileDTO} from '../admin-user-manager/admin-user-manager.component';
 
 @Component({
   selector: 'app-admin-user-lock',
@@ -9,37 +10,39 @@ import {take} from 'rxjs/operators';
   styleUrls: ['./admin-user-lock.component.css']
 })
 export class AdminUserLockComponent implements OnInit {
-  userList = [];
   lockTimeStart;
   lockTimeEnd;
   today = new Date();
   content = '';
   reason = '';
   @ViewChild('autosize') autosize: CdkTextareaAutosize;
+  removable = true;
 
   constructor(
     public dialogRef: MatDialogRef<AdminUserLockComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private _ngZone: NgZone
+    private ngZone: NgZone
   ) {
   }
 
   ngOnInit(): void {
-    this.userList = this.data.users;
-    let count = 1;
-    for (let user of this.userList) {
-      if (count != this.userList.length) {
-        this.content += user.name + '(' + user.id + '),\n';
-      } else {
-        this.content += user.name + '(' + user.id + ')';
-      }
-      count++;
-    }
   }
 
   triggerResize() {
     // Wait for changes to be applied, then trigger textarea resize.
-    this._ngZone.onStable.pipe(take(1))
+    this.ngZone.onStable.pipe(take(1))
       .subscribe(() => this.autosize.resizeToFitContent(true));
+  }
+
+  remove(user: UserProfileDTO): void {
+    const index = this.data.users.indexOf(user);
+
+    if (index >= 0) {
+      this.data.users.splice(index, 1);
+    }
+  }
+
+  onCancelClick() {
+    this.dialogRef.close({users:this.data.users});
   }
 }

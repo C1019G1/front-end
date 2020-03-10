@@ -20,17 +20,14 @@
     </div>
   </div>
   <div class="row d-flex">
-    <label>Bạn có thật sự muốn khóa</label>
+    <label>Danh sách:</label>
     <div class="ml-4">
-      <textarea matInput
-                cdkTextareaAutosize
-                #autosize="cdkTextareaAutosize"
-                cdkAutosizeMinRows="1"
-                cdkAutosizeMaxRows="5"
-                [value]="content"
-                disabled="true"
-                style="color: black"
-      ></textarea>
+      <mat-chip-list aria-label="User selection">
+        <mat-chip *ngFor="let user of data.users" [removable]="removable" color="primary" (removed)="remove(user)" selected>
+          {{user.fullName+'('+user.id+')'}}
+          <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+        </mat-chip>
+      </mat-chip-list>
     </div>
   </div>
   <div class="row d-flex mt-3">
@@ -44,7 +41,9 @@
   </div>
   <div class="row d-flex mt-3">
     <label></label>
-    <button class="btn btn-danger ml-4 mr-4">Khóa</button>
-    <button mat-dialog-close class="btn btn-warning">Hủy</button>
+    <button mat-button mat-raised-button color="primary" class="action-button">Ok</button>
+    <button mat-button mat-raised-button color="primary"
+            class="action-button" (click)="onCancelClick()">
+      <mat-icon>cancel</mat-icon>Thoát</button>
   </div>
 </div>
