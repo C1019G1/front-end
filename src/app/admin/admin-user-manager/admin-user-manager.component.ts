@@ -11,6 +11,7 @@ import {merge, of as observableOf} from 'rxjs';
 import {catchError, map, startWith, switchMap} from 'rxjs/operators';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {RankListService} from '../../services/rank-list.service';
+import {element} from 'protractor';
 
 export interface UserProfilebApi {
   content: UserProfileDTO[];
@@ -19,7 +20,7 @@ export interface UserProfilebApi {
 
 export interface UserProfileDTO {
   id;
-  name;
+  fullName;
   address;
   rank;
   email;
@@ -38,6 +39,7 @@ export class AdminUserManagerComponent implements AfterViewInit, OnInit {
   displayedColumns: string[] = ['id', 'name', 'address', 'rank', 'email', 'phoneNumber', 'lastLogin', 'contributePoint', 'select'];
   data: UserProfileDTO[] = [];
   userDTO: UserProfileDTO;
+  userSeclectedList: Set<UserProfileDTO> = new Set();
   resultsLength = 0;
   isLoadingResults = true;
   isRateLimitReached = false;
@@ -97,6 +99,7 @@ export class AdminUserManagerComponent implements AfterViewInit, OnInit {
         })
       ).subscribe(data => {
       this.data = data;
+      this.seclectedList();
     });
   }
 
@@ -135,7 +138,6 @@ export class AdminUserManagerComponent implements AfterViewInit, OnInit {
   }
 
   openUserLockDialog() {
-    console.log(this.selection.selected);
     const dialogRef = this.dialog.open(AdminUserLockComponent, {
       width: '50%',
       minWidth: '300px',
@@ -145,7 +147,9 @@ export class AdminUserManagerComponent implements AfterViewInit, OnInit {
     dialogRef.afterClosed().subscribe(result => {
     });
   }
+  seclectedList(){
 
+  }
   // onTableScroll(e) {
   //   const tableViewHeight = e.target.offsetHeight // viewport: ~500px
   //   const tableScrollHeight = e.target.scrollHeight // length of all table
