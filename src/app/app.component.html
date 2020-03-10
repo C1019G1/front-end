@@ -1,5 +1,5 @@
 <div class="container-fluid px-0">
-  <nav class="navbar navbar-expand-sm sticky-top"  style="background-color: #ffba00;border-color: #ffa100;">
+  <nav class="navbar navbar-expand-sm sticky-top" style="background-color: #ffba00;border-color: #ffa100;">
     <!-- Brand -->
     <div class="container-fluid">
       <a class="navbar-brand" href="#">Daugia.com</a>
@@ -9,35 +9,55 @@
             <div class="material-icons">
               chat_bubble_outline
             </div>
-            <button class="mt-auto mr-3" style="background: none; border: none" (click)="openDialogAdvisory()">Tư vấn</button>
+            <button class="mt-auto mr-3" style="background: none; border: none" (click)="openDialogAdvisory()">Tư vấn
+            </button>
           </div>
         </div>
-        <div  style="color: black">
+        <div style="color: black">
           <div class="d-flex">
             <div class="material-icons">
               list_alt
             </div>
-            <button class="mt-auto mr-3"style="background: none; border: none" (click)="openDialogGuide()">Hướng dẫn</button>
+            <button class="mt-auto mr-3" style="background: none; border: none" (click)="openDialogGuide()">Hướng dẫn
+            </button>
           </div>
         </div>
 
-          <div class="d-flex">
-            <div class="material-icons">
-              account_circle
-            </div>
-
-            <div class="mt-auto mr-3" *ngIf=showLoginBox>
-              <a routerLink="/user/login" style="color: black">
-              Đăng nhập / Đăng ký
+        <div class="d-flex">
+          <div class="material-icons">
+            account_circle
+          </div>
+          <div class="mt-auto mr-3" *ngIf=showLoginBox>
+            <div class="btn-group">
+              <a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Đăng nhập / Đăng ký
               </a>
-            </div>
-            <div class="mt-auto mr-3" *ngIf=!showLoginBox>
-              {{username}}
-            </div>
-            <div class="mt-auto mr-3" *ngIf=!showLoginBox>
-              <button class="btn-danger" (click)=logOut()>thoát</button>
+              <div class="dropdown-menu dropdown-menu-right mt-2" style="width: 40vh">
+                <app-user-login></app-user-login>
+              </div>
             </div>
           </div>
+          <div *ngIf=!showLoginBox>
+            <div class="dropdown">
+              <div class="mt-1 mr-3" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{username}}</div>
+              <div class="dropdown-menu dropdown-menu-right mt-2" aria-labelledby="dropdownMenuButton" *ngIf=showAdminMenu>
+                <a class="dropdown-item" href="#">Quản lí thành viên</a>
+                <a class="dropdown-item" href="#">Thêm danh mục</a>
+                <a class="dropdown-item" href="#">Thêm thành viên</a>
+                <hr class="my-0">
+                <button  class="dropdown-item text-center" (click)=logOut()>Đăng xuất</button>
+              </div>
+
+              <div class="dropdown-menu dropdown-menu-right mt-2" aria-labelledby="dropdownMenuButton" *ngIf=showUserMenu>
+                <a class="dropdown-item" href="#">Chi tiết tài khoản</a>
+                <a class="dropdown-item" href="#">Lịch sử bán hàng</a>
+                <a class="dropdown-item" href="#">Lịch sử đấu giá</a>
+                <hr class="my-0">
+                <button  class="dropdown-item text-center" (click)=logOut()>Đăng xuất</button>
+              </div>
+            </div>
+          </div>
+        </div>
 
       </div>
     </div>
@@ -45,7 +65,7 @@
   <div class="row px-0 mx-0" style="height: 90%">
     <div class="col-2 px-0 mx-0 rounded">
       <div class="list-group px-0 mx-0 border border-primary h-100">
-        <a href="#" class="list-group-item text-secondary" >Tât cả</a>
+        <a href="#" class="list-group-item text-secondary">Tât cả</a>
         <a href="#" class="list-group-item text-secondary" [routerLink]="['/product/list/' + 'Dân dụng']">Dân dụng</a>
         <a href="#" class="list-group-item text-secondary" [routerLink]="['/product/list/' + 'Công nghệ']">Công nghệ</a>
         <a href="#" class="list-group-item text-secondary">Khác</a>
@@ -55,5 +75,5 @@
       <router-outlet class="main-body"></router-outlet>
     </div>
   </div>
-  </div>
+</div>
 

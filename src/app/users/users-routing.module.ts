@@ -39,7 +39,7 @@ const routes: Routes = [
     MaterialModule,
     Ng2Module
   ],
-  exports: [RouterModule],
+    exports: [RouterModule, UserLoginComponent],
   declarations: [
     UserLoginComponent,
     UserRegisterComponent,
