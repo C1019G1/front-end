@@ -13,6 +13,8 @@ import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatExpansionModule} from '@angular/material/expansion';
+import {MatChipsModule} from '@angular/material/chips';
+import {MatIconModule} from '@angular/material/icon';
 
 @NgModule({
   declarations: [],
@@ -30,7 +32,9 @@ import {MatExpansionModule} from '@angular/material/expansion';
     MatPaginatorModule,
     MatCheckboxModule,
     MatProgressSpinnerModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatChipsModule,
+    MatIconModule,
   ],
   exports: [
     MatDatepickerModule,
@@ -45,7 +49,9 @@ import {MatExpansionModule} from '@angular/material/expansion';
     MatPaginatorModule,
     MatCheckboxModule,
     MatProgressSpinnerModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatChipsModule,
+    MatIconModule,
   ]
 })
 export class MaterialModule { }
