@@ -3,8 +3,11 @@
   height: 100%;
 }
 
-.sticky-search {
+.fixed-search{
   position: fixed;
-  overflow: hidden;
-  top: 80px;
+  left: 16%;
+  top: 70px;
+}
+.columns {
+  column-gap: 20px;
 }

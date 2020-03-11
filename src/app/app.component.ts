@@ -40,7 +40,7 @@ export class AppComponent {
   openDialogAdvisory() {
     this.dialog.open(AdvisoryComponent, {
       data: {data1: 'Dialog'},
-      disableClose: true
+      disableClose: false
     });
   }
   openDialogGuide() {
