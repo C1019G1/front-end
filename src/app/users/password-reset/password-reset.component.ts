@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
+import {UserService} from '../../services/user.service';
 
 @Component({
   selector: 'app-password-reset',
@@ -11,7 +12,7 @@ export class PasswordResetComponent implements OnInit {
   userForm: FormGroup;
   constructor(
     public formBuider: FormBuilder,
-    // public userService: any,
+     public userService: UserService,
     public router: Router
   ) {
   }
@@ -25,8 +26,15 @@ export class PasswordResetComponent implements OnInit {
   }
 
   resetPassword() {
-    // this.userService.login(this.formUser.value).subscribe(data => {
-    //   this.router.navigateByUrl('customer-list');
-    // });
+    this.userService.resetPassword(this.userForm.value).subscribe(data => {
+       this.router.navigateByUrl('/user/login');
+    },
+      error => {
+        alert(error.error) ;
+      }, () => {
+        alert('mật khẩu mới đã được gửi tới email');
+        this.router.navigateByUrl('/user/login');
+      }
+    );
   }
 }

@@ -11,7 +11,10 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatTableModule} from '@angular/material/table';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatCheckboxModule} from '@angular/material/checkbox';
-
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatExpansionModule} from '@angular/material/expansion';
+import {MatChipsModule} from '@angular/material/chips';
+import {MatIconModule} from '@angular/material/icon';
 
 @NgModule({
   declarations: [],
@@ -27,7 +30,11 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
     MatButtonModule,
     MatTableModule,
     MatPaginatorModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatProgressSpinnerModule,
+    MatExpansionModule,
+    MatChipsModule,
+    MatIconModule,
   ],
   exports: [
     MatDatepickerModule,
@@ -40,7 +47,11 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
     MatButtonModule,
     MatTableModule,
     MatPaginatorModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatProgressSpinnerModule,
+    MatExpansionModule,
+    MatChipsModule,
+    MatIconModule,
   ]
 })
 export class MaterialModule { }
