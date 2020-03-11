@@ -16,6 +16,7 @@ import { AdvisoryComponent } from './advisory/advisory.component';
 import {HelloComponent} from './hello/hello.component';
 import {AdminGuard} from '../guard/admin.guard';
 import {LoginCheckGuard} from '../guard/login-check.guard';
+import {LoginHistoryComponent} from './login-history/login-history.component';
 
 
 const routes: Routes = [
@@ -29,6 +30,7 @@ const routes: Routes = [
   {path: 'guide', component: GuideComponent},
   {path: 'password_reset', component: PasswordResetComponent},
   {path: 'hello', component: HelloComponent},
+  {path: 'login-history', component: LoginHistoryComponent},
 ];
 
 @NgModule({
@@ -39,7 +41,7 @@ const routes: Routes = [
     MaterialModule,
     Ng2Module
   ],
-  exports: [RouterModule],
+    exports: [RouterModule, UserLoginComponent],
   declarations: [
     UserLoginComponent,
     UserRegisterComponent,
