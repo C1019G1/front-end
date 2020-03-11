@@ -11,6 +11,7 @@ import {merge, of as observableOf} from 'rxjs';
 import {catchError, map, startWith, switchMap} from 'rxjs/operators';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {RankListService} from '../../services/rank-list.service';
+import {element} from 'protractor';
 
 export interface UserProfilebApi {
   content: UserProfileDTO[];
@@ -19,7 +20,7 @@ export interface UserProfilebApi {
 
 export interface UserProfileDTO {
   id;
-  name;
+  fullName;
   address;
   rank;
   email;
@@ -38,6 +39,7 @@ export class AdminUserManagerComponent implements AfterViewInit, OnInit {
   displayedColumns: string[] = ['id', 'name', 'address', 'rank', 'email', 'phoneNumber', 'lastLogin', 'contributePoint', 'select'];
   data: UserProfileDTO[] = [];
   userDTO: UserProfileDTO;
+  userSeclectedList: Set<UserProfileDTO> = new Set();
   resultsLength = 0;
   isLoadingResults = true;
   isRateLimitReached = false;
@@ -57,6 +59,12 @@ export class AdminUserManagerComponent implements AfterViewInit, OnInit {
 
   ngOnInit(): void {
     this.size = 5;
+    this.paginator._intl.itemsPerPageLabel = 'Hiển thị:';
+    this.paginator._intl.getRangeLabel = (page: number, pageSize: number, length: number) => {
+      const start = page * pageSize + 1;
+      const end = (page + 1) * pageSize;
+      return `${start} - ${end} trên ${length}`;
+    };
     this.rankListService.getRankList().subscribe(data => {
       this.rankList = data;
     });
@@ -91,6 +99,7 @@ export class AdminUserManagerComponent implements AfterViewInit, OnInit {
         })
       ).subscribe(data => {
       this.data = data;
+      this.seclectedList();
     });
   }
 
@@ -118,16 +127,17 @@ export class AdminUserManagerComponent implements AfterViewInit, OnInit {
 
   openUserCreateDialog() {
     const dialogRef = this.dialog.open(AdminUserCreateComponent, {
-      width: '50%',
+      width: '60%',
       minWidth: '300px',
+      position: {top: '5%'},
       disableClose: true,
+      data: {rankList: this.rankList}
     });
     dialogRef.afterClosed().subscribe(result => {
     });
   }
 
   openUserLockDialog() {
-    console.log(this.selection.selected);
     const dialogRef = this.dialog.open(AdminUserLockComponent, {
       width: '50%',
       minWidth: '300px',
@@ -137,7 +147,9 @@ export class AdminUserManagerComponent implements AfterViewInit, OnInit {
     dialogRef.afterClosed().subscribe(result => {
     });
   }
+  seclectedList(){
 
+  }
   // onTableScroll(e) {
   //   const tableViewHeight = e.target.offsetHeight // viewport: ~500px
   //   const tableScrollHeight = e.target.scrollHeight // length of all table
@@ -164,9 +176,9 @@ export class AdminUserManagerComponent implements AfterViewInit, OnInit {
         .subscribe(data => {
           if (data != null) {
             this.userDTO = data;
-            this.data=[this.userDTO];
+            this.data = [this.userDTO];
           } else {
-            this.data=[];
+            this.data = [];
           }
           this.resultsLength = this.data.length;
         });

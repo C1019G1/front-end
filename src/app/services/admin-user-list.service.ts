@@ -20,9 +20,14 @@ export class AdminUserListService {
   }
 
   getUserProfileList(page: number, size: number, name: string, rank: string): Observable<any> {
-    return this.http.get<UserProfilebApi>(this.API + 'user-list?page=' + page + '&size=' + size + '&name=' + name+'&rank=' + rank, this.httpOptions);
+    return this.http.get<UserProfilebApi>(this.API + 'user-list?page=' + page + '&size=' + size + '&name=' + name + '&rank=' + rank, this.httpOptions);
   }
-  findUserProfile(id:number, email:string): Observable<any>{
+
+  findUserProfile(id: number, email: string): Observable<any> {
     return this.http.get<UserProfileDTO>(this.API + 'find?id=' + id + '&email=' + email, this.httpOptions);
+  }
+
+  register(userDTO): Observable<any> {
+    return this.http.post(this.API + 'user-register', userDTO, this.httpOptions);
   }
 }
