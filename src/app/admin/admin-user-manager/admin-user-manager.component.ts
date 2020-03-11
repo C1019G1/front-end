@@ -147,7 +147,6 @@ export class AdminUserManagerComponent implements AfterViewInit, OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       this.userSeclectedList=result.users;
-      console.log(this.userSeclectedList);
     });
   }
 

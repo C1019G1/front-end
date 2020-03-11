@@ -4,6 +4,7 @@ import {CdkTextareaAutosize} from '@angular/cdk/text-field';
 import {take} from 'rxjs/operators';
 import {UserProfileDTO} from '../admin-user-manager/admin-user-manager.component';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {AdminUserListService} from '../../services/admin-user-list.service';
 
 @Component({
   selector: 'app-admin-user-lock',
@@ -16,7 +17,6 @@ export class AdminUserLockComponent implements OnInit {
   lockTimeEnd;
   today = new Date();
   userList: UserProfileDTO[] = [];
-  reason = '';
   @ViewChild('autosize') autosize: CdkTextareaAutosize;
   removable = true;
 
@@ -24,7 +24,8 @@ export class AdminUserLockComponent implements OnInit {
     public dialogRef: MatDialogRef<AdminUserLockComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private ngZone: NgZone,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private adminUserListService: AdminUserListService,
   ) {
   }
 
@@ -65,9 +66,19 @@ export class AdminUserLockComponent implements OnInit {
     if(this.adminUserLockForm.invalid){
       alert("Thông tin nhập vào sai hoặc để trống")
     } else {
-      this.adminUserLockForm.controls.users.setValue(this.userList);
+      let temp = Array.from(this.userList, e=>e.id)
+      this.adminUserLockForm.controls.users.setValue(temp);
     }
-    console.log(this.adminUserLockForm.getRawValue())
+    console.log(this.adminUserLockForm.getRawValue());
+    this.adminUserListService.lockUsers(this.adminUserLockForm.value).subscribe(result=>{
+      alert("Đã khóa thành công");
+    },error=>{
+      alert("Có lỗi trong quá trình gửi biểu mẫu\nHoặc"+error.body+"\n Vui lòng thử lại sau")
+    },()=>{
+      this.data.users=[];
+      this.userList = this.data.users;
+      this.onCancelClick();
+    })
   }
 
   onResetClick() {
