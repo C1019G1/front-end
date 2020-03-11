@@ -112,7 +112,7 @@ export class AdminUserManagerComponent implements AfterViewInit, OnInit {
   masterToggle() {
     this.isAllSelected() ?
       this.selection.clear() :
-      this.data.forEach(row => this.selection.select(row));
+      this.data.forEach(row => {if(row.status==false) this.selection.select(row)});
   }
 
   /** The label for the checkbox on the passed row */
