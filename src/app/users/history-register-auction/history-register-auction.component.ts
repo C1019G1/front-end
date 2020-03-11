@@ -1,81 +1,73 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {MatTableDataSource} from '@angular/material/table';
 import {MatPaginator} from '@angular/material/paginator';
+import {HistoryRegisterProductService} from '../../services/history-register-product.service';
+import {ActivatedRoute} from '@angular/router';
 
 
-export interface Product {
-  idProduct: number;
-  nameProduct: string;
-  infoProduct: string;
-  registerDay: string;
+export interface ProductDTO {
+  Id_Product: number;
+  Name_Product: string;
+  product_info: string;
+  end_day: Date;
+  start_day: Date;
   status: string;
+  Current_Price: number;
 }
-const ProductList: Product[] = [
-  {
-    idProduct: 1,
-    nameProduct: 'MacBook Pro',
-    infoProduct: 'Máy tính',
-    registerDay: '25/02/2020',
-    status: 'Đang đấu giá'
-  },
-  {
-    idProduct: 2,
-    nameProduct: 'MacBook Ari',
-    infoProduct: 'Máy tính',
-    registerDay: '25/02/2020',
-    status: 'Đang đấu giá'
-  },
-  {
-    idProduct: 3,
-    nameProduct: 'MacBook Pro',
-    infoProduct: 'Máy tính',
-    registerDay: '25/02/2020',
-    status: 'Đang đấu giá'
-  },
-  {
-    idProduct: 4,
-    nameProduct: 'MacBook Pro',
-    infoProduct: 'Máy tính',
-    registerDay: '25/02/2020',
-    status: 'Đang đấu giá'
-  },
-  {
-    idProduct: 5,
-    nameProduct: 'MacBook Pro',
-    infoProduct: 'Máy tính',
-    registerDay: '25/02/2020',
-    status: 'Đang đấu giá'
-  },
-  {
-    idProduct: 6,
-    nameProduct: 'MacBook Pro',
-    infoProduct: 'Máy tính',
-    registerDay: '25/02/2020',
-    status: 'Đang đấu giá'
-  },
-  {
-    idProduct: 7,
-    nameProduct: 'MacBook Pro',
-    infoProduct: 'Máy tính',
-    registerDay: '25/02/2020',
-    status: 'Đang đấu giá'
-  }
-]
 @Component({
   selector: 'app-history-register-auction',
   templateUrl: './history-register-auction.component.html',
   styleUrls: ['./history-register-auction.component.css']
 })
 export class HistoryRegisterAuctionComponent implements OnInit {
-  displayedColumns: string[] = ['idProduct', 'nameProduct', 'infoProduct', 'registerDay', 'status', 'cancel'];
-  dataSource = new MatTableDataSource<Product>(ProductList);
+  displayedColumns: string[] = ['index', 'Id_Product', 'Name_Product', 'product_info', 'start_day', 'end_day', 'status', 'cancel'];
+  data: ProductDTO[] = [];
+  historyRegisterProductDTO: ProductDTO;
+  size: 5;
+  pages: [];
+  totalPages = 1;
+  dataSource = new MatTableDataSource<ProductDTO>();
   p: any;
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
-  constructor() { }
+  private id: any;
+  private product: any;
+  private pageClicked = 0;
+  constructor(
+    public historyRegisterProductService: HistoryRegisterProductService,
+    public activatedRoute: ActivatedRoute,
+  ) { }
 
   ngOnInit(): void {
-    this.dataSource.paginator = this.paginator;
-  }
+    this.activatedRoute.params.subscribe(data => {
+      console.log(data.id);
+      this.id = data.id;
+      this.historyRegisterProductService.getHistoryRegisterProductByUserId(this.id).subscribe(
+        data2 => {
+          for ( const element of data2) {
+          console.log(data2);
+          }
+          // this.dataSource = data2.content;
+          // this.totalPages = data2.totalPages;
+          // this.dataSource = data2.content;
+          // this.totalPages = data2.totalPages;
+          // this.pages = Array.apply(null, {length: this.totalPages}).map(Number.call, Number);
+          // this.dataSource.paginator = this.paginator;
+        });
+  });
+}
 
+
+  // onSubmit(page) {
+  //   this.historyRegisterProductService.getHistoryRegisterProductByUserId(this.id, this.pages, this.size).subscribe(
+  //     data => {
+  //       this.pageClicked = page;
+  //       this.dataSource = data.content;
+  //       this.totalPages = data.totalPages;
+  //       this.pages = Array.apply(null, {length: this.totalPages}).map(Number.call, Number);
+  //       this.dataSource.paginator = this.paginator;
+  //       console.log(this.dataSource);
+  //     }
+  //   );
+  // }
 }

@@ -6,7 +6,8 @@ export interface Product {
   idProduct: number;
   nameProduct: string;
   infoProduct: string;
-  cost: string;
+  originalCost: string;
+  currentCost: string;
   registerDay: string;
   status: string;
 }
@@ -16,7 +17,8 @@ const ProductList: Product[] = [
     idProduct: 1001,
     nameProduct: 'Iphone X',
     infoProduct: 'điện thoại',
-    cost: '15.000.000',
+    originalCost: '15.000.000',
+    currentCost: '17.000.000',
     registerDay: '25/02/2020',
     status: 'Đang đấu giá'
   },
@@ -24,7 +26,8 @@ const ProductList: Product[] = [
     idProduct: 1002,
     nameProduct: 'Iphone X',
     infoProduct: 'Điện thoại',
-    cost: '15.000.000',
+    originalCost: '15.000.000',
+    currentCost: '17.000.000',
     registerDay: '25/02/2020',
     status: 'Đang đấu giá'
   },
@@ -32,7 +35,8 @@ const ProductList: Product[] = [
     idProduct: 1003,
     nameProduct: 'Iphone X',
     infoProduct: 'Điện thoại',
-    cost: '15.000.000',
+    originalCost: '15.000.000',
+    currentCost: '17.000.000',
     registerDay: '25/02/2020',
     status: 'Đang đấu giá'
   },
@@ -40,7 +44,8 @@ const ProductList: Product[] = [
     idProduct: 1004,
     nameProduct: 'Iphone X',
     infoProduct: 'Điện thoại',
-    cost: '15.000.000',
+    originalCost: '15.000.000',
+    currentCost: '17.000.000',
     registerDay: '25/02/2020',
     status: 'Đang đấu giá'
   },
@@ -48,7 +53,8 @@ const ProductList: Product[] = [
     idProduct: 1005,
     nameProduct: 'Iphone X',
     infoProduct: 'Điện thoại',
-    cost: '15.000.000',
+    originalCost: '15.000.000',
+    currentCost: '17.000.000',
     registerDay: '25/02/2020',
     status: 'Đang đấu giá'
   },
@@ -56,7 +62,8 @@ const ProductList: Product[] = [
     idProduct: 1006,
     nameProduct: 'Iphone X',
     infoProduct: 'Điện thoại',
-    cost: '15.000.000',
+    originalCost: '15.000.000',
+    currentCost: '17.000.000',
     registerDay: '25/02/2020',
     status: 'Đang đấu giá'
   },
@@ -64,7 +71,8 @@ const ProductList: Product[] = [
     idProduct: 1007,
     nameProduct: 'Iphone X',
     infoProduct: 'Điện thoại',
-    cost: '15.000.000',
+    originalCost: '15.000.000',
+    currentCost: '17.000.000',
     registerDay: '25/02/2020',
     status: 'Đang đấu giá'
   },
@@ -72,7 +80,8 @@ const ProductList: Product[] = [
     idProduct: 1008,
     nameProduct: 'Iphone X',
     infoProduct: 'Điện thoại',
-    cost: '15.000.000',
+    originalCost: '15.000.000',
+    currentCost: '17.000.000',
     registerDay: '25/02/2020',
     status: 'Đang đấu giá'
   },
@@ -80,7 +89,8 @@ const ProductList: Product[] = [
     idProduct: 1009,
     nameProduct: 'Iphone X',
     infoProduct: 'Điện thoại',
-    cost: '15.000.000',
+    originalCost: '15.000.000',
+    currentCost: '17.000.000',
     registerDay: '25/02/2020',
     status: 'Đang đấu giá'
   },
@@ -88,7 +98,8 @@ const ProductList: Product[] = [
     idProduct: 10,
     nameProduct: 'Iphone X',
     infoProduct: 'Điện thoại',
-    cost: '15.000.000',
+    originalCost: '15.000.000',
+    currentCost: '17.000.000',
     registerDay: '25/02/2020',
     status: 'Đang đấu giá'
   },
@@ -101,11 +112,14 @@ const ProductList: Product[] = [
 })
 
 export class HistoryAuctionComponent implements OnInit {
-  displayedColumns: string[] = ['index', 'idProduct', 'nameProduct', 'infoProduct', 'cost', 'registerDay', 'status', 'cancel'];
+
+  displayedColumns: string[] = ['index', 'idProduct', 'nameProduct', 'infoProduct',
+    'originalCost', 'currentCost', 'registerDay', 'status', 'cancel'];
   dataSource = new MatTableDataSource<Product>(ProductList);
   p: any;
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+  $index: number;
 
   constructor() {
   }
