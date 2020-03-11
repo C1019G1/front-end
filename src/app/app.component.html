@@ -1,5 +1,5 @@
-<div class="container-fluid px-0">
-  <nav class="navbar navbar-expand-sm sticky-top" style="background-color: #ffba00;border-color: #ffa100;">
+<div class="container-fluid px-0 " >
+  <nav class="navbar navbar-expand-sm sticky-top" style=" background-color: #ffba00;border-color: #ffa100;">
     <!-- Brand -->
     <div class="container-fluid">
       <a class="navbar-brand" href="#">Daugia.com</a>
@@ -27,6 +27,7 @@
           <div class="material-icons">
             account_circle
           </div>
+
           <div class="mt-auto mr-3" *ngIf=showLoginBox>
             <div class="btn-group">
               <a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -65,18 +66,15 @@
       </div>
     </div>
   </nav>
-  <div class="row px-0 mx-0" style="height: 90%">
-    <div class="col-2 px-0 mx-0 rounded">
-      <div class="list-group px-0 mx-0 border border-primary h-100">
-        <a href="#" class="list-group-item text-secondary">Tât cả</a>
-        <a href="#" class="list-group-item text-secondary" [routerLink]="['/product/list/' + 'Dân dụng']">Dân dụng</a>
-        <a href="#" class="list-group-item text-secondary" [routerLink]="['/product/list/' + 'Công nghệ']">Công nghệ</a>
-        <a href="#" class="list-group-item text-secondary">Khác</a>
-      </div>
-    </div>
-    <div class="col-10 p-0">
-      <router-outlet class="main-body"></router-outlet>
-    </div>
+  <div class="w3-sidebar w3-light-grey w3-bar-block" style="width:15%">
+    <a href="/product/list" class="w3-bar-item w3-button mt-3" style="font-size: 16px">Tất cả</a>
+    <a href="/product/list/Dân dụng" class="w3-bar-item w3-button mt-3" style="font-size: 16px">Dân dụng</a>
+    <a href="/product/list/Công nghệ" class="w3-bar-item w3-button mt-3" style="font-size: 16px">Cộng nghệ</a>
+    <a href="/product/list/Khác" class="w3-bar-item w3-button mt-3" style="font-size: 16px">Khác</a>
+  </div>
+  <div style="margin-left:16%; position: relative">
+    <router-outlet class="main-body"></router-outlet>
   </div>
 </div>
+
 

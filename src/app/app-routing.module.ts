@@ -17,7 +17,6 @@ const routes: Routes = [
     redirectTo: 'product/list',
     pathMatch: 'full'
   },
-  {path: 'product/list/:catalogue', component: ProductListComponent},
   ];
 
 @NgModule({

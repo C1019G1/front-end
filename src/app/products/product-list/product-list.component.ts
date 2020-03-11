@@ -114,6 +114,7 @@ export class ProductListComponent implements OnInit {
         this.productRegisterList = this.productRegisterList.concat(data);
       } else {
         this.notLoad = true;
+        alert('Bạn đã xem đến sản phẩm cuối cùng!');
       }
     });
   }
@@ -130,6 +131,7 @@ export class ProductListComponent implements OnInit {
         console.log('du lieu show: ' + data);
       } else {
         this.notLoad = true;
+        alert('Bạn đã xem đến sản phẩm cuối cùng!');
       }
     });
   }
