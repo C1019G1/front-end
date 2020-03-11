@@ -17,6 +17,8 @@ import {HelloComponent} from './hello/hello.component';
 import {AdminGuard} from '../guard/admin.guard';
 import {LoginCheckGuard} from '../guard/login-check.guard';
 import {LoginHistoryComponent} from './login-history/login-history.component';
+import {ChangePasswordComponent} from './change-password/change-password.component';
+import {UserGuard} from '../guard/user.guard';
 
 
 const routes: Routes = [
@@ -31,6 +33,7 @@ const routes: Routes = [
   {path: 'password_reset', component: PasswordResetComponent},
   {path: 'hello', component: HelloComponent},
   {path: 'login-history', component: LoginHistoryComponent},
+  {path: 'change-password', component: ChangePasswordComponent, canActivate: [UserGuard]},
 ];
 
 @NgModule({

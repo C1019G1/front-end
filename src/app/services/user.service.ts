@@ -14,4 +14,7 @@ export class UserService {
   getLoginHistory(username): Observable<any> {
     return this.http.post(this.API + 'login-history', username);
   }
+  changePassword(changePasswordForm): Observable<any> {
+    return this.http.post(this.API + 'change-password', changePasswordForm);
+  }
 }
