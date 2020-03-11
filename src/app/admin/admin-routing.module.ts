@@ -11,7 +11,6 @@ import { AdminUserLockComponent } from './admin-user-lock/admin-user-lock.compon
 import {AdminGuard} from '../guard/admin.guard';
 
 const routes: Routes = [
-  { path: '', component: AdminComponent , canActivate: [AdminGuard]},
   { path: 'user-manager', component: AdminUserManagerComponent , canActivate: [AdminGuard] },
   ];
 

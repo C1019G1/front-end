@@ -4,14 +4,26 @@ import { CommonModule } from '@angular/common';
 import { UsersRoutingModule } from './users-routing.module';
 import { UsersComponent } from './users.component';
 import { HelloComponent } from './hello/hello.component';
+import { LoginHistoryComponent } from './login-history/login-history.component';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatTableModule} from '@angular/material/table';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatPaginatorModule} from '@angular/material/paginator';
+import { ChangePasswordComponent } from './change-password/change-password.component';
+import {ReactiveFormsModule} from '@angular/forms';
 
 
 
 @NgModule({
-  declarations: [UsersComponent, HelloComponent],
+  declarations: [UsersComponent, HelloComponent, LoginHistoryComponent, ChangePasswordComponent],
   imports: [
     CommonModule,
     UsersRoutingModule,
+    MatCheckboxModule,
+    MatTableModule,
+    MatProgressSpinnerModule,
+    MatPaginatorModule,
+    ReactiveFormsModule,
   ]
 })
 export class UsersModule { }

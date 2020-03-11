@@ -1,6 +1,6 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {MAT_DIALOG_DATA} from '@angular/material/dialog';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {AdminUserListService} from '../../services/admin-user-list.service';
 
 @Component({
@@ -9,14 +9,15 @@ import {AdminUserListService} from '../../services/admin-user-list.service';
   styleUrls: ['./admin-user-create.component.css']
 })
 export class AdminUserCreateComponent implements OnInit {
-  public adminUserRegisterForm: FormGroup;
+  adminUserRegisterForm: FormGroup;
   today = new Date();
-  public minDate = new Date(1950, 0, 1);
+  minDate = new Date(1950, 0, 1);
   rankList = [];
 
   constructor(
     private formBuilder: FormBuilder,
     private adminUserListService: AdminUserListService,
+    public dialogRef: MatDialogRef<AdminUserCreateComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
   ) {
   }
@@ -62,7 +63,7 @@ export class AdminUserCreateComponent implements OnInit {
         console.log(this.adminUserRegisterForm.value)
         this.adminUserListService.register(this.adminUserRegisterForm.value).subscribe(next=>{
           alert("Đã tạo mới thành công!!");
-          // this.ngOnInit();
+          this.dialogRef.close();
         },error => {
           alert(error.error+'');
         })

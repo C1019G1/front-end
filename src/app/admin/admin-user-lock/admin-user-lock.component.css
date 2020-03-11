@@ -4,6 +4,8 @@ label{
 }
 textarea{
   border: solid 1px;
+  max-height: 300px;
+  min-height: 100px;
 }
 .mat-input-element{
   width: 300px;
@@ -15,4 +17,7 @@ textarea{
   justify-content: center;
   height: 40px;
   width: 130px;
+}
+b{
+  color: red;
 }

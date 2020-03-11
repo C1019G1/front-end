@@ -6,9 +6,15 @@ import {Observable} from 'rxjs';
   providedIn: 'root'
 })
 export class UserService {
-  public API = 'http://localhost:8080/register';
+  public API: string = 'http://localhost:8080/';
   constructor(public http: HttpClient) { }
   register(user): Observable<any> {
-    return this.http.post(this.API, user);
+    return this.http.post(this.API + 'register', user);
+  }
+  getLoginHistory(username): Observable<any> {
+    return this.http.post(this.API + 'login-history', username);
+  }
+  changePassword(changePasswordForm): Observable<any> {
+    return this.http.post(this.API + 'change-password', changePasswordForm);
   }
 }
