@@ -53,7 +53,6 @@ export class UserRegisterComponent implements OnInit {
     this.registerForm.patchValue({
       password: this.password.value,
     });
-    console.log(this.registerForm.get('password'));
     this.userService.register(this.registerForm.value).subscribe(data => {
      // this.router.navigateByUrl('user/login');
     },
