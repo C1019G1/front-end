@@ -27,7 +27,14 @@ export class PasswordResetComponent implements OnInit {
 
   resetPassword() {
     this.userService.resetPassword(this.userForm.value).subscribe(data => {
-      // this.router.navigateByUrl('customer-list');
-    });
+       this.router.navigateByUrl('/user/login');
+    },
+      error => {
+        alert(error.error) ;
+      }, () => {
+        alert('mật khẩu mới đã được gửi tới email');
+        this.router.navigateByUrl('/user/login');
+      }
+    );
   }
 }
