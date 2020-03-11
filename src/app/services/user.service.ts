@@ -17,4 +17,7 @@ export class UserService {
   changePassword(changePasswordForm): Observable<any> {
     return this.http.post(this.API + 'change-password', changePasswordForm);
   }
+  resetPassword(resetPasswordForm): Observable<any> {
+    return this.http.post(this.API + 'reset-password', resetPasswordForm);
+  }
 }
