@@ -33,7 +33,9 @@ th.mat-column-select,td.mat-column-select{
 .mat-row.selected {
    background: #fffaad;
  }
-
+.mat-cell.user-lock {
+  color: red;
+}
 .example-container {
   position: relative;
 }
