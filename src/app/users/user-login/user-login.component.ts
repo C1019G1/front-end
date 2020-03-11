@@ -55,7 +55,7 @@ export class UserLoginComponent implements OnInit {
         this.router.navigateByUrl('/product/list');
       },
       error => {
-        alert('thông tin bạn nhập không chính xác , vui lòng nhập lại !!!') ;
+        alert(error.error) ;
       }
     );
   }
