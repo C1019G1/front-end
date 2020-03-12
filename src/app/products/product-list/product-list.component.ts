@@ -19,6 +19,7 @@ export class ProductListComponent implements OnInit {
   private price2;
   private price;
   private catalogue?: string;
+  public message;
 
   constructor(public productRegisterServiece: ProductRegisterService,
               public  dialog: MatDialog,
@@ -98,8 +99,15 @@ export class ProductListComponent implements OnInit {
       console.log('price1= ' + this.price1 + 'price2= ' + this.price2);
       this.productRegisterServiece.searchByNameCataloguePrice(this.page, this.formSearch.value.name,
         this.formSearch.value.catalogue,
-        this.price1, this.price2).subscribe(data => {
+        this.price1,
+        this.price2).subscribe(data => {
         this.productRegisterList = data;
+        if ( this.productRegisterList.length === 0) {
+          this.message = 'Rất tiếc không tìm thấy sản phẩm theo bạn mong muốn!!!';
+          this.notLoad = true;
+        } else {
+          this.message = '';
+        }
         console.log('du lieu: ' + data);
       });
     }
