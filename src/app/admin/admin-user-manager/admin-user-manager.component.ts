@@ -39,13 +39,12 @@ export class AdminUserManagerComponent implements AfterViewInit, OnInit {
   displayedColumns: string[] = ['id', 'name', 'address', 'rank', 'email', 'phoneNumber', 'lastLogin', 'contributePoint', 'select'];
   data: UserProfileDTO[] = [];
   userDTO: UserProfileDTO;
-  userSeclectedList: Set<UserProfileDTO> = new Set();
+  userSeclectedList:UserProfileDTO[] =[];
   resultsLength = 0;
   isLoadingResults = true;
   isRateLimitReached = false;
   selection = new SelectionModel<UserProfileDTO>(true, []);
   rankList = [];
-  size: number;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   formUserSearch: FormGroup;
 
@@ -58,7 +57,6 @@ export class AdminUserManagerComponent implements AfterViewInit, OnInit {
   }
 
   ngOnInit(): void {
-    this.size = 5;
     this.paginator._intl.itemsPerPageLabel = 'Hiển thị:';
     this.paginator._intl.getRangeLabel = (page: number, pageSize: number, length: number) => {
       const start = page * pageSize + 1;
@@ -99,7 +97,7 @@ export class AdminUserManagerComponent implements AfterViewInit, OnInit {
         })
       ).subscribe(data => {
       this.data = data;
-      this.seclectedList();
+      this.selectedUserList();
     });
   }
 
@@ -114,7 +112,7 @@ export class AdminUserManagerComponent implements AfterViewInit, OnInit {
   masterToggle() {
     this.isAllSelected() ?
       this.selection.clear() :
-      this.data.forEach(row => this.selection.select(row));
+      this.data.forEach(row => {if(row.status==false) this.selection.select(row)});
   }
 
   /** The label for the checkbox on the passed row */
@@ -138,18 +136,20 @@ export class AdminUserManagerComponent implements AfterViewInit, OnInit {
   }
 
   openUserLockDialog() {
+    this.selectedUserList();
     const dialogRef = this.dialog.open(AdminUserLockComponent, {
-      width: '50%',
+      width: '60%',
       minWidth: '300px',
+      maxHeight: '600px',
+      position: {top: '5%'},
       disableClose: true,
-      data: {users: this.selection.selected}
+      data: {users: this.userSeclectedList}
     });
     dialogRef.afterClosed().subscribe(result => {
+      this.userSeclectedList=result.users;
     });
   }
-  seclectedList(){
 
-  }
   // onTableScroll(e) {
   //   const tableViewHeight = e.target.offsetHeight // viewport: ~500px
   //   const tableScrollHeight = e.target.scrollHeight // length of all table
@@ -171,7 +171,6 @@ export class AdminUserManagerComponent implements AfterViewInit, OnInit {
 
   search() {
     if (confirm('Hành động này sẽ làm mới bản ghi!!!')) {
-      console.log(123);
       this.adminUserListService.findUserProfile(this.formUserSearch.controls.id.value, this.formUserSearch.controls.email.value)
         .subscribe(data => {
           if (data != null) {
@@ -183,5 +182,24 @@ export class AdminUserManagerComponent implements AfterViewInit, OnInit {
           this.resultsLength = this.data.length;
         });
     }
+  }
+  selectedUserList(){
+    if(this.selection.selected.length!=0){
+      if(confirm("Bạn có muốn đưa những thành viên đã chọn vào danh sách khóa không?" +
+        "\nCó thể kiểm tra lại danh sách ở mục Khóa")){
+        for (let user of this.selection.selected){
+          const index= this.userSeclectedList.findIndex(e=> e.id === user.id )
+          if (index==-1){
+            this.userSeclectedList.push(user);
+          }
+        }
+      }
+      this.selection.clear();
+    }
+  }
+
+  openUserDeleteDialog() {
+    confirm("Bạn có muốn xóa thành viên đã chọn");
+    this.selection.clear();
   }
 }

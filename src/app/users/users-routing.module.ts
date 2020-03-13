@@ -19,15 +19,17 @@ import {LoginCheckGuard} from '../guard/login-check.guard';
 import {LoginHistoryComponent} from './login-history/login-history.component';
 import {ChangePasswordComponent} from './change-password/change-password.component';
 import {UserGuard} from '../guard/user.guard';
+import { EditProfileComponent } from './edit-profile/edit-profile.component';
 
 
 const routes: Routes = [
   {path: '', component: UsersComponent},
-  {path: 'login', component: UserLoginComponent  , canActivate: [LoginCheckGuard]},
-  {path: 'register', component: UserRegisterComponent , canActivate: [LoginCheckGuard]},
-  {path: 'update', component: UserUpdateInfoComponent},
-  {path: 'history-register', component: HistoryRegisterAuctionComponent},
-  {path: 'history-auction', component: HistoryAuctionComponent},
+  {path: 'login', component: UserLoginComponent},
+  {path: 'register', component: UserRegisterComponent},
+  {path: 'user/:id', component: UserUpdateInfoComponent},
+  {path: 'user/update/:id', component: EditProfileComponent},
+  {path: 'user/history-reg/:id', component: HistoryRegisterAuctionComponent},
+  {path: 'user/history-auc/:id', component: HistoryAuctionComponent},
   {path: 'advisory', component: AdvisoryComponent},
   {path: 'guide', component: GuideComponent},
   {path: 'password_reset', component: PasswordResetComponent},
@@ -53,7 +55,9 @@ const routes: Routes = [
     HistoryAuctionComponent,
     AdvisoryComponent,
     GuideComponent,
-    PasswordResetComponent]
+    PasswordResetComponent,
+    EditProfileComponent,
+    ChangePasswordComponent]
 })
 export class UsersRoutingModule {
 }

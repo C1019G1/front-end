@@ -14,7 +14,7 @@ th.mat-column-select,td.mat-column-select{
   width: 50px;
 }
 .mat-header-cell{
-  background-color: #b7ff97;
+  background-color: rgba(255, 186, 0, 0.81);
   font-size: larger;
   padding-left: 8px;
   padding-right: 8px;
@@ -33,10 +33,11 @@ th.mat-column-select,td.mat-column-select{
 .mat-row.selected {
    background: #fffaad;
  }
-
+.mat-cell.user-lock {
+  color: red;
+}
 .example-container {
   position: relative;
-  min-height: 200px;
 }
 .example-table-container {
   position: relative;
@@ -44,10 +45,10 @@ th.mat-column-select,td.mat-column-select{
   overflow: auto;
 }
 .example-loading-shade {
-  position: relative;
+  position: absolute;
   top: 0;
   left: 0;
-  bottom: 20px;
+  bottom: 0px;
   right: 0;
   background: rgba(0, 0, 0, 0.15);
   z-index: 1;

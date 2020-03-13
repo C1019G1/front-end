@@ -15,20 +15,33 @@ import {CookieStorageService} from './services/auth/cookie-storage.service';
 })
 export class AppComponent {
   title = 'font-end';
-  username: String;
-  roleName: String;
+  username: string;
+  roleName: string;
+  id: string;
   showLoginBox: boolean;
   showAdminMenu: boolean;
   showUserMenu: boolean;
   constructor(
               public  dialog: MatDialog,
-              private cookieStorageService: CookieStorageService
+              private cookieStorageService: CookieStorageService,
+              private tokenStorage: TokenStorageService,
   ) { }
   // tslint:disable-next-line:use-lifecycle-interface
   ngOnInit() {
-   this.getUsername();
-   this.getRoleName();
+    this.getId();
+    this.getUsername();
+    this.getRoleName();
   }
+
+  getId() {
+    this.id = this.tokenStorage.getId();
+    if (this.id) {
+      this.showLoginBox = false;
+    } else {
+      this.showLoginBox = true;
+    }
+  }
+
   getUsername() {
     this.username = this.cookieStorageService.getUsername();
     if (this.username) { this.showLoginBox = false; } else { this.showLoginBox = true ; }
