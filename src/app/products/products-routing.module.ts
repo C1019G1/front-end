@@ -7,12 +7,14 @@ import {CommonModule} from '@angular/common';
 import {PoductDetailComponent} from './poduct-detail/poduct-detail.component';
 import { CountDownComponent } from './count-down/count-down.component';
 import {ReactiveFormsModule} from '@angular/forms';
+import { ProductRegisterComponent } from './product-register/product-register.component';
 
 const routes: Routes = [
   {path: '', component: ProductsComponent},
   {path: 'list', component: ProductListComponent},
   {path: 'detail/:id', component: PoductDetailComponent},
-  {path: 'list/:catalogue', component: ProductListComponent}
+  {path: 'list/:catalogue', component: ProductListComponent},
+  {path: 'register', component: ProductRegisterComponent}
 ];
 
 @NgModule({
@@ -25,6 +27,7 @@ const routes: Routes = [
   declarations: [ProductListComponent,
     PoductDetailComponent,
     CountDownComponent,
+    ProductRegisterComponent,
     ]
 })
 export class ProductsRoutingModule {
