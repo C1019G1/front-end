@@ -30,6 +30,7 @@ export class EditProfileComponent implements OnInit {
   public maxDate = new Date();
   public minDate = new Date(1900, 0, 1);
   public user12: UserProfile;
+  private user123;
   constructor(
     public userProfileService: UserProfileService,
     public formBuilder: FormBuilder,
@@ -68,11 +69,17 @@ export class EditProfileComponent implements OnInit {
 
   editUserProfile() {
     this.userProfileService.editUserProfile(this.formUpdateInfo.value, this.id).subscribe(data1 => {
-      this.user12 = data1.name;
-      this.dialogRef.close();
-    });
-
-
-  }
+        this.user123 = data1;
+        this.formUpdateInfo.controls.fullName.setValue(this.user.fullName) ;
+        this.formUpdateInfo.controls.dayOfBirth.setValue(this.user.dayOfBirth) ;
+        this.formUpdateInfo.controls.address.setValue(this.user.address);
+        this.formUpdateInfo.controls.email.setValue(this.user.email);
+        this.formUpdateInfo.controls.contributePoint.setValue(this.user.contributePoint);
+        this.formUpdateInfo.controls.rank.setValue(this.user.rank.name);
+        this.formUpdateInfo.controls.phone.setValue(this.user.phone);
+        this.formUpdateInfo.controls.identityNumber.setValue(this.user.identityNumber);
+        });
+    this.dialogRef.close();
+    }
 }
 

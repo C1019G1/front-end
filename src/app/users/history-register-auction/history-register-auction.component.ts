@@ -2,17 +2,22 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {MatTableDataSource} from '@angular/material/table';
 import {MatPaginator} from '@angular/material/paginator';
 import {HistoryRegisterProductService} from '../../services/history-register-product.service';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
+import {DataSource} from '@angular/cdk/collections';
+import {Observable} from 'rxjs';
 
 
-export interface ProductDTO {
-  Id_Product: number;
-  Name_Product: string;
-  product_info: string;
-  end_day: Date;
-  start_day: Date;
-  status: string;
-  Current_Price: number;
+export class HistoryRegisterProductDataSource extends DataSource<any>{
+  constructor(
+    private historyRegisterProductService: HistoryRegisterProductService,
+  ) {
+    super();
+  }
+  connect(): Observable<any> {
+
+    return this.historyRegisterProductService.getAllHistoryRegisterProduct();
+  }
+  disconnect() {}
 }
 @Component({
   selector: 'app-history-register-auction',
@@ -20,42 +25,40 @@ export interface ProductDTO {
   styleUrls: ['./history-register-auction.component.css']
 })
 export class HistoryRegisterAuctionComponent implements OnInit {
+  public HistoryRegisterProduct;
   displayedColumns: string[] = ['index', 'Id_Product', 'Name_Product', 'product_info', 'start_day', 'end_day', 'status', 'cancel'];
-  data: ProductDTO[] = [];
-  historyRegisterProductDTO: ProductDTO;
   size: 5;
   pages: [];
   totalPages = 1;
-  dataSource = new MatTableDataSource<ProductDTO>();
+  dataSource = new HistoryRegisterProductDataSource(this.historyRegisterProductService);
   p: any;
 
-  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
   private id: any;
   private product: any;
   private pageClicked = 0;
   constructor(
     public historyRegisterProductService: HistoryRegisterProductService,
     public activatedRoute: ActivatedRoute,
+    public router: Router,
   ) { }
 
   ngOnInit(): void {
+    // this.paginator._intl.itemsPerPageLabel = 'Hiển thị:';
+    // this.paginator._intl.getRangeLabel = (page: number, pageSize: number, length: number) => {
+    //       const start = page * pageSize + 1;
+    //       const end = (page + 1) * pageSize;
+    //       return `${start} - ${end} trên ${length}`;
+    //     };
     this.activatedRoute.params.subscribe(data => {
       console.log(data.id);
       this.id = data.id;
       this.historyRegisterProductService.getHistoryRegisterProductByUserId(this.id).subscribe(
         data2 => {
-          for ( const element of data2) {
-          console.log(data2);
-          }
-          // this.dataSource = data2.content;
-          // this.totalPages = data2.totalPages;
-          // this.dataSource = data2.content;
-          // this.totalPages = data2.totalPages;
-          // this.pages = Array.apply(null, {length: this.totalPages}).map(Number.call, Number);
-          // this.dataSource.paginator = this.paginator;
+          this.dataSource = data2;
         });
-  });
-}
+    });
+  }
 
 
   // onSubmit(page) {

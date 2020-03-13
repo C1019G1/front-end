@@ -1,109 +1,26 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatTableDataSource} from '@angular/material/table';
+import {DataSource} from '@angular/cdk/collections';
+import {HistoryRegisterProductService} from '../../services/history-register-product.service';
+import {Observable} from 'rxjs';
+import {HistoryRegisterProductDataSource} from '../history-register-auction/history-register-auction.component';
+import {ActivatedRoute, Router} from '@angular/router';
 
-export interface Product {
-  idProduct: number;
-  nameProduct: string;
-  infoProduct: string;
-  originalCost: string;
-  currentCost: string;
-  registerDay: string;
-  status: string;
+
+export class HistoryAuctionProductDataSource extends DataSource<any> {
+
+  constructor(
+    private historyRegisterProductService: HistoryRegisterProductService,
+  ) {
+    super();
+  }
+  connect(): Observable<any> {
+
+    return this.historyRegisterProductService.getAllHistoryRegisterProduct();
+  }
+  disconnect() {}
 }
-
-const ProductList: Product[] = [
-  {
-    idProduct: 1001,
-    nameProduct: 'Iphone X',
-    infoProduct: 'điện thoại',
-    originalCost: '15.000.000',
-    currentCost: '17.000.000',
-    registerDay: '25/02/2020',
-    status: 'Đang đấu giá'
-  },
-  {
-    idProduct: 1002,
-    nameProduct: 'Iphone X',
-    infoProduct: 'Điện thoại',
-    originalCost: '15.000.000',
-    currentCost: '17.000.000',
-    registerDay: '25/02/2020',
-    status: 'Đang đấu giá'
-  },
-  {
-    idProduct: 1003,
-    nameProduct: 'Iphone X',
-    infoProduct: 'Điện thoại',
-    originalCost: '15.000.000',
-    currentCost: '17.000.000',
-    registerDay: '25/02/2020',
-    status: 'Đang đấu giá'
-  },
-  {
-    idProduct: 1004,
-    nameProduct: 'Iphone X',
-    infoProduct: 'Điện thoại',
-    originalCost: '15.000.000',
-    currentCost: '17.000.000',
-    registerDay: '25/02/2020',
-    status: 'Đang đấu giá'
-  },
-  {
-    idProduct: 1005,
-    nameProduct: 'Iphone X',
-    infoProduct: 'Điện thoại',
-    originalCost: '15.000.000',
-    currentCost: '17.000.000',
-    registerDay: '25/02/2020',
-    status: 'Đang đấu giá'
-  },
-  {
-    idProduct: 1006,
-    nameProduct: 'Iphone X',
-    infoProduct: 'Điện thoại',
-    originalCost: '15.000.000',
-    currentCost: '17.000.000',
-    registerDay: '25/02/2020',
-    status: 'Đang đấu giá'
-  },
-  {
-    idProduct: 1007,
-    nameProduct: 'Iphone X',
-    infoProduct: 'Điện thoại',
-    originalCost: '15.000.000',
-    currentCost: '17.000.000',
-    registerDay: '25/02/2020',
-    status: 'Đang đấu giá'
-  },
-  {
-    idProduct: 1008,
-    nameProduct: 'Iphone X',
-    infoProduct: 'Điện thoại',
-    originalCost: '15.000.000',
-    currentCost: '17.000.000',
-    registerDay: '25/02/2020',
-    status: 'Đang đấu giá'
-  },
-  {
-    idProduct: 1009,
-    nameProduct: 'Iphone X',
-    infoProduct: 'Điện thoại',
-    originalCost: '15.000.000',
-    currentCost: '17.000.000',
-    registerDay: '25/02/2020',
-    status: 'Đang đấu giá'
-  },
-  {
-    idProduct: 10,
-    nameProduct: 'Iphone X',
-    infoProduct: 'Điện thoại',
-    originalCost: '15.000.000',
-    currentCost: '17.000.000',
-    registerDay: '25/02/2020',
-    status: 'Đang đấu giá'
-  },
-];
 
 @Component({
   selector: 'app-history-auction',
@@ -115,16 +32,31 @@ export class HistoryAuctionComponent implements OnInit {
 
   displayedColumns: string[] = ['index', 'idProduct', 'nameProduct', 'infoProduct',
     'originalCost', 'currentCost', 'registerDay', 'status', 'cancel'];
-  dataSource = new MatTableDataSource<Product>(ProductList);
+  dataSource = new HistoryAuctionProductDataSource(this.historyRegisterProductService);
+  public HistoryRegisterProduct;
+  size: 5;
+  pages: [];
+  totalPages = 1;
   p: any;
 
-  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
-  $index: number;
-
-  constructor() {
-  }
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  private id: any;
+  private product: any;
+  private pageClicked = 0;
+  constructor(
+    public historyRegisterProductService: HistoryRegisterProductService,
+    public activatedRoute: ActivatedRoute,
+    public router: Router,
+  ) { }
 
   ngOnInit(): void {
-    this.dataSource.paginator = this.paginator;
+    this.activatedRoute.params.subscribe(data => {
+      console.log(data.id);
+      this.id = data.id;
+      this.historyRegisterProductService.getHistoryAuctionProductByUserId(this.id).subscribe(
+        data2 => {
+          this.dataSource = data2;
+        });
+    });
   }
 }
