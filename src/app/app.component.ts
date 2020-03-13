@@ -6,6 +6,7 @@ import {ProductListComponent} from './products/product-list/product-list.compone
 import {TokenStorageService} from './services/auth/token-storage.service';
 import {Validators} from '@angular/forms';
 import {Router} from '@angular/router';
+import {CookieStorageService} from './services/auth/cookie-storage.service';
 
 @Component({
   selector: 'app-root',
@@ -21,7 +22,7 @@ export class AppComponent {
   showUserMenu: boolean;
   constructor(
               public  dialog: MatDialog,
-              private tokenStorage: TokenStorageService,
+              private cookieStorageService: CookieStorageService
   ) { }
   // tslint:disable-next-line:use-lifecycle-interface
   ngOnInit() {
@@ -29,11 +30,11 @@ export class AppComponent {
    this.getRoleName();
   }
   getUsername() {
-    this.username = this.tokenStorage.getUsername();
+    this.username = this.cookieStorageService.getUsername();
     if (this.username) { this.showLoginBox = false; } else { this.showLoginBox = true ; }
   }
   getRoleName() {
-    this.roleName = this.tokenStorage.getRoleName();
+    this.roleName = this.cookieStorageService.getRoleName();
     if (this.roleName === 'ROLE_ADMIN') { this.showAdminMenu = true; } else { this.showAdminMenu = false ; }
     if (this.roleName === 'ROLE_USER' || this.roleName === 'ROLE_MEMBER') { this.showUserMenu = true; } else { this.showUserMenu = false ; }
   }
@@ -53,7 +54,7 @@ export class AppComponent {
   }
 
   logOut() {
-    this.tokenStorage.signOut();
+    this.cookieStorageService.signOut();
     this.ngOnInit() ;
   }
 }

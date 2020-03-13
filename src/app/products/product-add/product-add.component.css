@@ -1,0 +1,8 @@
+table {
+  width: 100%;
+}
+.mat-column-position {
+  flex: 0 0 300px;
+  width: 500px;
+  word-break: break-word;
+}

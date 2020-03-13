@@ -5,6 +5,7 @@ import {AuthLoginInfo} from '../../services/auth/login-info';
 import {AuthJwtService} from '../../services/auth/auth-jwt.service';
 import {TokenStorageService} from '../../services/auth/token-storage.service';
 import {AppComponent} from '../../app.component';
+import {CookieStorageService} from '../../services/auth/cookie-storage.service';
 
 @Component({
   selector: 'app-user-login',
@@ -16,12 +17,14 @@ export class UserLoginComponent implements OnInit {
   loginForm: FormGroup;
   submitted = false;
   userInfo: AuthLoginInfo;
+  cookieExpireTime = 0;
+  isRememberMe: boolean;
   constructor(
     private fb: FormBuilder,
     private auth: AuthJwtService,
-    private tokenStorage: TokenStorageService,
     public router: Router,
-    public appComponent: AppComponent
+    public appComponent: AppComponent,
+    private cookieStorageService: CookieStorageService
   ) { }
 
   ngOnInit() {
@@ -45,12 +48,12 @@ export class UserLoginComponent implements OnInit {
   public login(userInfo) {
     this.auth.attemptAuth(userInfo).subscribe(
       data => {
-        this.tokenStorage.saveToken(data.token);
-        this.tokenStorage.saveUsername(data.username);
-        console.log(data.token);
-        console.log(data.username);
-        console.log(data.rolename);
-        this.tokenStorage.saveRoleName(data.rolename);
+        if (this.isRememberMe) {
+          this.cookieExpireTime = 1;
+        }
+        this.cookieStorageService.saveToken(data.token, this.cookieExpireTime);
+        this.cookieStorageService.saveUsername(data.username, this.cookieExpireTime);
+        this.cookieStorageService.saveRoleName(data.rolename, this.cookieExpireTime);
         this.appComponent.ngOnInit();
         this.router.navigateByUrl('/product/list');
       },
