@@ -6,7 +6,7 @@ import {Observable} from 'rxjs';
   providedIn: 'root'
 })
 export class UserService {
-  public API: string = 'http://localhost:8080/';
+  public API = 'http://localhost:8080/';
   constructor(public http: HttpClient) { }
   register(user): Observable<any> {
     return this.http.post(this.API + 'register', user);

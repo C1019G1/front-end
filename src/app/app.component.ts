@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
 import {AdvisoryComponent} from './users/advisory/advisory.component';
 import {GuideComponent} from './users/guide/guide.component';
@@ -14,35 +14,74 @@ import {Router} from '@angular/router';
 })
 export class AppComponent {
   title = 'font-end';
-  username: String;
-  roleName: String;
+  username: string;
+  roleName: string;
+  id: string;
   showLoginBox: boolean;
   showAdminMenu: boolean;
   showUserMenu: boolean;
+
   constructor(
-              public  dialog: MatDialog,
-              private tokenStorage: TokenStorageService,
-  ) { }
+    public  dialog: MatDialog,
+    private tokenStorage: TokenStorageService,
+  ) {
+  }
+
   // tslint:disable-next-line:use-lifecycle-interface
   ngOnInit() {
-   this.getUsername();
-   this.getRoleName();
+    this.getId();
+    this.getUsername();
+    this.getRoleName();
   }
+
+  getId() {
+    this.id = this.tokenStorage.getId();
+    if (this.id) {
+      this.showLoginBox = false;
+    } else {
+      this.showLoginBox = true;
+    }
+  }
+
   getUsername() {
     this.username = this.tokenStorage.getUsername();
-    if (this.username) { this.showLoginBox = false; } else { this.showLoginBox = true ; }
+    if (this.username) {
+      this.showLoginBox = false;
+    } else {
+      this.showLoginBox = true;
+    }
   }
+
+  getUserInfo() {
+    this.username = this.tokenStorage.getUsername();
+    if (this.username) {
+      this.showLoginBox = false;
+    } else {
+      this.showLoginBox = true;
+    }
+  }
+
   getRoleName() {
     this.roleName = this.tokenStorage.getRoleName();
-    if (this.roleName === 'ROLE_ADMIN') { this.showAdminMenu = true; } else { this.showAdminMenu = false ; }
-    if (this.roleName === 'ROLE_USER' || this.roleName === 'ROLE_MEMBER') { this.showUserMenu = true; } else { this.showUserMenu = false ; }
+    if (this.roleName === 'ROLE_ADMIN') {
+      this.showAdminMenu = true;
+    } else {
+      this.showAdminMenu = false;
+    }
+    if (this.roleName === 'ROLE_USER' || this.roleName === 'ROLE_MEMBER') {
+      this.showUserMenu = true;
+    } else {
+      this.showUserMenu = false;
+    }
   }
+
   openDialogAdvisory() {
     this.dialog.open(AdvisoryComponent, {
       data: {data1: 'Dialog'},
       disableClose: false
     });
   }
+
   openDialogGuide() {
     this.dialog.open(GuideComponent, {
       width: '600px',
@@ -54,6 +93,6 @@ export class AppComponent {
 
   logOut() {
     this.tokenStorage.signOut();
-    this.ngOnInit() ;
+    this.ngOnInit();
   }
 }
