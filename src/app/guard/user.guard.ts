@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router} from '@angular/router';
 import { Observable } from 'rxjs';
 import {TokenStorageService} from '../services/auth/token-storage.service';
+import {CookieStorageService} from '../services/auth/cookie-storage.service';
 
 
 @Injectable({
@@ -9,18 +10,18 @@ import {TokenStorageService} from '../services/auth/token-storage.service';
 })
 export class UserGuard implements CanActivate {
   constructor(private router: Router,
-              private tokenStorage: TokenStorageService) { }
+              private cookieStorageService: CookieStorageService) { }
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    if (!this.tokenStorage.getRoleName()) {
+    if (!this.cookieStorageService.getRoleName()) {
       // not logged in so redirect to login page
       this.router.navigate(['/login']);
       return false;
     }
-    if ((this.tokenStorage.getRoleName() === 'ROLE_ADMIN' )
-      || ( this.tokenStorage.getRoleName() === 'ROLE_MEMBER' )
-      || (this.tokenStorage.getRoleName() === 'ROLE_USER') ) {
+    if ((this.cookieStorageService.getRoleName() === 'ROLE_ADMIN' )
+      || ( this.cookieStorageService.getRoleName() === 'ROLE_MEMBER' )
+      || (this.cookieStorageService.getRoleName() === 'ROLE_USER') ) {
       // logged in so return true
       return true;
     }

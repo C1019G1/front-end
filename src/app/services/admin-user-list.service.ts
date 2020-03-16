@@ -31,6 +31,6 @@ export class AdminUserListService {
     return this.http.post(this.API + 'user-register', userDTO, this.httpOptions);
   }
   lockUsers(userList): Observable<any>{
-    return this.http.post(this.API + 'user-lock', userList, this.httpOptions)
+    return this.http.post(this.API + 'user-lock', userList, this.httpOptions);
   }
 }

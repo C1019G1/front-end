@@ -21,8 +21,8 @@
       </p>
     </div>
     <div class="form-check">
-      <input type="checkbox" class="form-check-input" id="dropdownCheck">
-      <label class="form-check-label" for="dropdownCheck">
+      <input type="checkbox" class="form-check-input" id="checkBox" [checked]="isRememberMe" (change)="isRememberMe = !isRememberMe">
+      <label class="form-check-label" for="checkBox">
         ghi nhớ đăng nhập
       </label>
     </div>

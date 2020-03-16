@@ -1,0 +1,87 @@
+<div class="container-fluid d-flex  justify-content-center">
+  <div style="width: 100%;background-color: white">
+    <h1 class="text-center ">
+      Cập nhật thông tin người dùng
+    </h1>
+    <hr style="width: 100%">
+    <form class="w-75 mx-auto " [formGroup]="formUpdateInfo">
+      <div class="form-group d-flex justify-content-end">
+        <input class="form-control" type="text" formControlName="fullName" placeholder="Nhập họ tên">
+      </div>
+
+      <div class="form-group">
+        <input class="form-control" type="text" formControlName="email" placeholder="Nhập email">
+        <p *ngIf="formUpdateInfo.controls.email.errors?.required&&formUpdateInfo.controls.email.touched"
+           class="text-danger">vui lòng nhập email</p>
+        <p *ngIf="formUpdateInfo.controls.email.errors?.required&&formUpdateInfo.controls.email.touched"
+           class="text-danger">email không đúng định dạng</p>
+      </div>
+
+      <div class="form-group d-flex">
+        <mat-form-field>
+          <input [min]="minDate" [max]="maxDate" class="form-control" formControlName="dayOfBirth" matInput [matDatepicker]="myDatepicker" placeholder="Chọn Ngày Sinh">
+          <mat-datepicker-toggle matSuffix [for]="myDatepicker"></mat-datepicker-toggle>
+          <mat-datepicker #myDatepicker></mat-datepicker>
+        </mat-form-field>
+        <p *ngIf="formUpdateInfo.controls.dayOfBirth.errors?.required&&formUpdateInfo.controls.dayOfBirth.touched"
+           class="text-danger">vui lòng nhập ngày sinh</p>
+      </div>
+
+      <div class="form-group">
+        <input class="form-control" type="text" formControlName="phone" placeholder="Nhập Số điện thoại">
+        <p *ngIf="formUpdateInfo.controls.phone.errors?.required&&formUpdateInfo.controls.phone.touched"
+           class="text-danger">vui lòng nhập số điện thoại</p>
+        <p *ngIf="formUpdateInfo.controls.phone.errors?.pattern&&formUpdateInfo.controls.phone.touched"
+           class="text-danger">số điện thoại không đúng định dạng</p>
+      </div>
+
+      <div class="form-group">
+        <input class="form-control" type="text" formControlName="identityNumber" placeholder="Nhập số chứng minh">
+        <p
+          *ngIf="formUpdateInfo.controls.identityNumber.errors?.required&&formUpdateInfo.controls.identityNumber.touched"
+          class="text-danger">vui lòng nhập cmnd
+        </p>
+        <p
+          *ngIf="formUpdateInfo.controls.identityNumber.errors?.pattern&&formUpdateInfo.controls.identityNumber.touched"
+          class="text-danger">số chứng minh không đúng định dạng
+        </p>
+      </div>
+
+
+      <div class="form-group  d-flex justify-content-end">
+        <input class="form-control" type="text" formControlName="address" placeholder="Nhập địa chỉ">
+        <p *ngIf="formUpdateInfo.controls.address.errors?.required&&formUpdateInfo.controls.address.touched"
+           class="text-danger">vui lòng nhập địa chỉ</p>
+      </div>
+
+      <div class="form-group">
+        <input class="form-control" type="text" formControlName="contributePoint" placeholder="Điểm tích lũy">
+        <p *ngIf="formUpdateInfo.controls.contributePoint.errors?.required&&formUpdateInfo.controls.contributePoint.touched"
+           class="text-danger">vui lòng nhập tài khoản</p>
+      </div>
+
+      <div class="form-group">
+        <input class="form-control" type="text" formControlName="rank" placeholder="Rank">
+        <p *ngIf="formUpdateInfo.controls.rank.errors?.required&&formUpdateInfo.controls.rank.touched"
+           class="text-danger">vui lòng nhập tài khoản</p>
+      </div>
+    </form>
+    <div class="row justify-content-center">
+      <button mat-dialog-close  class="btn btn-primary" (click)="editUserProfile()">
+        Cập nhật
+      </button>
+      <button mat-dialog-close  class="btn btn-sm btn-danger">
+        Hủy
+      </button>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+

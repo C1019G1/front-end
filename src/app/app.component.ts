@@ -6,6 +6,7 @@ import {ProductListComponent} from './products/product-list/product-list.compone
 import {TokenStorageService} from './services/auth/token-storage.service';
 import {Validators} from '@angular/forms';
 import {Router} from '@angular/router';
+import {CookieStorageService} from './services/auth/cookie-storage.service';
 
 @Component({
   selector: 'app-root',
@@ -14,33 +15,46 @@ import {Router} from '@angular/router';
 })
 export class AppComponent {
   title = 'font-end';
-  username: String;
-  roleName: String;
+  username: string;
+  roleName: string;
+  id: string;
   showLoginBox: boolean;
   showAdminMenu: boolean;
   showUserMenu: boolean;
   constructor(
               public  dialog: MatDialog,
+              private cookieStorageService: CookieStorageService,
               private tokenStorage: TokenStorageService,
   ) { }
   // tslint:disable-next-line:use-lifecycle-interface
   ngOnInit() {
-   this.getUsername();
-   this.getRoleName();
+    this.getId();
+    this.getUsername();
+    this.getRoleName();
   }
+
+  getId() {
+    this.id = this.tokenStorage.getId();
+    if (this.id) {
+      this.showLoginBox = false;
+    } else {
+      this.showLoginBox = true;
+    }
+  }
+
   getUsername() {
-    this.username = this.tokenStorage.getUsername();
+    this.username = this.cookieStorageService.getUsername();
     if (this.username) { this.showLoginBox = false; } else { this.showLoginBox = true ; }
   }
   getRoleName() {
-    this.roleName = this.tokenStorage.getRoleName();
+    this.roleName = this.cookieStorageService.getRoleName();
     if (this.roleName === 'ROLE_ADMIN') { this.showAdminMenu = true; } else { this.showAdminMenu = false ; }
     if (this.roleName === 'ROLE_USER' || this.roleName === 'ROLE_MEMBER') { this.showUserMenu = true; } else { this.showUserMenu = false ; }
   }
   openDialogAdvisory() {
     this.dialog.open(AdvisoryComponent, {
       data: {data1: 'Dialog'},
-      disableClose: false
+      disableClose: true
     });
   }
   openDialogGuide() {
@@ -53,7 +67,7 @@ export class AppComponent {
   }
 
   logOut() {
-    this.tokenStorage.signOut();
+    this.cookieStorageService.signOut();
     this.ngOnInit() ;
   }
 }
