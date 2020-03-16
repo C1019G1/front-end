@@ -6,18 +6,19 @@ import {HistoryRegisterProductService} from '../../services/history-register-pro
 import {Observable} from 'rxjs';
 import {HistoryRegisterProductDataSource} from '../history-register-auction/history-register-auction.component';
 import {ActivatedRoute, Router} from '@angular/router';
+import {HistoryAuctionProductService} from '../../services/history-auction-product.service';
 
 
 export class HistoryAuctionProductDataSource extends DataSource<any> {
 
   constructor(
-    private historyRegisterProductService: HistoryRegisterProductService,
+    private historyAuctionProductService: HistoryAuctionProductService,
   ) {
     super();
   }
   connect(): Observable<any> {
 
-    return this.historyRegisterProductService.getAllHistoryRegisterProduct();
+    return this.historyAuctionProductService.getAllHistoryAuctionProduct();
   }
   disconnect() {}
 }
@@ -30,9 +31,9 @@ export class HistoryAuctionProductDataSource extends DataSource<any> {
 
 export class HistoryAuctionComponent implements OnInit {
 
-  displayedColumns: string[] = ['index', 'idProduct', 'nameProduct', 'infoProduct',
-    'originalCost', 'currentCost', 'registerDay', 'status', 'cancel'];
-  dataSource = new HistoryAuctionProductDataSource(this.historyRegisterProductService);
+  displayedColumns: string[] = ['index', 'Id_Product', 'Name_Product', 'product_info',
+    'start_price', 'start_day', 'end_day', 'status', 'cancel'];
+  dataSource = new HistoryAuctionProductDataSource(this.historyAuctionProductService);
   public HistoryRegisterProduct;
   size: 5;
   pages: [];
@@ -44,7 +45,7 @@ export class HistoryAuctionComponent implements OnInit {
   private product: any;
   private pageClicked = 0;
   constructor(
-    public historyRegisterProductService: HistoryRegisterProductService,
+    public historyAuctionProductService: HistoryAuctionProductService,
     public activatedRoute: ActivatedRoute,
     public router: Router,
   ) { }
@@ -53,7 +54,7 @@ export class HistoryAuctionComponent implements OnInit {
     this.activatedRoute.params.subscribe(data => {
       console.log(data.id);
       this.id = data.id;
-      this.historyRegisterProductService.getHistoryAuctionProductByUserId(this.id).subscribe(
+      this.historyAuctionProductService.getHistoryAuctionProductByUserId(this.id).subscribe(
         data2 => {
           this.dataSource = data2;
         });

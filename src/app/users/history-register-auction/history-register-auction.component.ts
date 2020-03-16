@@ -7,7 +7,7 @@ import {DataSource} from '@angular/cdk/collections';
 import {Observable} from 'rxjs';
 
 
-export class HistoryRegisterProductDataSource extends DataSource<any>{
+export class HistoryRegisterProductDataSource extends DataSource<any> {
   constructor(
     private historyRegisterProductService: HistoryRegisterProductService,
   ) {
