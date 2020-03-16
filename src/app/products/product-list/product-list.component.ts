@@ -3,6 +3,8 @@ import {ProductRegisterService} from '../../services/product-register.service';
 import {MatDialog} from '@angular/material/dialog';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {ActivatedRoute} from '@angular/router';
+import {GuideComponent} from '../../users/guide/guide.component';
+import {MessageDialogeComponent} from '../message-dialoge/message-dialoge.component';
 
 @Component({
   selector: 'app-product-list',
@@ -24,7 +26,7 @@ export class ProductListComponent implements OnInit {
   constructor(public productRegisterServiece: ProductRegisterService,
               public  dialog: MatDialog,
               public formBuilder: FormBuilder,
-              public activeedRoute: ActivatedRoute
+              public activeedRoute: ActivatedRoute,
   ) {
   }
 
@@ -46,6 +48,7 @@ export class ProductListComponent implements OnInit {
   }
 
   findAll(catalogue: string) {
+    this.notLoad = false;
     this.productRegisterServiece.getAllProduct(0, catalogue).subscribe(data => {
       this.productRegisterList = data;
       console.log(this.productRegisterList);
@@ -65,6 +68,7 @@ export class ProductListComponent implements OnInit {
   }
 
   search() {
+    this.notLoad = false;
     const searchStatus = this.formSearch.value.name === '' &&
       this.formSearch.value.catalogue === '' &&
       this.formSearch.value.price === '';
@@ -114,6 +118,7 @@ export class ProductListComponent implements OnInit {
   }
 
   moreAll() {
+    this.notLoad = false;
     this.productRegisterServiece.getAllProduct(++this.page, this.catalogue).subscribe(data => {
       console.log('catalogue:' + this.catalogue);
       this.dataGet = data;
@@ -122,12 +127,13 @@ export class ProductListComponent implements OnInit {
         this.productRegisterList = this.productRegisterList.concat(data);
       } else {
         this.notLoad = true;
-        alert('Bạn đã xem đến sản phẩm cuối cùng!');
+        this.openDialogMessage();
       }
     });
   }
 
   moreSearch() {
+    this.notLoad = false;
     this.productRegisterServiece.searchByNameCataloguePrice(++this.page, this.formSearch.value.name,
       this.formSearch.value.catalogue,
       this.price1, this.price2).subscribe(data => {
@@ -139,8 +145,14 @@ export class ProductListComponent implements OnInit {
         console.log('du lieu show: ' + data);
       } else {
         this.notLoad = true;
-        alert('Bạn đã xem đến sản phẩm cuối cùng!');
+        this.openDialogMessage();
       }
+    });
+  }
+  openDialogMessage() {
+    this.dialog.open(MessageDialogeComponent, {
+      data: {data1: 'Dialog'},
+      disableClose: false
     });
   }
 }

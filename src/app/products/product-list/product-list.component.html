@@ -21,11 +21,12 @@
       <input type="email" class="form-control my-auto mr-sm-2" placeholder="Search" id="productName"
              formControlName="name">
       <select name="catalogue" class="custom-select my-auto" formControlName="catalogue">
+        <option value="" selected disabled hidden>Loại sản phẩm</option>
         <option value="Dân dụng">Dân dụng</option>
         <option value="Công nghệ">Công nghệ</option>
         <option value="Khác">Khác</option>
-        <option value="" selected disabled hidden>Loại sản phẩm</option>
         <option value="">Tất cả</option>
+
 
       </select>
       <select name="price" class="custom-select my-auto mx-2" formControlName="price" >
