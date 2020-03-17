@@ -21,20 +21,21 @@
       <input type="email" class="form-control my-auto mr-sm-2" placeholder="Search" id="productName"
              formControlName="name">
       <select name="catalogue" class="custom-select my-auto" formControlName="catalogue">
+        <option value="" selected disabled hidden>Loại sản phẩm</option>
         <option value="Dân dụng">Dân dụng</option>
         <option value="Công nghệ">Công nghệ</option>
         <option value="Khác">Khác</option>
-        <option value="">Loại sản phẩm</option>
         <option value="">Tất cả</option>
 
+
       </select>
-      <select name="price" class="custom-select my-auto mx-2" formControlName="price">
+      <select name="price" class="custom-select my-auto mx-2" formControlName="price" >
         <option value="100000"> 0 – 100.000 VND</option>
         <option value="500000">100.000 – 500.000 VND</option>
         <option value="1000000">500.000 – 1000.000 VND</option>
         <option value="5000000">1000.000 -5.000.000 VND</option>
         <option value="10000000">Trên 5.000.000 VND</option>
-        <option value="">Chọn mức giá</option>
+        <option value=""selected disabled hidden>Chọn mức giá</option>
       </select>
       <button type="submit" class="btn btn-outline-warning my-auto mx-3" (click)="search()">Tìm kiếm</button>
     </form>
@@ -63,6 +64,10 @@
   </div>
 </div>
 <div class="row d-flex justify-content-center">
-  <button class="btn btn-outline-warning" [disabled]="notLoad" (click)="more()">Xem thêm</button>
+  <div class="">
+    <p class="text-secondary font-weight-bold font-italic" style="font-size: 18px;">{{message}}</p>
+    <button class="btn btn-outline-warning" [disabled]="notLoad" (click)="more()">Xem thêm</button>
+  </div>
 </div>
+
 
