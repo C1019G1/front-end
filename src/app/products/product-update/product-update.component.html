@@ -1,2 +1,117 @@
-<p>product-update works!</p>
-đây là trang câpj nhật thông tin sản phẩm
+<div class="container-fluid d-flex  justify-content-center mt-3" style="font-size: 15px">
+  <div class="container-fluid d-flex  justify-content-center mt-2 mb-5 shadow"
+       style="width: 50%;background-color: white">
+    <form class="product-add-new-form mb-3" [formGroup]="productInfor" (ngSubmit)="onSubmit()">
+      <h2 class="text-center">Cập nhật sản phẩm</h2>
+      <hr>
+      <mat-form-field class="example-full-width">
+        <mat-label>Tên sản phẩm</mat-label>
+        <input matInput formControlName="name"
+               placeholder="Iphone 8">
+        <mat-error *ngIf="productInfor.controls.name.errors?.required&&productInfor.controls.name.touched">
+          Tên sản phẩm  <strong>không được để trống</strong>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width" style="width: 40%">
+        <mat-label>Chủng loại</mat-label>
+        <mat-select formControlName="catalogue">
+          <mat-option value="primary">Nhà đất</mat-option>
+          <mat-option value="accent">Điện lạnh</mat-option>
+          <mat-option value="warn">Thời trang</mat-option>
+        </mat-select>
+        <mat-error *ngIf="productInfor.controls.catalogue.errors?.required&&productInfor.controls.catalogue.touched">
+          Hãy chọn <strong>chủng loại</strong> sản phẩm
+        </mat-error>
+      </mat-form-field>
+
+      <table>
+        <tr>
+          <td style="width: 45%">
+            <mat-form-field>
+              <mat-label>Id người đăng</mat-label>
+              <input matInput formControlName="userId">
+              <mat-error *ngIf="productInfor.controls.userId.errors?.required&&productInfor.controls.userId.touched">
+                Id người đăng tin <strong>không được để trống</strong>
+              </mat-error>
+            </mat-form-field>
+          </td>
+          <td >
+            <div class="d-flex">
+              <button type="button" class="btn btn-primary ml-3 mr-1">Kiểm tra</button>
+              <div class="material-icons my-auto">
+                replay
+              </div>
+            </div>
+          </td>
+        </tr>
+      </table>
+      <mat-form-field appearance="outline" class="example-full-width">
+        <mat-label>Thông tin người đăng</mat-label>
+        <textarea matInput cdkTextareaAutosize
+                  cdkAutosizeMinRows="5"
+                  cdkAutosizeMaxRows="10" disabled></textarea>
+      </mat-form-field>
+      <table class="example-full-width" cellspacing="0">
+        <tr>
+          <td>
+            <mat-form-field hintLabel="Là giá thấp nhất cho mỗi lần tăng giá" class="example-full-width" style="width: 90%">
+              <input matInput formControlName="start_price">
+              <mat-error *ngIf="productInfor.controls.start_price.errors?.required&&productInfor.controls.start_price.touched">
+                Giá ban đầu <strong>không được để trống</strong>
+              </mat-error>
+              <mat-error *ngIf="productInfor.controls.start_price.errors?.pattern&&productInfor.controls.start_price.touched"
+                         class="text-danger">Số tiền không đúng định dạng (chỉ bao gồm số)</mat-error>
+            </mat-form-field>
+          </td>
+          <td>
+            <mat-form-field hintLabel="Là giá thấp nhất cho mỗi lần tăng giá" class="example-full-width" style="width: 90%">
+              <input matInput formControlName="min_bet">
+              <mat-error *ngIf="productInfor.controls.min_bet.errors?.required&&productInfor.controls.min_bet.touched">
+                Bước giá <strong>không được để trống</strong>
+              </mat-error>
+            </mat-form-field>
+          </td>
+        </tr>
+      </table>
+      <table class="example-full-width" cellspacing="0">
+        <tr>
+          <td>
+            <mat-form-field class="example-full-width" style="width: 90%">
+              <input [min]="minDate" [max]="maxDate" class="form-control" formControlName="start_day" matInput [matDatepicker]="myDatepicker" placeholder="Chọn ngày bắt đầu">
+              <mat-datepicker-toggle matSuffix [for]="myDatepicker"></mat-datepicker-toggle>
+              <mat-datepicker #myDatepicker></mat-datepicker>
+              <mat-error *ngIf="productInfor.controls.start_day.errors?.required&&productInfor.controls.start_day.touched">
+                Ngày bắt đầu <strong>không được để trống</strong>
+              </mat-error>
+            </mat-form-field>
+          </td>
+          <td>
+            <mat-form-field class="example-full-width" style="width: 90%">
+              <input [min]="minDate" [max]="maxDate" class="form-control" formControlName="end_day" matInput [matDatepicker]="myDatepicker" placeholder="Chọn ngày kết thúc">
+              <mat-datepicker-toggle matSuffix [for]="myDatepicker"></mat-datepicker-toggle>
+              <mat-datepicker #myDatepicker></mat-datepicker>
+              <mat-error *ngIf="productInfor.controls.end_day.errors?.required&&productInfor.controls.end_day.touched">
+                Ngày kết thúc <strong>không được để trống</strong>
+              </mat-error>
+            </mat-form-field>
+          </td>
+        </tr>
+      </table>
+      <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label>Thông tin chi tiết</mat-label>
+        <textarea matInput cdkTextareaAutosize
+                  cdkAutosizeMinRows="5"
+                  cdkAutosizeMaxRows="10" formControlName="product_infor"></textarea>
+        <mat-error *ngIf="productInfor.controls.product_infor.errors?.required&&productInfor.controls.product_infor.touched">
+          Thông tin chi tiết <strong>không được để trống</strong>
+        </mat-error>
+      </mat-form-field>
+      <div class="row d-flex justify-content-center mb-3">
+        <button class="btn btn-success mr-3">Cập nhật</button>
+        <button class="btn btn-warning mr-3" (click)="ngOnInit()">Nhập lại</button>
+        <button class="btn btn-danger">Hủy</button>
+      </div>
+    </form>
+  </div>
+</div>
