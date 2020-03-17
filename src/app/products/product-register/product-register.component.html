@@ -1,4 +1,4 @@
-<div class="mx-5 mt-5">
+<div class="mx-5 mt-2">
   <div class="row">
     <h1> Đăng ký sản phẩm</h1>
   </div>
@@ -104,28 +104,35 @@
           </mat-form-field>
         </div>
       </div>
-    <div class="row ">
+    <div class="row form-group w-50 mt-2">
       <label class="form-inline">Hình ảnh*</label>
-      <div class="form-control">
+      <div class="form-control my-1">
         <label>Ảnh 1: </label> <input type="file" accept="image/*">
       </div>
-      <div class="form-control">
-        <label>Ảnh 1: </label> <input type="file" accept="image/*">
+      <div class="form-control my-1">
+        <label>Ảnh 2: </label> <input type="file" accept="image/*">
       </div>
-      <div class="form-control">
-        <label>Ảnh 1: </label> <input type="file" accept="image/*">
+      <div class="form-control my-1">
+        <label for="img3">Ảnh 3: </label>
+        <input type="file" id="img3" accept="image/*">
       </div>
-      <div class="form-control">
-        <label>Ảnh 1: </label> <input type="file" accept="image/*">
+      <div class="form-control my-1">
+        <label>Ảnh 4: </label> <input type="file" accept="image/*">
       </div>
-      <div class="form-control">
-        <label>Ảnh 1: </label> <input type="file" accept="image/*">
-      </div>
-      <div class="form-control">
-        <label>Ảnh 1: </label> <input type="file" accept="image/*">
+      <div class="form-control my-1">
+        <label>Ảnh 5: </label> <input type="file" accept="image/*">
       </div>
     </div>
   </form>
-
+  <div class="row">
+    <button mat-button mat-raised-button color="primary" class="mx-0" (click)="onSendClick()">
+      Đăng ký
+      <mat-icon class="ml-3">send</mat-icon>
+    </button>
+    <button mat-button mat-raised-button color="primary" class="ml-2 " (click)="onSendClick()">
+      Nhập lại
+      <mat-icon class="ml-3">replay</mat-icon>
+    </button>
+  </div>
 </div>
 
