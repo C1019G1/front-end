@@ -9,7 +9,8 @@ import { CountDownComponent } from './count-down/count-down.component';
 import {ReactiveFormsModule} from '@angular/forms';
 import {ProductAddComponent} from './product-add/product-add.component';
 import { MessageDialogeComponent } from './message-dialoge/message-dialoge.component';
-
+import { ProductRegisterComponent } from './product-register/product-register.component';
+import {MaterialModule} from '../Common/material.module';
 
 const routes: Routes = [
   {path: '', component: ProductsComponent},
@@ -18,19 +19,22 @@ const routes: Routes = [
   {path: 'list/:catalogue', component: ProductListComponent},
   {path: 'add', component: ProductAddComponent},
   {path: 'update', component: ProductAddComponent}
+  {path: 'register', component: ProductRegisterComponent}
 ];
 
 @NgModule({
-    imports: [
-        RouterModule.forChild(routes),
-        CommonModule,
-        ReactiveFormsModule,
-    ],
+  imports: [
+    RouterModule.forChild(routes),
+    CommonModule,
+    ReactiveFormsModule,
+    MaterialModule,
+  ],
   exports: [RouterModule],
   declarations: [ProductListComponent,
     PoductDetailComponent,
     CountDownComponent,
     MessageDialogeComponent,
+    ProductRegisterComponent,
     ]
 })
 export class ProductsRoutingModule {
