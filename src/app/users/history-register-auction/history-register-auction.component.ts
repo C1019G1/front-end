@@ -1,5 +1,4 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {MatTableDataSource} from '@angular/material/table';
 import {MatPaginator} from '@angular/material/paginator';
 import {HistoryRegisterProductService} from '../../services/history-register-product.service';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -7,7 +6,7 @@ import {DataSource} from '@angular/cdk/collections';
 import {Observable} from 'rxjs';
 
 
-export class HistoryRegisterProductDataSource extends DataSource<any>{
+export class HistoryRegisterProductDataSource extends DataSource<any> {
   constructor(
     private historyRegisterProductService: HistoryRegisterProductService,
   ) {
@@ -25,7 +24,6 @@ export class HistoryRegisterProductDataSource extends DataSource<any>{
   styleUrls: ['./history-register-auction.component.css']
 })
 export class HistoryRegisterAuctionComponent implements OnInit {
-  public HistoryRegisterProduct;
   displayedColumns: string[] = ['index', 'Id_Product', 'Name_Product', 'product_info', 'start_day', 'end_day', 'status', 'cancel'];
   size: 5;
   pages: [];
