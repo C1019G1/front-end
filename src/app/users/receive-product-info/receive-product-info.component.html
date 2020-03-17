@@ -1,0 +1,80 @@
+<div class="container-fluid mt-4">
+  <div class="row d-flex justify-content-center ">
+    <h1 class="font-weight-bold"> Thông tin mua hàng</h1>
+  </div>
+  <div class="row">
+    <div class="col-6">
+      <div class="row d-flex justify-content-center ">
+        <h3 class="font-weight-bold "> Thông tin người mua</h3>
+      </div>
+
+      <fieldset [disabled]= true class="mt-4">
+        <form class="w-75 mx-auto" [formGroup]="formBuyer">
+          <div class="form-group mt-2">
+            <p>Họ và tên</p>
+            <input class="form-control" type="text" formControlName="fullName">
+          </div>
+          <div class="form-group mt-2">
+            <p>Số điện thoại</p>
+            <input class="form-control" type="text" formControlName="phoneNumber">
+          </div>
+          <div class="form-group mt-2">
+            <p>Địa chỉ</p>
+            <input class="form-control" type="text" formControlName="address">
+          </div>
+          <div class="form-group mt-2">
+            <p>Email</p>
+            <input class="form-control" type="text" formControlName="email">
+          </div>
+        </form>
+      </fieldset>
+    </div>
+    <div class="col-6">
+      <div class="row d-flex justify-content-center ">
+        <h3 class="font-weight-bold"> Thông tin nhận hàng</h3>
+      </div>
+      <div class="row ml-5">
+        <label class="form-check-label ml-4 font-italic text-danger">
+          <input type="checkbox" class="form-check-input" value="" [(ngModel)]="check">Thông tin nhận hàng cũng là địa chỉ
+          của tôi
+        </label>
+      </div>
+      <fieldset [disabled]="check">
+        <form class="w-75 mx-auto" [formGroup]="formReceiver">
+          <div class="form-group mt-2">
+            <p>Họ và tên</p>
+            <input class="form-control" type="text" formControlName="fullName">
+            <p *ngIf="formReceiver.controls.fullName?.errors?.required&&formReceiver.controls.fullName?.touched"
+               class="text-danger"> Vui lòng nhập tên</p>
+          </div>
+          <div class="form-group mt-2">
+            <p>Số điện thoại</p>
+            <input class="form-control" type="text" formControlName="phoneNumber">
+            <p
+              *ngIf="formReceiver.controls.phoneNumber?.errors?.required&&formReceiver.controls.phoneNumber?.touched"
+              class="text-danger"> Vui lòng nhập số điện thoại</p>
+            <p *ngIf="formReceiver.controls.phoneNumber?.errors?.pattern" class="text-danger"> Số điện thoại không đúng
+              định dạng</p>
+          </div>
+          <div class="form-group mt-2">
+            <p>Địa chỉ</p>
+            <input class="form-control" type="text" formControlName="address">
+            <p *ngIf="formReceiver.controls.address?.errors?.required&&formReceiver.controls.address?.touched"
+               class="text-danger"> Vui lòng nhập địa chỉ</p>
+          </div>
+          <div class="form-group mt-2">
+            <p>Email</p>
+            <input class="form-control" type="text" formControlName="email">
+            <p *ngIf="formReceiver.controls.email?.errors?.required&&formReceiver.controls.email?.touched"
+               class="text-danger"> Vui lòng nhập email</p>
+            <p *ngIf="formReceiver.controls.email?.errors?.email" class="text-danger"> Email không đúng định dạng</p>
+          </div>
+        </form>
+      </fieldset>
+    </div>
+  </div>
+  <div class="row d-flex justify-content-end mt-3" style="margin-right: 90px">
+    <button class="btn btn-outline-warning" (click)="openConformPrint()">Hoàn tất và in hóa đơn</button>
+    <button class="btn btn-outline-warning mx-3">Quay lại</button>
+  </div>
+</div>
