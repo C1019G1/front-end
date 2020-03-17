@@ -14,11 +14,11 @@ import { GuideComponent } from './guide/guide.component';
 import { PasswordResetComponent } from './password-reset/password-reset.component';
 import { AdvisoryComponent } from './advisory/advisory.component';
 import {HelloComponent} from './hello/hello.component';
-import {AdminGuard} from '../guard/admin.guard';
 import {LoginCheckGuard} from '../guard/login-check.guard';
 import {LoginHistoryComponent} from './login-history/login-history.component';
 import {ChangePasswordComponent} from './change-password/change-password.component';
 import {UserGuard} from '../guard/user.guard';
+import { UserCheckOutComponent } from './user-check-out/user-check-out.component';
 
 
 const routes: Routes = [
@@ -34,6 +34,7 @@ const routes: Routes = [
   {path: 'hello', component: HelloComponent},
   {path: 'login-history', component: LoginHistoryComponent},
   {path: 'change-password', component: ChangePasswordComponent, canActivate: [UserGuard]},
+  {path: 'check-out', component: UserCheckOutComponent},
 ];
 
 @NgModule({
@@ -53,7 +54,8 @@ const routes: Routes = [
     HistoryAuctionComponent,
     AdvisoryComponent,
     GuideComponent,
-    PasswordResetComponent]
+    PasswordResetComponent,
+    UserCheckOutComponent]
 })
 export class UsersRoutingModule {
 }
