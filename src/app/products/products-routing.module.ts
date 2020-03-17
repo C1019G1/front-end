@@ -8,6 +8,7 @@ import {PoductDetailComponent} from './poduct-detail/poduct-detail.component';
 import { CountDownComponent } from './count-down/count-down.component';
 import {ReactiveFormsModule} from '@angular/forms';
 import { ProductRegisterComponent } from './product-register/product-register.component';
+import {MaterialModule} from '../Common/material.module';
 
 const routes: Routes = [
   {path: '', component: ProductsComponent},
@@ -18,11 +19,12 @@ const routes: Routes = [
 ];
 
 @NgModule({
-    imports: [
-        RouterModule.forChild(routes),
-        CommonModule,
-        ReactiveFormsModule,
-    ],
+  imports: [
+    RouterModule.forChild(routes),
+    CommonModule,
+    ReactiveFormsModule,
+    MaterialModule,
+  ],
   exports: [RouterModule],
   declarations: [ProductListComponent,
     PoductDetailComponent,
