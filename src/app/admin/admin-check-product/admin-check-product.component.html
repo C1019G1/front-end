@@ -1,0 +1,86 @@
+<div class="container-fluid justify-content-center">
+  <div style="width: 100%;background-color: white">
+    <h1 class="text-center ">
+      Duyệt sản phẩm
+    </h1>
+    <hr style="width: 100%">
+    <form class="w-75 mx-auto justify-content-center " [formGroup]="formUpdateInfo">
+      <div class="form-group">
+        <label>Tên sản phẩm</label>
+        <input disabled="true" class="form-control" type="text" formControlName="fullName" >
+      </div>
+
+      <div class="form-group">
+        <label>Thông tin người đăng</label>
+        <input disabled="true" class="form-control" type="text" formControlName="email" >
+      </div>
+
+      <div class="form-group">
+        <label>Chủng loại</label>
+        <input disabled="true" class="form-control" type="text" formControlName="email" >
+      </div>
+
+      <div class="form-group">
+        <label>Giá ban đầu</label>
+        <input disabled="true" class="form-control" type="text" formControlName="email">
+      </div>
+
+      <div class="form-group">
+        <label>Bước giá</label>
+        <input disabled="true" class="form-control" type="text" formControlName="email">
+      </div>
+
+
+      <div class="form-group ">
+        <label>Hình ảnh</label>
+        <input disabled="true"  class="form-control" type="text" formControlName="email">
+      </div>
+
+      <div class="form-group">
+        <label>Bắt đầu đấu giá lúc</label>
+        <input disabled="true" class="form-control" type="text" formControlName="email">
+      </div>
+
+      <div class="form-group">
+        <label>Kết thúc đấu giá lúc</label>
+        <input disabled="true" class="form-control" type="text" formControlName="email" >
+      </div>
+      <div class="form-group">
+        <label>Thông tin chi tiết</label>
+        <input disabled="true" class="form-control" type="text" formControlName="email">
+      </div>
+
+    </form>
+<!--    <div class="row justify-content-center">-->
+<!--      <button mat-dialog-close  class="btn btn-primary" (click)="editUserProfile()">-->
+<!--        Cập nhật-->
+<!--      </button>-->
+<!--      <button mat-dialog-close  class="btn btn-sm btn-danger">-->
+<!--        Hủy-->
+<!--      </button>-->
+<!--    </div>-->
+  </div>
+  <div class="d-flex justify-content-center button-container row">
+    <button mat-raised-button class="action-button" color="primary" >Duyệt
+      <i class="material-icons ml-2">
+        lock
+      </i></button>
+    <button mat-raised-button class="action-button" color="primary">Không duyệt
+      <i class="material-icons ml-2">
+        delete_forever
+      </i></button>
+    <button mat-raised-button class="action-button" color="primary">Quay lại
+      <i class="material-icons ml-2">
+        person_add
+      </i></button>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+

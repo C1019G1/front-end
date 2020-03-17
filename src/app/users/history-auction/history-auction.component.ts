@@ -1,98 +1,24 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {MatPaginator} from '@angular/material/paginator';
-import {MatTableDataSource} from '@angular/material/table';
+import {DataSource} from '@angular/cdk/collections';
+import {Observable} from 'rxjs';
+import {ActivatedRoute, Router} from '@angular/router';
+import {HistoryAuctionProductService} from '../../services/history-auction-product.service';
 
-export interface Product {
-  idProduct: number;
-  nameProduct: string;
-  infoProduct: string;
-  cost: string;
-  registerDay: string;
-  status: string;
+
+export class HistoryAuctionProductDataSource extends DataSource<any> {
+
+  constructor(
+    private historyAuctionProductService: HistoryAuctionProductService,
+  ) {
+    super();
+  }
+  connect(): Observable<any> {
+
+    return this.historyAuctionProductService.getAllHistoryAuctionProduct();
+  }
+  disconnect() {}
 }
-
-const ProductList: Product[] = [
-  {
-    idProduct: 1001,
-    nameProduct: 'Iphone X',
-    infoProduct: 'điện thoại',
-    cost: '15.000.000',
-    registerDay: '25/02/2020',
-    status: 'Đang đấu giá'
-  },
-  {
-    idProduct: 1002,
-    nameProduct: 'Iphone X',
-    infoProduct: 'Điện thoại',
-    cost: '15.000.000',
-    registerDay: '25/02/2020',
-    status: 'Đang đấu giá'
-  },
-  {
-    idProduct: 1003,
-    nameProduct: 'Iphone X',
-    infoProduct: 'Điện thoại',
-    cost: '15.000.000',
-    registerDay: '25/02/2020',
-    status: 'Đang đấu giá'
-  },
-  {
-    idProduct: 1004,
-    nameProduct: 'Iphone X',
-    infoProduct: 'Điện thoại',
-    cost: '15.000.000',
-    registerDay: '25/02/2020',
-    status: 'Đang đấu giá'
-  },
-  {
-    idProduct: 1005,
-    nameProduct: 'Iphone X',
-    infoProduct: 'Điện thoại',
-    cost: '15.000.000',
-    registerDay: '25/02/2020',
-    status: 'Đang đấu giá'
-  },
-  {
-    idProduct: 1006,
-    nameProduct: 'Iphone X',
-    infoProduct: 'Điện thoại',
-    cost: '15.000.000',
-    registerDay: '25/02/2020',
-    status: 'Đang đấu giá'
-  },
-  {
-    idProduct: 1007,
-    nameProduct: 'Iphone X',
-    infoProduct: 'Điện thoại',
-    cost: '15.000.000',
-    registerDay: '25/02/2020',
-    status: 'Đang đấu giá'
-  },
-  {
-    idProduct: 1008,
-    nameProduct: 'Iphone X',
-    infoProduct: 'Điện thoại',
-    cost: '15.000.000',
-    registerDay: '25/02/2020',
-    status: 'Đang đấu giá'
-  },
-  {
-    idProduct: 1009,
-    nameProduct: 'Iphone X',
-    infoProduct: 'Điện thoại',
-    cost: '15.000.000',
-    registerDay: '25/02/2020',
-    status: 'Đang đấu giá'
-  },
-  {
-    idProduct: 10,
-    nameProduct: 'Iphone X',
-    infoProduct: 'Điện thoại',
-    cost: '15.000.000',
-    registerDay: '25/02/2020',
-    status: 'Đang đấu giá'
-  },
-];
 
 @Component({
   selector: 'app-history-auction',
@@ -101,16 +27,34 @@ const ProductList: Product[] = [
 })
 
 export class HistoryAuctionComponent implements OnInit {
-  displayedColumns: string[] = ['index', 'idProduct', 'nameProduct', 'infoProduct', 'cost', 'registerDay', 'status', 'cancel'];
-  dataSource = new MatTableDataSource<Product>(ProductList);
+
+  displayedColumns: string[] = ['index', 'Id_Product', 'Name_Product', 'product_info',
+    'start_price', 'start_day', 'end_day', 'status', 'cancel'];
+  dataSource = new HistoryAuctionProductDataSource(this.historyAuctionProductService);
+  size: 5;
+  pages: [];
+  totalPages = 1;
   p: any;
 
-  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
-
-  constructor() {
-  }
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  private id: any;
+  private product: any;
+  private pageClicked = 0;
+  constructor(
+    public historyAuctionProductService: HistoryAuctionProductService,
+    public activatedRoute: ActivatedRoute,
+    public router: Router,
+  ) { }
 
   ngOnInit(): void {
-    this.dataSource.paginator = this.paginator;
+    this.activatedRoute.params.subscribe(data => {
+      console.log(data.id);
+      this.id = data.id;
+      this.historyAuctionProductService.getHistoryAuctionProductByUserId(this.id).subscribe(
+        data2 => {
+          this.dataSource = data2;
+          console.log(this.dataSource);
+        });
+    });
   }
 }

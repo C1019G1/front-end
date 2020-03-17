@@ -7,6 +7,8 @@ import {CommonModule} from '@angular/common';
 import {PoductDetailComponent} from './poduct-detail/poduct-detail.component';
 import { CountDownComponent } from './count-down/count-down.component';
 import {ReactiveFormsModule} from '@angular/forms';
+import {ProductAddComponent} from './product-add/product-add.component';
+import { MessageDialogeComponent } from './message-dialoge/message-dialoge.component';
 import { ProductRegisterComponent } from './product-register/product-register.component';
 import {MaterialModule} from '../Common/material.module';
 
@@ -15,6 +17,8 @@ const routes: Routes = [
   {path: 'list', component: ProductListComponent},
   {path: 'detail/:id', component: PoductDetailComponent},
   {path: 'list/:catalogue', component: ProductListComponent},
+  {path: 'add', component: ProductAddComponent},
+  {path: 'update', component: ProductAddComponent}
   {path: 'register', component: ProductRegisterComponent}
 ];
 
@@ -29,6 +33,7 @@ const routes: Routes = [
   declarations: [ProductListComponent,
     PoductDetailComponent,
     CountDownComponent,
+    MessageDialogeComponent,
     ProductRegisterComponent,
     ]
 })

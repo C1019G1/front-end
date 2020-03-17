@@ -1,67 +1,43 @@
 <div>
 <div class="container-fluid">
   <h2 class="d-flex justify-content-center">Lich Sử Đấu Giá Sản Phẩm</h2>
-
-<!--    <table class="table mt-3 table-striped" style="font-size: 12px">-->
-<!--      <thead>-->
-<!--      </thead>-->
-<!--      <tbody *ngFor="let Product of Products |filter:term | paginate: { itemsPerPage: 2, currentPage: p }">-->
-<!--      <tr>-->
-<!--        <th>{{Product.id}}</th>-->
-<!--        <th>{{Product.nameProduct}}</th>-->
-<!--        <th>{{Product.infoProduct }}</th>-->
-<!--        <th>{{Product.cost }}</th>-->
-<!--        <th>{{Product.registerDay}}</th>-->
-<!--        <th>{{Product.status}}</th>-->
-<!--        <th style="width: 12%">-->
-<!--          <button class="btn btn-sm btn-danger">Xóa</button>-->
-<!--        </th>-->
-<!--      </tr>-->
-
-<!--      </tbody>-->
-
-<!--    </table>-->
-<!--        <pagination-controls (pageChange)="p = $event"></pagination-controls>-->
-
-
-
     <div class="row mt-3 mx-5">
     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 table table-striped" >
 
-      <!--- Note that these columns can be defined in any order.
-            The actual rendered columns are set as a property on the row definition" -->
       <ng-container matColumnDef="index">
         <th mat-header-cell *matHeaderCellDef> STT </th>
-        <td mat-cell *matCellDef="let element"> {{element.index}} </td>
+        <td mat-cell *matCellDef="let element; let i = index;">{{i+1}}</td>
       </ng-container>
 
-      <!-- Position Column -->
-      <ng-container matColumnDef="idProduct">
+      <ng-container matColumnDef="Id_Product">
         <th mat-header-cell *matHeaderCellDef> Số Đơn Hàng </th>
-        <td mat-cell *matCellDef="let element"> {{element.idProduct}} </td>
+        <td mat-cell *matCellDef="let element"> {{element.Id_Product}} </td>
       </ng-container>
 
-      <!-- Name Column -->
-      <ng-container matColumnDef="nameProduct">
+      <ng-container matColumnDef="Name_Product">
           <th mat-header-cell *matHeaderCellDef> Tên Sản Phẩm </th>
-        <td mat-cell *matCellDef="let element"> {{element.nameProduct}} </td>
+        <td mat-cell *matCellDef="let element"> {{element.Name_Product}} </td>
       </ng-container>
 
-      <!-- Weight Column -->
-      <ng-container matColumnDef="infoProduct">
+      <ng-container matColumnDef="product_info">
         <th mat-header-cell *matHeaderCellDef> Thông Tin Sản Phẩm </th>
-        <td mat-cell *matCellDef="let element"> {{element.infoProduct}} </td>
+        <td mat-cell *matCellDef="let element"> {{element.product_info}} </td>
       </ng-container>
 
-      <!-- Symbol Column -->
-      <ng-container matColumnDef="cost">
-        <th mat-header-cell *matHeaderCellDef> Giá Đăng Ký </th>
-        <td mat-cell *matCellDef="let element"> {{element.cost}} </td>
+      <ng-container matColumnDef="start_price">
+        <th mat-header-cell *matHeaderCellDef> Giá Ban đầu </th>
+        <td mat-cell *matCellDef="let element"> {{element.start_price}} </td>
       </ng-container>
 
-      <ng-container matColumnDef="registerDay">
+
+      <ng-container matColumnDef="start_day">
         <th mat-header-cell *matHeaderCellDef> Ngày Đăng Ký </th>
-        <td mat-cell *matCellDef="let element"> {{element.registerDay}} </td>
+        <td mat-cell *matCellDef="let element"> {{element.start_day | date:'dd/MM/yyyy'}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="end_day">
+        <th mat-header-cell *matHeaderCellDef> Ngày Kết thúc </th>
+        <td mat-cell *matCellDef="let element"> {{element.end_day | date:'dd/MM/yyyy'}} </td>
       </ng-container>
 
       <ng-container matColumnDef="status">

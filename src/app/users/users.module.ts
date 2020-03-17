@@ -9,13 +9,12 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatTableModule} from '@angular/material/table';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatPaginatorModule} from '@angular/material/paginator';
-import { ChangePasswordComponent } from './change-password/change-password.component';
 import {ReactiveFormsModule} from '@angular/forms';
 
 
 
 @NgModule({
-  declarations: [UsersComponent, HelloComponent, LoginHistoryComponent, ChangePasswordComponent],
+  declarations: [UsersComponent, HelloComponent, LoginHistoryComponent],
   imports: [
     CommonModule,
     UsersRoutingModule,

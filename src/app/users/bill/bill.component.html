@@ -1,0 +1,32 @@
+<div class="container">
+  <div id="print-section">
+    <div class="row d-flex justify-content-center">
+      <h3>HÓA ĐƠN MUA HÀNG</h3>
+    </div>
+    <div class="row mx-5">
+      <div class="col-9">
+        <p>Khách hàng: </p>
+        <p>Mã khách hàng:</p>
+        <p>Người bán:</p>
+        <p>Mặt hàng:</p>
+        <p>Mã hàng:</p>
+        <p>Số tiền:</p>
+        <p>Bằng chữ: {{money}}</p>
+        <p>Nghi chú:</p>
+      </div>
+      <div class="col-3">
+        <p>Mã số:</p>
+        <p>Ký hiệu:</p>
+        <p>Ngày lập:</p>
+      </div>
+    </div>
+  </div>
+  <div class ="row d-flex justify-content-center">
+    <button class="btn btn-outline-warning mx-4" style="width: 90px; height: 35px" (click)="print()">
+      <i class="material-icons">print</i>
+      Print
+    </button>
+    <button mat-dialog-close class="btn btn-outline-warning mr-4 " style="width: 90px;height: 35px;">Hủy bỏ </button>
+  </div>
+</div>
+
