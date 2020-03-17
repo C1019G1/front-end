@@ -11,9 +11,12 @@ import { AdminUserLockComponent } from './admin-user-lock/admin-user-lock.compon
 import {AdminGuard} from '../guard/admin.guard';
 import { AdminProductManagerComponent } from './admin-product-manager/admin-product-manager.component';
 import { AdminCheckProductComponent } from './admin-check-product/admin-check-product.component';
+import { ExchangeManagerComponent } from './exchange-manager/exchange-manager.component';
+import { DialogConformExchangeComponent } from './dialog-conform-exchange/dialog-conform-exchange.component';
 
 const routes: Routes = [
   { path: 'user-manager', component: AdminUserManagerComponent , canActivate: [AdminGuard] },
+  { path: 'exchange-manager', component: ExchangeManagerComponent}
   { path: 'product-manager', component: AdminProductManagerComponent, canActivate: [AdminGuard] },
   { path: 'check-product', component: AdminCheckProductComponent, canActivate: [AdminGuard] },
   ];
@@ -28,5 +31,6 @@ const routes: Routes = [
   ],
   exports: [RouterModule],
   declarations: [AdminUserManagerComponent, AdminUserCreateComponent, AdminUserLockComponent, AdminProductManagerComponent, AdminCheckProductComponent]
+  declarations: [AdminUserManagerComponent, AdminUserCreateComponent, AdminUserLockComponent, ExchangeManagerComponent, DialogConformExchangeComponent]
 })
 export class AdminRoutingModule { }
