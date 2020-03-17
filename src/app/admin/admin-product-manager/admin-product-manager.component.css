@@ -65,8 +65,7 @@ th.mat-column-select,td.mat-column-select{
   position: relative;
 }
 .action-button{
-  margin-right: 5px;
-  margin-top: 8px;
+  margin: 5px;
   padding-top: 2px ;
   justify-content: center;
   height: 40px;
@@ -74,5 +73,5 @@ th.mat-column-select,td.mat-column-select{
 }
 .search-input{
   width: 200px;
-  margin-right: 50px;
+  margin:5px;
 }

@@ -16,7 +16,7 @@ import { DialogConformExchangeComponent } from './dialog-conform-exchange/dialog
 
 const routes: Routes = [
   { path: 'user-manager', component: AdminUserManagerComponent , canActivate: [AdminGuard] },
-  { path: 'exchange-manager', component: ExchangeManagerComponent}
+  { path: 'exchange-manager', component: ExchangeManagerComponent},
   { path: 'product-manager', component: AdminProductManagerComponent, canActivate: [AdminGuard] },
   { path: 'check-product', component: AdminCheckProductComponent, canActivate: [AdminGuard] },
   ];
@@ -30,7 +30,6 @@ const routes: Routes = [
     FormsModule,
   ],
   exports: [RouterModule],
-  declarations: [AdminUserManagerComponent, AdminUserCreateComponent, AdminUserLockComponent, AdminProductManagerComponent, AdminCheckProductComponent]
-  declarations: [AdminUserManagerComponent, AdminUserCreateComponent, AdminUserLockComponent, ExchangeManagerComponent, DialogConformExchangeComponent]
+  declarations: [AdminUserManagerComponent, AdminUserCreateComponent, AdminUserLockComponent, AdminProductManagerComponent, AdminCheckProductComponent],
 })
 export class AdminRoutingModule { }
