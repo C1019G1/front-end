@@ -124,6 +124,4 @@ export class AdminProductManagerComponent implements OnInit {
   openUserDeleteDialog() {
   }
 
-  openUserCreateDialog() {
-  }
 }
