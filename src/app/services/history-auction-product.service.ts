@@ -16,6 +16,7 @@ export class HistoryAuctionProductService {
 
 
   getHistoryAuctionProductByUserId( id: number ): Observable<any> {
-    return this.http.get(this.API + '?userId' + id + '&page=0' + '&size=5');
+    return this.http.get(this.API + '?userId=' + id + '&page=0' + '&size=5');
   }
+  // http://localhost:8080/product/auc?userId=1&pageable=0&size=5
 }

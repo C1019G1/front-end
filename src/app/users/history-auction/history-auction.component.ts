@@ -1,10 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {MatPaginator} from '@angular/material/paginator';
-import {MatTableDataSource} from '@angular/material/table';
 import {DataSource} from '@angular/cdk/collections';
-import {HistoryRegisterProductService} from '../../services/history-register-product.service';
 import {Observable} from 'rxjs';
-import {HistoryRegisterProductDataSource} from '../history-register-auction/history-register-auction.component';
 import {ActivatedRoute, Router} from '@angular/router';
 import {HistoryAuctionProductService} from '../../services/history-auction-product.service';
 
@@ -34,7 +31,6 @@ export class HistoryAuctionComponent implements OnInit {
   displayedColumns: string[] = ['index', 'Id_Product', 'Name_Product', 'product_info',
     'start_price', 'start_day', 'end_day', 'status', 'cancel'];
   dataSource = new HistoryAuctionProductDataSource(this.historyAuctionProductService);
-  public HistoryRegisterProduct;
   size: 5;
   pages: [];
   totalPages = 1;
@@ -57,6 +53,7 @@ export class HistoryAuctionComponent implements OnInit {
       this.historyAuctionProductService.getHistoryAuctionProductByUserId(this.id).subscribe(
         data2 => {
           this.dataSource = data2;
+          console.log(this.dataSource);
         });
     });
   }

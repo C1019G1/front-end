@@ -1,0 +1,94 @@
+<h2 class="mt-2 ml-5">Quản lý sản phẩm</h2>
+<div>
+<div class="row d-flex justify-content-end">
+  <form class="form-inline " action="/action_page.php" >
+    <input type="email" class="form-control my-auto mr-sm-2" placeholder="Tên sản phẩm" id="productName"
+           formControlName="name">
+    <select name="catalogue" class="custom-select my-auto" formControlName="catalogue">
+      <option value="Dân dụng">Dân dụng</option>
+      <option value="Công nghệ">Công nghệ</option>
+      <option value="Khác">Khác</option>
+      <option value="">Loại sản phẩm</option>
+      <option value="">Tất cả</option>
+    </select>
+    <input type="email" class="form-control my-auto mr-sm-2" placeholder="Người đăng" id="productName1"
+           formControlName="name">
+    <select name="price" class="custom-select my-auto mx-2" formControlName="price">
+      <option value="100000"> 0 – 100.000 VND</option>
+      <option value="500000">100.000 – 500.000 VND</option>
+      <option value="1000000">500.000 – 1000.000 VND</option>
+      <option value="5000000">1000.000 -5.000.000 VND</option>
+      <option value="10000000">Trên 5.000.000 VND</option>
+      <option value="">Chọn mức giá</option>
+    </select>
+
+    <select name="price" class="custom-select my-auto mx-2" formControlName="price">
+      <option value=""> Đã được duyệt</option>
+      <option value="">Chưa được duyệt</option>
+      <option value="">Không được duyệt</option>
+      <option value="">Trạng thái</option>
+    </select>
+    <button type="submit" class="btn btn-outline-warning my-auto mx-3">Lọc sản phẩm</button>
+  </form>
+</div>
+
+<div class="row mt-3 mx-5">
+  <div class="container">
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 table-striped">
+<!--      <ng-container matColumnDef="id" sticky>-->
+<!--        <th mat-header-cell *matHeaderCellDef> STT</th>-->
+<!--        <td mat-cell *matCellDef="let element; let i = index;">{{i}}</td>-->
+<!--      </ng-container>-->
+<!--      <ng-container matColumnDef="select" stickyEnd>-->
+<!--      </ng-container>-->
+        <ng-container matColumnDef="idProduct" sticky>
+          <th mat-header-cell *matHeaderCellDef> ID sản phẩm</th>
+          <td mat-cell *matCellDef="let element"> {{element.idProduct}} </td>
+        </ng-container>
+        <ng-container matColumnDef="nameProduct" sticky>
+          <th mat-header-cell *matHeaderCellDef> Tên sản phẩm</th>
+          <td mat-cell *matCellDef="let element"><a href="/admin/check-product">{{element.nameProduct}}</a></td>
+        </ng-container>
+
+        <ng-container matColumnDef="catalogue" sticky>
+          <th mat-header-cell *matHeaderCellDef> Loại sản phẩm</th>
+          <td mat-cell *matCellDef="let element"> {{element.catalogue}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="userName">
+          <th mat-header-cell *matHeaderCellDef> Người đăng</th>
+          <td mat-cell *matCellDef="let element"> {{element.userName}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="startPrice" sticky>
+          <th mat-header-cell *matHeaderCellDef> Giá ban đầu</th>
+          <td mat-cell *matCellDef="let element"> {{element.startPrice}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="browseStatus">
+          <th mat-header-cell *matHeaderCellDef> Trạng thái duyệt</th>
+          <td mat-cell *matCellDef="let element"> {{element.browseStatus}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="status">
+          <th mat-header-cell *matHeaderCellDef>Trạng thái</th>
+          <td mat-cell *matCellDef="let element"> {{element.status}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="productInfo">
+          <th mat-header-cell *matHeaderCellDef>Chi tiết sản phẩm</th>
+          <td mat-cell *matCellDef="let element"> {{element.productInfo}} </td>
+        </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </div>
+
+</div>
+<div class=" button-container row mt-4 mx-5">
+  <button mat-raised-button class="action-button" color="primary" (click)="openUserLockDialog()">Xóa</button>
+  <button mat-raised-button class="action-button" color="primary" (click)="openUserDeleteDialog()">Thêm sản phẩm</button>
+  <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+</div>
+</div>

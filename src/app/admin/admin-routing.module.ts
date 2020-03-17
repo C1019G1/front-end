@@ -9,9 +9,13 @@ import { AdminUserCreateComponent } from './admin-user-create/admin-user-create.
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { AdminUserLockComponent } from './admin-user-lock/admin-user-lock.component';
 import {AdminGuard} from '../guard/admin.guard';
+import { AdminProductManagerComponent } from './admin-product-manager/admin-product-manager.component';
+import { AdminCheckProductComponent } from './admin-check-product/admin-check-product.component';
 
 const routes: Routes = [
   { path: 'user-manager', component: AdminUserManagerComponent , canActivate: [AdminGuard] },
+  { path: 'product-manager', component: AdminProductManagerComponent, canActivate: [AdminGuard] },
+  { path: 'check-product', component: AdminCheckProductComponent, canActivate: [AdminGuard] },
   ];
 
 @NgModule({
@@ -23,6 +27,6 @@ const routes: Routes = [
     FormsModule,
   ],
   exports: [RouterModule],
-  declarations: [AdminUserManagerComponent, AdminUserCreateComponent, AdminUserLockComponent]
+  declarations: [AdminUserManagerComponent, AdminUserCreateComponent, AdminUserLockComponent, AdminProductManagerComponent, AdminCheckProductComponent]
 })
 export class AdminRoutingModule { }

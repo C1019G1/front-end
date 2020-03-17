@@ -39,7 +39,7 @@ export class AdminUserManagerComponent implements AfterViewInit, OnInit {
   displayedColumns: string[] = ['id', 'name', 'address', 'rank', 'email', 'phoneNumber', 'lastLogin', 'contributePoint', 'select'];
   data: UserProfileDTO[] = [];
   userDTO: UserProfileDTO;
-  userSeclectedList:UserProfileDTO[] =[];
+  userSeclectedList: UserProfileDTO[] = [];
   resultsLength = 0;
   isLoadingResults = true;
   isRateLimitReached = false;
