@@ -20,6 +20,8 @@ import {LoginHistoryComponent} from './login-history/login-history.component';
 import {ChangePasswordComponent} from './change-password/change-password.component';
 import {UserGuard} from '../guard/user.guard';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
+import { ReceiveProductInfoComponent } from './receive-product-info/receive-product-info.component';
+import { BillComponent } from './bill/bill.component';
 
 
 const routes: Routes = [
@@ -36,6 +38,7 @@ const routes: Routes = [
   {path: 'hello', component: HelloComponent},
   {path: 'login-history', component: LoginHistoryComponent},
   {path: 'change-password', component: ChangePasswordComponent, canActivate: [UserGuard]},
+  {path: 'receive-product-info', component: ReceiveProductInfoComponent},
 ];
 
 @NgModule({
@@ -57,7 +60,9 @@ const routes: Routes = [
     GuideComponent,
     PasswordResetComponent,
     EditProfileComponent,
-    ChangePasswordComponent]
+    ChangePasswordComponent,
+    ReceiveProductInfoComponent,
+    BillComponent]
 })
 export class UsersRoutingModule {
 }

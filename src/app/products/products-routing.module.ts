@@ -8,6 +8,8 @@ import {PoductDetailComponent} from './poduct-detail/poduct-detail.component';
 import { CountDownComponent } from './count-down/count-down.component';
 import {ReactiveFormsModule} from '@angular/forms';
 import {ProductAddComponent} from './product-add/product-add.component';
+import { MessageDialogeComponent } from './message-dialoge/message-dialoge.component';
+
 
 const routes: Routes = [
   {path: '', component: ProductsComponent},
@@ -28,6 +30,7 @@ const routes: Routes = [
   declarations: [ProductListComponent,
     PoductDetailComponent,
     CountDownComponent,
+    MessageDialogeComponent,
     ]
 })
 export class ProductsRoutingModule {
