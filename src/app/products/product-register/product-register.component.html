@@ -106,8 +106,24 @@
     </div>
     <div class="row mt-2">
       <div class="col-xl-6">
-        <div class="uploadfilecontainer" (click)="fileInput.click()" appDragDrop (onFileDropped)="uploadFile($event)">
-          <input hidden type="file" #fileInput (change)="uploadFile($event)">
+        <div class="uploadfilecontainer text-center" (click)="fileInput.click()" appDragDrop (onFileDropped)="uploadFile($event)">
+          Kéo và thả ảnh tại đây
+          <input hidden type="file" #fileInput (change)="uploadFile($event)" accept="image/*">
+        </div>
+        <div>
+          <p>
+            <b> Lưu ý</b>: Chấp nhận không quá 5 ảnh và ảnh phải dưới 10Mb
+          </p>
+        </div>
+        <div class="row">
+          <button mat-button mat-raised-button color="primary" class="mx-0" (click)="onSendClick()">
+            Đăng ký
+            <mat-icon class="ml-3">send</mat-icon>
+          </button>
+          <button mat-button mat-raised-button color="primary" class="ml-2 " (click)="onSendClick()">
+            Nhập lại
+            <mat-icon class="ml-3">replay</mat-icon>
+          </button>
         </div>
       </div>
       <div class="col-xl-6">
@@ -121,15 +137,6 @@
       </div>
     </div>
   </form>
-  <div class="row">
-    <button mat-button mat-raised-button color="primary" class="mx-0" (click)="onSendClick()">
-      Đăng ký
-      <mat-icon class="ml-3">send</mat-icon>
-    </button>
-    <button mat-button mat-raised-button color="primary" class="ml-2 " (click)="onSendClick()">
-      Nhập lại
-      <mat-icon class="ml-3">replay</mat-icon>
-    </button>
-  </div>
+
 </div>
 

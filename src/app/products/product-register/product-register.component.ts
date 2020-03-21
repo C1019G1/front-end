@@ -21,7 +21,7 @@ export class ProductRegisterComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private storage: AngularFireStorage
+    private storage: AngularFireStorage // service quản lý firebase. Import từ Common firebase.module
   ) {
   }
 
@@ -33,30 +33,42 @@ export class ProductRegisterComponent implements OnInit {
   }
 
   uploadFile(files: FileList) {
-    for (let i = 0; i < files.length; i++) {
-      const file = files.item(i);
-      if (this.files.findIndex(data => data.name === file.name) < 0) {
-        this.files.push(file);
+    // Đẩy vào Input type file rồi từ đó sinh ra các Child Component image-upload
+    if (this.files.length <= 5) {
+      for (let i = 0; i < files.length; i++) {
+        const file = files.item(i);
+        if (file.size <= 10485760) {
+          if (this.files.findIndex(data => data.name === file.name) < 0) {
+            this.files.push(file);
+          }
+        } else {
+          alert('Ảnh quá lớn');
+        }
       }
     }
   }
 
   deleteAttachment(event: any) {
     if (event) {
-      // Sau khi delete thành công ở server rồi mới delete file list
-      this.storage.storage.refFromURL(event.downloadURL).delete().then(r => {  });
+      // Xóa file trên sever và cả trong listURL
+      this.storage.storage.refFromURL(event.downloadURL).delete().then(r => {
+      });
       this.files.splice(event.index, 1);
+      const index = this.imgUrlList.indexOf(event.downloadURL, 0);
+      this.imgUrlList.splice(index, 1);
     }
+  }
 
+  pushUrlToList(image: any) {
+    // Đẩy URL link vào listURL sau khi output của image upload có emit event
+    if (image) {
+      this.imgUrlList.push(image.downloadURL);
+    }
   }
 
   onSendClick() {
 
   }
 
-  pushUrlToList(image: any) {
-    if (image) {
-      this.imgUrlList.push(image.downloadURL);
-    }
-  }
+
 }
