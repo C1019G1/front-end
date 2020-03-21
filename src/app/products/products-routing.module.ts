@@ -11,7 +11,9 @@ import {ProductAddComponent} from './product-add/product-add.component';
 import { MessageDialogeComponent } from './message-dialoge/message-dialoge.component';
 import { ProductRegisterComponent } from './product-register/product-register.component';
 import {MaterialModule} from '../Common/material.module';
-
+import { ImageUploadComponent } from './product-register/image-upload/image-upload.component';
+import {DragDropDirective} from '../Common/dragdrop.directive';
+import {FirebaseModule} from '../Common/firebase.module';
 const routes: Routes = [
   {path: '', component: ProductsComponent},
   {path: 'list', component: ProductListComponent},
@@ -28,6 +30,7 @@ const routes: Routes = [
     CommonModule,
     ReactiveFormsModule,
     MaterialModule,
+    FirebaseModule
   ],
   exports: [RouterModule],
   declarations: [ProductListComponent,
@@ -35,6 +38,8 @@ const routes: Routes = [
     CountDownComponent,
     MessageDialogeComponent,
     ProductRegisterComponent,
+    ImageUploadComponent,
+    DragDropDirective
     ]
 })
 export class ProductsRoutingModule {
