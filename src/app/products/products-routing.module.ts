@@ -10,15 +10,17 @@ import {ReactiveFormsModule} from '@angular/forms';
 import {ProductAddComponent} from './product-add/product-add.component';
 import { MessageDialogeComponent } from './message-dialoge/message-dialoge.component';
 import { ProductRegisterComponent } from './product-register/product-register.component';
+import { ImageUploadComponent } from './product-register/image-upload/image-upload.component';
+import {DragDropDirective} from '../Common/dragdrop.directive';
+import {FirebaseModule} from '../Common/firebase.module';
 import {MaterialModule} from '../Common/material.module';
-
 const routes: Routes = [
   {path: '', component: ProductsComponent},
   {path: 'list', component: ProductListComponent},
   {path: 'detail/:id', component: PoductDetailComponent},
   {path: 'list/:catalogue', component: ProductListComponent},
   {path: 'add', component: ProductAddComponent},
-  {path: 'update', component: ProductAddComponent}
+  {path: 'update', component: ProductAddComponent},
   {path: 'register', component: ProductRegisterComponent}
 ];
 
@@ -28,6 +30,7 @@ const routes: Routes = [
     CommonModule,
     ReactiveFormsModule,
     MaterialModule,
+    FirebaseModule
   ],
   exports: [RouterModule],
   declarations: [ProductListComponent,
@@ -35,6 +38,8 @@ const routes: Routes = [
     CountDownComponent,
     MessageDialogeComponent,
     ProductRegisterComponent,
+    ImageUploadComponent,
+    DragDropDirective
     ]
 })
 export class ProductsRoutingModule {

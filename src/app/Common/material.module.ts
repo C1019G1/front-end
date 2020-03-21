@@ -16,6 +16,7 @@ import {MatExpansionModule} from '@angular/material/expansion';
 import {MatChipsModule} from '@angular/material/chips';
 import {MatIconModule} from '@angular/material/icon';
 import {MatCardModule} from '@angular/material/card';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
 
 @NgModule({
   declarations: [],
@@ -55,6 +56,7 @@ import {MatCardModule} from '@angular/material/card';
     MatChipsModule,
     MatIconModule,
     MatCardModule,
+    MatProgressBarModule
   ]
 })
 export class MaterialModule { }
