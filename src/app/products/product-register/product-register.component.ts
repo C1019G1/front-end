@@ -44,7 +44,8 @@ export class ProductRegisterComponent implements OnInit {
   deleteAttachment(event: any) {
     if (event) {
       // Sau khi delete thành công ở server rồi mới delete file list
-      this.storage.storage.refFromURL(event.downloadURL).delete().then(r => { this.files.splice(event.index, 1); });
+      this.storage.storage.refFromURL(event.downloadURL).delete().then(r => {  });
+      this.files.splice(event.index, 1);
     }
 
   }
