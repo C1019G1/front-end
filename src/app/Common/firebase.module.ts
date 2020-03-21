@@ -24,8 +24,14 @@ const firebaseConfig = {
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFirestoreModule, // firestore
     AngularFireAuthModule, // auth
-    AngularFireStorageModule, AppRoutingModule // storage
+    AngularFireStorageModule,  // storage
   ],
+  exports: [
+    AngularFireModule,
+    AngularFirestoreModule,
+    AngularFireAuthModule,
+    AngularFireStorageModule,
+  ]
 })
 export class FirebaseModule {
 }
