@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {ProductRegisterService} from '../../services/product-register.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Observable} from 'rxjs';
@@ -18,15 +18,15 @@ export class PoductDetailComponent implements OnInit, OnDestroy {
   topFive = [];
   interval: any;
   userName;
-  auctionTrigger = false;
   role;
   minPrice: number;
 
   constructor(
     public productRegisterService: ProductRegisterService,
     public formBuilder: FormBuilder,
-    public activeedRoute: ActivatedRoute,
+    public activatedRoute: ActivatedRoute,
     private cookieStorageService: CookieStorageService,
+    public router: Router,
   ) {
   }
 
@@ -37,12 +37,10 @@ export class PoductDetailComponent implements OnInit, OnDestroy {
       userName: [''],
     });
     this.userName = this.cookieStorageService.getUsername();
+    console.log(this.userName);
     this.role = this.cookieStorageService.getRoleName();
-    if (this.role === 'ROLE_USER') {
-      this.auctionTrigger = true;
-    }
     // this.productList = products;
-    this.activeedRoute.params.subscribe(data => {
+    this.activatedRoute.params.subscribe(data => {
       this.productOfId = data.id;
       console.log(this.productOfId);
       this.productRegisterService.getProductById(this.productOfId).subscribe(data1 => {
@@ -69,7 +67,7 @@ export class PoductDetailComponent implements OnInit, OnDestroy {
     this.currentPrice.subscribe(value => {
       const price: number = value;
       if (price == null) {
-        this.minPrice = this.productDetail.startPrice;
+        this.minPrice = this.productDetail.startPrice + this.productDetail.minBet;
       } else {
         this.minPrice = price + this.productDetail.minBet;
       }
@@ -84,20 +82,25 @@ export class PoductDetailComponent implements OnInit, OnDestroy {
   }
 
   auction() {
-    if (this.formAuction.controls.betPrice.value < this.minPrice) {
-      alert('Giá được đặt phải cao hơn ' + this.minPrice + '\nCó thể dùng hai dấu mũi tên để điều chỉnh mức giá');
-      this.formAuction.controls.betPrice.setValue(this.minPrice);
+    if (this.userName === '') {
+      this.router.navigateByUrl('/user/login');
     } else {
-      if (confirm('Giá của bạn đã đặt là ' + this.formAuction.controls.betPrice.value)) {
-        const day = new Date();
-        this.formAuction.controls.userName.setValue(this.userName);
-        this.formAuction.controls.betTime.setValue(day);
-        console.log(this.formAuction.value);
-        this.productRegisterService.saveAuction(this.productOfId, this.formAuction.value).subscribe(() => {
-          alert('Đã đặt giá thành công');
-        });
+      if (this.formAuction.controls.betPrice.value < this.minPrice) {
+        alert('Giá được đặt phải cao hơn ' + this.minPrice + '\nCó thể dùng hai dấu mũi tên để điều chỉnh mức giá');
+        this.formAuction.controls.betPrice.setValue(this.minPrice);
+      } else {
+        if (confirm('Giá của bạn đã đặt là ' + this.formAuction.controls.betPrice.value)) {
+          const day = new Date();
+          this.formAuction.controls.userName.setValue(this.userName);
+          this.formAuction.controls.betTime.setValue(day);
+          console.log(this.formAuction.value);
+          this.productRegisterService.saveAuction(this.productOfId, this.formAuction.value).subscribe(() => {
+            alert('Đã đặt giá thành công');
+          });
+        }
       }
     }
+
   }
 
 

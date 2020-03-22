@@ -28,7 +28,7 @@
             <input type="number" [min]="minPrice" [step]="productDetail.minBet" class="form-control my-auto mr-sm-2" placeholder="price" id="price" style="width: 150px" formControlName="betPrice">
             <button type="submit" class="btn btn-outline-warning my-auto mx-3" (click)="auction()"
                     [disabled]="formAuction.invalid"
-                    data-toggle="tooltip" data-placement="bottom" title="Đặt giá để tham gia">Đấu giá</button>
+                    data-toggle="tooltip" data-placement="bottom" [title]="(userName=='')? 'Đăng nhập để được đấu giá' : 'Hãy đặt một giá'" >Đấu giá</button>
           </form>
         </li>
       </ul>
