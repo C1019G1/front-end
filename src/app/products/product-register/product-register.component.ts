@@ -45,6 +45,8 @@ export class ProductRegisterComponent implements OnInit {
           alert('Ảnh quá lớn');
         }
       }
+    } else {
+      alert('Đã quá số lượng ảnh cho phép');
     }
   }
 
