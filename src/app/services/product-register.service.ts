@@ -32,7 +32,12 @@ export class ProductRegisterService {
   getCurrentPriceById(id: number): Observable<any> {
     return this.http.get(this.API + '/current-price?id=' + id);
   }
+
   getTopFive(id: number): Observable<any> {
     return this.http.get(this.API + '/top-five?id=' + id);
+  }
+
+  saveAuction(id: number, auction): Observable<any> {
+    return this.http.post(this.API + '/auction?id=' + id, auction);
   }
 }
