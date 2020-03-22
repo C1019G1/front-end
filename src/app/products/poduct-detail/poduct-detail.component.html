@@ -20,7 +20,7 @@
           </div>
         </li>
         <li class="list-group-item">Giá gốc: <span class="text-danger font-weight-bold">{{productDetail.startPrice| currency: "VND"}}</span></li>
-        <li class="list-group-item">Giá hiện tại: <span class="text-danger font-weight-bold">{{productDetail.currentPrice| currency: "VND"}}</span></li>
+        <li class="list-group-item">Giá hiện tại: <span class="text-danger font-weight-bold">{{currentPrice| async | currency: "VND"}}</span></li>
         <li class="list-group-item">Mỗi lần tăng giá ít nhất: <span class="text-danger font-weight-bold">{{productDetail.minBet| currency: "VND"}}</span></li>
         <li class="list-group-item">
           <form class="form-inline d-flex" [formGroup]="formAuction">
@@ -81,36 +81,42 @@
         </tr>
         </thead>
         <tbody>
-        <tr>
+        <tr *ngFor="let auction of topFive ">
           <td>1</td>
-          <td>{{productDetail.betPriceList[0]| currency: "VND"}}</td>
-          <td>{{productDetail.betTimeList[0]|date:'medium'}}</td>
-          <td>{{productDetail.userList[0]}}</td>
+          <td>{{auction.betPrice| currency: "VND"}}</td>
+          <td>{{auction.betTime|date:'medium'}}</td>
+          <td>{{auction.userName}}</td>
         </tr>
-        <tr>
-          <td>2</td>
-          <td>{{productDetail.betPriceList[1]| currency: "VND"}}</td>
-          <td>{{productDetail.betTimeList[1]|date:'medium'}}</td>
-          <td>{{productDetail.userList[1]}}</td>
-        </tr>
-        <tr>
-          <td>3</td>
-          <td>{{productDetail.betPriceList[2]| currency: "VND"}}</td>
-          <td>{{productDetail.betTimeList[2]|date:'medium'}}</td>
-          <td>{{productDetail.userList[2]}}</td>
-        </tr>
-        <tr>
-          <td>4</td>
-          <td>{{productDetail.betPriceList[3]| currency: "VND"}}</td>
-          <td>{{productDetail.betTimeList[3]|date:'medium'}}</td>
-          <td>{{productDetail.userList[3]}}</td>
-        </tr>
-        <tr>
-          <td>5</td>
-          <td>{{productDetail.betPriceList[4]| currency: "VND"}}</td>
-          <td>{{productDetail.betTimeList[4]|date:'medium'}}</td>
-          <td>{{productDetail.userList[4]}}</td>
-        </tr>
+<!--        <tr>-->
+<!--          <td>1</td>-->
+<!--          <td>{{productDetail.betPriceList[0]| currency: "VND"}}</td>-->
+<!--          <td>{{productDetail.betTimeList[0]|date:'medium'}}</td>-->
+<!--          <td>{{productDetail.userList[0]}}</td>-->
+<!--        </tr>-->
+<!--        <tr>-->
+<!--          <td>2</td>-->
+<!--          <td>{{productDetail.betPriceList[1]| currency: "VND"}}</td>-->
+<!--          <td>{{productDetail.betTimeList[1]|date:'medium'}}</td>-->
+<!--          <td>{{productDetail.userList[1]}}</td>-->
+<!--        </tr>-->
+<!--        <tr>-->
+<!--          <td>3</td>-->
+<!--          <td>{{productDetail.betPriceList[2]| currency: "VND"}}</td>-->
+<!--          <td>{{productDetail.betTimeList[2]|date:'medium'}}</td>-->
+<!--          <td>{{productDetail.userList[2]}}</td>-->
+<!--        </tr>-->
+<!--        <tr>-->
+<!--          <td>4</td>-->
+<!--          <td>{{productDetail.betPriceList[3]| currency: "VND"}}</td>-->
+<!--          <td>{{productDetail.betTimeList[3]|date:'medium'}}</td>-->
+<!--          <td>{{productDetail.userList[3]}}</td>-->
+<!--        </tr>-->
+<!--        <tr>-->
+<!--          <td>5</td>-->
+<!--          <td>{{productDetail.betPriceList[4]| currency: "VND"}}</td>-->
+<!--          <td>{{productDetail.betTimeList[4]|date:'medium'}}</td>-->
+<!--          <td>{{productDetail.userList[4]}}</td>-->
+<!--        </tr>-->
         </tbody>
       </table>
       <div class="row justify-content-end mr-3 ">
