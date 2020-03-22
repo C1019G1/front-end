@@ -22,22 +22,17 @@
         <p *ngIf="registerForm.controls.email.errors?.email&&registerForm.controls.email.touched"
            class="text-danger">email không đúng định dạng</p>
       </div>
-      <div class="form-group">
-        <mat-form-field>
-          <input [min]="minDate" [max]="maxDate" class="form-control" formControlName="dayOfBirth" matInput [matDatepicker]="myDatepicker" placeholder="Chọn Ngày Sinh">
-          <mat-datepicker-toggle matSuffix [for]="myDatepicker"></mat-datepicker-toggle>
-          <mat-datepicker #myDatepicker></mat-datepicker>
-        </mat-form-field>
-        <p *ngIf="registerForm.controls.dayOfBirth.errors?.required&&registerForm.controls.dayOfBirth.touched"
-           class="text-danger">vui lòng nhập ngày sinh</p>
-      </div>
-      <div class="form-group">
-        <input class="form-control" type="text" formControlName="phone" placeholder="Nhập số điện thoại">
-        <p *ngIf="registerForm.controls.phone.errors?.required&&registerForm.controls.phone.touched"
-           class="text-danger">vui lòng nhập số điện thoại</p>
-        <p *ngIf="registerForm.controls.phone.errors?.pattern&&registerForm.controls.phone.touched"
-           class="text-danger">số điện thoại không đúng định dạng</p>
-      </div>
+      <mat-form-field>
+        <input matInput [matDatepicker]="picker1" placeholder="Choose a start date" >
+        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+        <mat-datepicker #picker1 ></mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput [matDatepicker]="picker2" placeholder="Choose an end date" >
+        <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+        <mat-datepicker #picker2 ></mat-datepicker>
+      </mat-form-field>
       <div class="form-group">
         <input class="form-control" type="text" formControlName="identityNumber" placeholder="Nhập số chứng minh thư">
         <p
