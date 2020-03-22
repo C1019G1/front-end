@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {AdminService} from '../../services/admin.service';
 import {Router} from '@angular/router';
+import {CookieStorageService} from '../../services/auth/cookie-storage.service';
 
 @Component({
   selector: 'app-product-add',
@@ -12,9 +13,11 @@ export class ProductAddComponent implements OnInit {
   productInfor: FormGroup;
   minDate = new Date();
   maxDate = new Date();
+  userName: String;
   constructor(private fb: FormBuilder,
               private  adminService: AdminService,
-              public router: Router) { }
+              public router: Router,
+              private cookieStorageService: CookieStorageService) { }
 
   ngOnInit(): void {
     this.productInfor = this.fb.group({
@@ -37,6 +40,14 @@ export class ProductAddComponent implements OnInit {
       email: [''],
       phone: [''],
     });
+    this.userName = this.cookieStorageService.getUsername();
+    this.adminService.getInforAdmin(this.userName).subscribe(data1 => {
+        this.productInfor.patchValue(data1);
+      },
+      error => {
+        alert(error.error) ;
+      }
+    );
   }
   onSubmit() {
   }

@@ -18,4 +18,7 @@ export class AdminService {
   saveProductInfor(productInfor): Observable<any> {
     return this.http.post(this.API + '/save-product', productInfor);
   }
+  getInforAdmin(userName): Observable<any> {
+    return this.http.post(this.API + '/get-infor-admin', userName);
+  }
 }
