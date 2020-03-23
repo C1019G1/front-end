@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { AdminComponent } from './admin.component';
-import { AdminUserManagerComponent } from './admin-user-manager/admin-user-manager.component';
+
+import {AdminUserManagerComponent} from './admin-user-manager/admin-user-manager.component';
 import {MaterialModule} from '../Common/material.module';
 import {Ng2Module} from '../Common/ng2.module';
 import { AdminUserCreateComponent } from './admin-user-create/admin-user-create.component';
@@ -14,6 +14,7 @@ import { AdminCheckProductComponent } from './admin-check-product/admin-check-pr
 import { DialogConformExchangeComponent } from './dialog-conform-exchange/dialog-conform-exchange.component';
 import {ProductUpdateComponent} from './product-update/product-update.component';
 import {ProductAddComponent} from './product-add/product-add.component';
+import {FirebaseModule} from '../Common/firebase.module';
 
 const routes: Routes = [
   { path: 'user-manager', component: AdminUserManagerComponent , canActivate: [AdminGuard] },
@@ -30,9 +31,14 @@ const routes: Routes = [
     Ng2Module,
     ReactiveFormsModule,
     FormsModule,
+    FirebaseModule
   ],
   exports: [RouterModule],
-  // tslint:disable-next-line:max-line-length
-  declarations: [AdminUserManagerComponent, AdminProductManagerComponent, AdminCheckProductComponent, AdminUserCreateComponent, AdminUserLockComponent, DialogConformExchangeComponent]
+  declarations: [AdminUserManagerComponent,
+    AdminProductManagerComponent,
+    AdminCheckProductComponent,
+    AdminUserCreateComponent,
+    AdminUserLockComponent,
+    DialogConformExchangeComponent]
 })
 export class AdminRoutingModule { }
