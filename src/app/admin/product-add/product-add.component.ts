@@ -13,7 +13,7 @@ export class ProductAddComponent implements OnInit {
   productInfor: FormGroup;
   minDate = new Date();
   maxDate = new Date();
-  userName: String;
+  username: string;
   constructor(private fb: FormBuilder,
               private  adminService: AdminService,
               public router: Router,
@@ -40,8 +40,8 @@ export class ProductAddComponent implements OnInit {
       email: [''],
       phone: [''],
     });
-    this.userName = this.cookieStorageService.getUsername();
-    this.adminService.getInforAdmin(this.userName).subscribe(data1 => {
+    this.username = this.cookieStorageService.getUsername();
+    this.adminService.getInforAdmin(this.username).subscribe(data1 => {
         this.productInfor.patchValue(data1);
       },
       error => {
