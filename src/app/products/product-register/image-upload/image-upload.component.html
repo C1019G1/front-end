@@ -1,0 +1,22 @@
+<mat-card class="example-card">
+  <mat-card-header>
+    <mat-card-title>{{ file.name }}</mat-card-title>
+  </mat-card-header>
+  <img mat-card-image *ngIf="downloadURL as url"  [src]="url"><br>
+  <mat-card-content>
+    <div class="row" *ngIf="percentage | async as pct">
+      <mat-progress-bar [value]="pct" mode="determinate"></mat-progress-bar>
+      {{ pct | number }}%
+    </div>
+    <div class="row" *ngIf="snapshot | async as snap">
+        <button mat-button (click)="task.pause()" [disabled]="!isActive(snap)">Tạm dừng</button>
+        <button mat-button (click)="task.cancel()" [disabled]="!isActive(snap)">Hủy</button>
+        <button mat-button (click)="task.resume()" [disabled]="!(snap?.state === 'paused')">Tiếp tục</button>
+    </div>
+  </mat-card-content>
+  <mat-card-actions>
+    <button (click)="deleteAttachment()" mat-button><i class="material-icons" style="color: #9ecbec">
+      delete
+    </i></button>
+  </mat-card-actions>
+</mat-card>
