@@ -43,6 +43,8 @@ export class ProductAddComponent implements OnInit {
     this.username = this.cookieStorageService.getUsername();
     this.adminService.getInforAdmin(this.username).subscribe(data1 => {
         this.productInfor.patchValue(data1);
+        this.productInfor.controls.startDay.setValue(new Date(data1.startDay));
+        this.productInfor.controls.endDay.setValue(new Date(data1.endDay));
       },
       error => {
         alert(error.error) ;
@@ -60,6 +62,8 @@ export class ProductAddComponent implements OnInit {
     this.adminService.saveProductInfor(this.productInfor.value).subscribe(data1 => {
         this.ngOnInit();
         this.productInfor.patchValue(data1);
+        this.productInfor.controls.startDay.setValue(new Date(data1.startDay));
+        this.productInfor.controls.endDay.setValue(new Date(data1.endDay));
       },
       error => {
         alert(error.error) ;

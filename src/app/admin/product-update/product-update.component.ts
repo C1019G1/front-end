@@ -39,7 +39,8 @@ export class ProductUpdateComponent implements OnInit {
     });
     this.adminService.getInforProduct(26).subscribe(data1 => {
       this.productInfor.patchValue(data1);
-      console.log(data1);
+      this.productInfor.controls.startDay.setValue(new Date(data1.startDay));
+      this.productInfor.controls.endDay.setValue(new Date(data1.endDay));
     });
   }
   onSubmit() {

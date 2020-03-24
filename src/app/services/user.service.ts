@@ -20,4 +20,13 @@ export class UserService {
   resetPassword(resetPasswordForm): Observable<any> {
     return this.http.post(this.API + 'reset-password', resetPasswordForm);
   }
+  getInforProduct(id): Observable<any> {
+    return this.http.get(this.API + 'get-infor-product?id=' + id);
+  }
+  saveProductInfor(productInfor): Observable<any> {
+    return this.http.post(this.API + 'save-product', productInfor);
+  }
+  getInforUser(userName): Observable<any> {
+    return this.http.post(this.API + 'get-infor-user', userName);
+  }
 }
