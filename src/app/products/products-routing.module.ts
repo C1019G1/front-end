@@ -14,6 +14,7 @@ import { ImageUploadComponent } from './product-register/image-upload/image-uplo
 import {DragDropDirective} from '../Common/dragdrop.directive';
 import {FirebaseModule} from '../Common/firebase.module';
 import {MaterialModule} from '../Common/material.module';
+import { ProductCommentComponent } from './product-comment/product-comment.component';
 const routes: Routes = [
   {path: '', component: ProductsComponent},
   {path: 'list', component: ProductListComponent},
@@ -39,7 +40,8 @@ const routes: Routes = [
     MessageDialogeComponent,
     ProductRegisterComponent,
     ImageUploadComponent,
-    DragDropDirective
+    DragDropDirective,
+    ProductCommentComponent
     ]
 })
 export class ProductsRoutingModule {
