@@ -4,7 +4,6 @@ import {AngularFireModule} from '@angular/fire';
 import {AngularFirestoreModule} from '@angular/fire/firestore';
 import {AngularFireAuthModule} from '@angular/fire/auth';
 import {AngularFireStorageModule} from '@angular/fire/storage';
-import {AppRoutingModule} from '../app-routing.module';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyD9VLzRq6DwX-CaCqkEhiGP-IH0TnSllbQ',
