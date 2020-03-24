@@ -8,7 +8,7 @@
         <h3 class="font-weight-bold "> Thông tin người mua</h3>
       </div>
 
-      <fieldset [disabled]= true class="mt-4">
+      <fieldset [disabled]=true class="mt-4">
         <form class="w-75 mx-auto" [formGroup]="formBuyer">
           <div class="form-group mt-2">
             <p>Họ và tên</p>
@@ -35,20 +35,21 @@
       </div>
       <div class="row ml-5">
         <label class="form-check-label ml-4 font-italic text-danger">
-          <input type="checkbox" class="form-check-input" value="" [(ngModel)]="check">Thông tin nhận hàng cũng là địa chỉ
+          <input type="checkbox" class="form-check-input" value="" [(ngModel)]="check">Thông tin nhận hàng cũng là địa
+          chỉ
           của tôi
         </label>
       </div>
       <fieldset [disabled]="check">
         <form class="w-75 mx-auto" [formGroup]="formReceiver">
           <div class="form-group mt-2">
-            <p>Họ và tên</p>
+            <p>Họ và tên(<span class="text-danger">*</span>)</p>
             <input class="form-control" type="text" formControlName="fullName">
             <p *ngIf="formReceiver.controls.fullName?.errors?.required&&formReceiver.controls.fullName?.touched"
                class="text-danger"> Vui lòng nhập tên</p>
           </div>
           <div class="form-group mt-2">
-            <p>Số điện thoại</p>
+            <p>Số điện thoại(<span class="text-danger">*</span>)</p>
             <input class="form-control" type="text" formControlName="phoneNumber">
             <p
               *ngIf="formReceiver.controls.phoneNumber?.errors?.required&&formReceiver.controls.phoneNumber?.touched"
@@ -57,17 +58,46 @@
               định dạng</p>
           </div>
           <div class="form-group mt-2">
-            <p>Địa chỉ</p>
-            <input class="form-control" type="text" formControlName="address">
-            <p *ngIf="formReceiver.controls.address?.errors?.required&&formReceiver.controls.address?.touched"
-               class="text-danger"> Vui lòng nhập địa chỉ</p>
-          </div>
-          <div class="form-group mt-2">
-            <p>Email</p>
+            <p>Email(<span class="text-danger">*</span>)</p>
             <input class="form-control" type="text" formControlName="email">
             <p *ngIf="formReceiver.controls.email?.errors?.required&&formReceiver.controls.email?.touched"
                class="text-danger"> Vui lòng nhập email</p>
             <p *ngIf="formReceiver.controls.email?.errors?.email" class="text-danger"> Email không đúng định dạng</p>
+          </div>
+          <div class="form-group mt-2">
+            <fieldset>Địa chỉ
+              <div class="ml-5 mt-2"style="width: 92%">
+                <p>Đường</p>
+                <input class="form-control" type="text" formControlName="street">
+              </div>
+              <div class="row d-flex ml-5">
+                <div class=" mt-3"style="width: 47%">
+                  <p>Thôn/Xóm/Tổ(<span class="text-danger">*</span>)</p>
+                  <input class="form-control" type="text" formControlName="village">
+                  <p *ngIf="formReceiver.controls.address?.errors?.required&&formReceiver.controls.address?.touched"
+                     class="text-danger"> Vui lòng nhập thôn/xóm/tổ!</p>
+                </div>
+                <div class="w-30 mt-3 mx-3"style="width: 47%">
+                  <p>Xã/Phường(<span class="text-danger">*</span>)</p>
+                  <input class="form-control" type="text" formControlName="ward">
+                  <p *ngIf="formReceiver.controls.address?.errors?.required&&formReceiver.controls.address?.touched"
+                     class="text-danger"> Vui lòng nhập xã/phường!</p>
+                </div>
+              </div>
+              <div class="row d-flex ml-5">
+                <div class="w-30 mt-3"style="width: 47%">
+                  <p>Quận/Huyện(<span class="text-danger">*</span>)</p>
+                  <input class="form-control" type="text" formControlName="district">
+                  <p *ngIf="formReceiver.controls.address?.errors?.required&&formReceiver.controls.address?.touched"
+                     class="text-danger"> Vui lòng nhập quận/huyện!</p>
+                </div>
+                <div class="w-30 mt-3 mx-3" style="width: 47%">
+                  <p>Tỉnh/Thành phố(<span class="text-danger">*</span>)</p>
+                  <input class="form-control" type="text" formControlName="province">
+                </div>
+              </div>
+            </fieldset>
+
           </div>
         </form>
       </fieldset>
