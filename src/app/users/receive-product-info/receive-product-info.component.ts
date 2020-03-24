@@ -23,7 +23,11 @@ export class ReceiveProductInfoComponent implements OnInit {
 
     this.formReceiver = this.formBuilder.group({
       fullName: ['', [Validators.required]],
-      address: ['', [Validators.required]],
+      street: [''],
+      village: ['', [Validators.required]],
+      ward: ['', [Validators.required]],
+      district: ['', [Validators.required]],
+      province: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
       phoneNumber: ['', [Validators.required, ]],
     });

@@ -1,6 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {AngularFireStorage} from '@angular/fire/storage';
+import {Router} from '@angular/router';
+import {CookieStorageService} from '../../services/auth/cookie-storage.service';
+import {UserService} from '../../services/user.service';
+import {CatalogueService} from '../../services/catalogue.service';
 
 export interface ProductCatalogue {
   id;
@@ -16,22 +20,54 @@ export class ProductRegisterComponent implements OnInit {
   files: File[] = [];
   imgUrlList = [];
   today = new Date();
-  productRegisterForm: FormGroup;
   productCatalogue: ProductCatalogue[] = [];
-
+  productInfor: FormGroup;
+  minDate = new Date();
+  maxDate = new Date();
   constructor(
-    private formBuilder: FormBuilder,
+    private fb: FormBuilder,
+    private  userService: UserService,
+    public router: Router,
+    private cookieStorageService: CookieStorageService,
+    private catalogueService: CatalogueService,
     private storage: AngularFireStorage // service quản lý firebase. Import từ Common firebase.module
   ) {
   }
 
   ngOnInit(): void {
-    this.productRegisterForm = this.formBuilder.group({
-      startDay: ['', [Validators.required]],
-      endDay: ['', [Validators.required]],
+    this.productInfor = this.fb.group({
+      id: [''],
+      name: ['', [Validators.required]],
+      userId: ['', Validators.required],
+      userInforDetail: ['', Validators.required],
+      catalogue: ['', Validators.required],
+      startPrice: ['', Validators.required],
+      minBet: ['', Validators.required],
+      startDay: ['', Validators.required],
+      endDay: ['', Validators.required],
+      warranty: ['', Validators.required],
+      productInfo: ['', Validators.required],
+      contractPhoneNumber: ['', Validators.required],
+      contractAddress: ['', Validators.required],
+      idUser: [''],
+      userName: [''],
+      fullName: [''],
+      email: [''],
+      phone: [''],
     });
+    this.productInfor.controls.userName.setValue(this.cookieStorageService.getUsername());
+    this.getAllCatalogue();
   }
-
+  getAllCatalogue() {
+    // @ts-ignore
+    this.catalogueService.getAllCatalogue().subscribe(data1 => {
+        this.productCatalogue = data1;
+      },
+      error => {
+        alert(error.error) ;
+      }
+    );
+  }
   uploadFile(files: FileList) {
     // Đẩy vào Input type file rồi từ đó sinh ra các Child Component image-upload
     if (this.files.length <= 5) {
@@ -67,10 +103,20 @@ export class ProductRegisterComponent implements OnInit {
       this.imgUrlList.push(image.downloadURL);
     }
   }
-
-  onSendClick() {
-
+  cancel() {
+    this.router.navigateByUrl('/product/list');
   }
 
-
+  add() {
+    this.userService.saveProductInfor(this.productInfor.value).subscribe(data1 => {
+        this.ngOnInit();
+        this.productInfor.patchValue(data1);
+        this.productInfor.controls.startDay.setValue(new Date(data1.startDay));
+        this.productInfor.controls.endDay.setValue(new Date(data1.endDay));
+      },
+      error => {
+        alert(error.error) ;
+      }
+    );
+  }
 }
