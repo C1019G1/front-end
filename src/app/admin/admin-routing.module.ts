@@ -16,6 +16,7 @@ import {ProductUpdateComponent} from './product-update/product-update.component'
 import {ProductAddComponent} from './product-add/product-add.component';
 import {FirebaseModule} from '../Common/firebase.module';
 import { AdminTransactionManagerComponent } from './admin-transaction-manager/admin-transaction-manager.component';
+import { MessageDeleteTransactionDialogComponent } from './message-delete-transaction-dialog/message-delete-transaction-dialog.component';
 
 const routes: Routes = [
   { path: 'user-manager', component: AdminUserManagerComponent , canActivate: [AdminGuard] },
@@ -42,7 +43,8 @@ const routes: Routes = [
     AdminUserCreateComponent,
     AdminUserLockComponent,
     DialogConformExchangeComponent,
-    AdminTransactionManagerComponent
+    AdminTransactionManagerComponent,
+    MessageDeleteTransactionDialogComponent
   ]
 })
 export class AdminRoutingModule { }

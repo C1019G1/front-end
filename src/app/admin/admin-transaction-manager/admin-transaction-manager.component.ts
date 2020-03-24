@@ -1,29 +1,27 @@
 import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {MatPaginator} from '@angular/material/paginator';
-import {MatTableDataSource} from '@angular/material/table';
 import {FormGroup, FormBuilder, Validators} from '@angular/forms';
 import {AdminExchangeService} from '../../services/admin-exchange.service';
-import {UserProfileDTO} from '../admin-user-manager/admin-user-manager.component';
 import {SelectionModel} from '@angular/cdk/collections';
-import {MatDialog} from '@angular/material/dialog';
+import {MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {merge, Observable, of as observableOf} from 'rxjs';
 import {catchError, map, startWith, switchMap} from 'rxjs/operators';
-import {MatSort} from '@angular/material/sort';
+import {MessageDeleteTransactionDialogComponent} from '../message-delete-transaction-dialog/message-delete-transaction-dialog.component';
 
 export interface UserTransactionApi {
   content: UserTransactionDTO[];
   totalElements: number;
 }
 export interface UserTransactionDTO {
-  id: number;
-  period: Date;
-  successTime: Date;
-  buyer: string;
-  seller: string;
-  productName: string;
-  fee: number;
-  price: number;
-  status: string
+  id;
+  period;
+  successTime;
+  buyer;
+  seller;
+  productName;
+  fee;
+  price;
+  status;
 }
 @Component({
   selector: 'app-admin-transaction-manager',
@@ -32,8 +30,8 @@ export interface UserTransactionDTO {
 })
 export class AdminTransactionManagerComponent implements OnInit, AfterViewInit {
 
-  displayedColumns: string[] = ['position', 'successTime', 'period', 'buyer', 'seller', 'productName',
-    'price', 'fee', 'status', 'delete'];
+  displayedColumns: string[] = ['select','id', 'successTime', 'period', 'buyer', 'seller', 'productName',
+    'price', 'fee', 'status'];
   userTransactionDTO: UserTransactionDTO;
   resultsLength = 0;
   isLoadingResults = true;
@@ -48,9 +46,11 @@ export class AdminTransactionManagerComponent implements OnInit, AfterViewInit {
   statusFormSearch: boolean = true;
   firstDateSt: string;
   lastDateSt: string;
-  year: number;
-  public data: UserTransactionDTO[];
+  data: UserTransactionDTO[]=[];
+  transactionSelectedList: UserTransactionDTO[] = [];
+  selection = new SelectionModel<UserTransactionDTO>(true, []);
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+
 
 
   constructor(private formBuilder: FormBuilder,
@@ -103,10 +103,65 @@ export class AdminTransactionManagerComponent implements OnInit, AfterViewInit {
         })
       ).subscribe(data => {
       this.data = data;
-      console.log(this.data)
+      console.log(this.data);
+      this.selectedTransactionList();
     });
   }
 
+  /** Whether the number of selected elements matches the total number of rows. */
+  isAllSelected() {
+    const numSelected = this.selection.selected.length;
+    const numRows = this.data.length;
+    return numSelected === numRows;
+  }
+
+  /** Selects all rows if they are not all selected; otherwise clear selection. */
+  masterToggle() {
+    this.isAllSelected() ?
+      this.selection.clear() :
+      this.data.forEach(row => this.selection.select(row));
+  }
+
+  /** The label for the checkbox on the passed row */
+  checkboxLabel(row?: UserTransactionDTO): string {
+    if (!row) {
+      return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
+    }
+    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.id + 1}`;
+  }
+  selectedTransactionList(){
+    if(this.selection.selected.length!=0) {
+      for (let transaction of this.selection.selected) {
+        const index = this.transactionSelectedList.findIndex(e => e.id === transaction.id);
+        if (index == -1) {
+          this.transactionSelectedList.push(transaction);
+        }
+      }
+      this.selection.clear();
+    }
+  }
+  openMessageDeleteDialog() {
+    this.selectedTransactionList();
+    const dialogRef = this.dialog.open(MessageDeleteTransactionDialogComponent, {
+      width: '500px',
+      minWidth: '300px',
+      position: {top: '5%'},
+      disableClose: true,
+      data: {transactionSelectedList: this.transactionSelectedList}
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      this.ngOnInit();
+    });
+
+  }
+  // deleteTransaction() {
+  //   this.selectedTransactionList();
+  //   for (let transactionDTO of this.transactionSelectedList){
+  //     this.adminExchangeService.delete(transactionDTO.id).subscribe(data => {
+  //     });
+  //   }
+  //   this.ngAfterViewInit();
+  // }
   search() {
     this.buyer = this.formTransactionSearch.value.buyer;
     this.seller = this.formTransactionSearch.value.seller;
@@ -141,5 +196,6 @@ export class AdminTransactionManagerComponent implements OnInit, AfterViewInit {
     dateObj.setDate(dateObj.getDate() + numDays);
     return dateObj;
   }
+
 
 }
