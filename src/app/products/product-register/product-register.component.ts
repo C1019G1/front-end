@@ -54,6 +54,7 @@ export class ProductRegisterComponent implements OnInit {
       fullName: [''],
       email: [''],
       phone: [''],
+      imgUrlList: [''],
     });
     this.productInfor.controls.userName.setValue(this.cookieStorageService.getUsername());
     this.getAllCatalogue();
@@ -108,6 +109,7 @@ export class ProductRegisterComponent implements OnInit {
   }
 
   add() {
+    this.productInfor.controls.imgUrlList.setValue(this.imgUrlList);
     this.userService.saveProductInfor(this.productInfor.value).subscribe(data1 => {
         this.ngOnInit();
         this.productInfor.patchValue(data1);
