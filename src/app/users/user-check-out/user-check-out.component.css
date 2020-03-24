@@ -13,7 +13,38 @@ tr.mat-footer-row {
   max-width: 400px;
 }
 
-.example-header-image {
-  background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
-  background-size: cover;
+table {
+  width: 100%;
+}
+th {
+  text-align: left;
+}
+.mat-cell{
+  padding-left: 8px;
+  padding-right: 8px;
+  border-right: 1px solid #e0e0e0
+}
+th.mat-column-select,td.mat-column-select{
+  text-align: center;
+  width: 50px;
+}
+.mat-header-cell{
+  background-color: rgba(255, 186, 0, 0.81);
+  font-size: larger;
+  padding-left: 8px;
+  padding-right: 8px;
+  border-right: 1px solid #e0e0e0
+}
+.mat-table-sticky:first-child {
+  border-right: 1px solid #e0e0e0;
+  padding-left: 8px;
+  padding-right: 8px;
+}
+.mat-table-sticky:last-child {
+  border-left: 1px solid #e0e0e0;
+  padding-left: 8px;
+  padding-right: 8px;
+}
+.mat-row.selected {
+  background: #fffaad;
 }

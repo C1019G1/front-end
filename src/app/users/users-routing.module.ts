@@ -39,7 +39,7 @@ const routes: Routes = [
   {path: 'login-history', component: LoginHistoryComponent},
   {path: 'change-password', component: ChangePasswordComponent, canActivate: [UserGuard]},
   {path: 'receive-product-info', component: ReceiveProductInfoComponent},
-  {path: 'check-out', component: UserCheckOutComponent},
+  {path: 'cart', component: UserCheckOutComponent, canActivate: [UserGuard]},
 ];
 
 @NgModule({
