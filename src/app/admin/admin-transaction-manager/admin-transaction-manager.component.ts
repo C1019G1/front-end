@@ -14,7 +14,6 @@ export interface UserTransactionApi {
   content: UserTransactionDTO[];
   totalElements: number;
 }
-
 export interface UserTransactionDTO {
   id: number;
   period: Date;
@@ -26,13 +25,13 @@ export interface UserTransactionDTO {
   price: number;
   status: string
 }
-
 @Component({
-  selector: 'app-exchange-manager',
-  templateUrl: './exchange-manager.component.html',
-  styleUrls: ['./exchange-manager.component.css']
+  selector: 'app-admin-transaction-manager',
+  templateUrl: './admin-transaction-manager.component.html',
+  styleUrls: ['./admin-transaction-manager.component.css']
 })
-export class ExchangeManagerComponent implements OnInit, AfterViewInit {
+export class AdminTransactionManagerComponent implements OnInit, AfterViewInit {
+
   displayedColumns: string[] = ['position', 'successTime', 'period', 'buyer', 'seller', 'productName',
     'price', 'fee', 'status', 'delete'];
   userTransactionDTO: UserTransactionDTO;
@@ -142,4 +141,5 @@ export class ExchangeManagerComponent implements OnInit, AfterViewInit {
     dateObj.setDate(dateObj.getDate() + numDays);
     return dateObj;
   }
+
 }
