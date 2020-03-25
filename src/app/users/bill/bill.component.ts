@@ -70,8 +70,7 @@ export class BillComponent implements OnInit {
     doc.text(info.innerText, 40, 40);
     doc.text(code.innerText, 150, 30);
     doc.autoPrint();
-    doc.rect(10, 10, 196, 150, 'S');
-    doc.save('test.pdf');
+        doc.save('test.pdf');
 
   }
 

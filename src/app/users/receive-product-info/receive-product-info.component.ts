@@ -26,7 +26,7 @@ export interface ProductForBill {
   fee: number;
   note: string;
   paymentMethod: string;
-  sellerName: string;
+  sellerName: string[];
 }
 
 @Component({

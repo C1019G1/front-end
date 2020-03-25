@@ -28,8 +28,6 @@ export class DialogConformExchangeComponent implements OnInit {
 
   openBill() {
     const dialogRef = this.dialog.open(BillComponent, {
-      width: '700px',
-      height: '470px',
       data: {productListForBill: this.productListForBill,customerInfo:this.customerInfo},
       disableClose: true
     });
