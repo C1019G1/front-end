@@ -5,6 +5,29 @@ import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material/dialog
 import {BillComponent} from '../bill/bill.component';
 import {DialogConformExchangeComponent} from '../../admin/dialog-conform-exchange/dialog-conform-exchange.component';
 import {UserProduct} from '../user-check-out/user-check-out.component';
+import {CookieStorageService} from '../../services/auth/cookie-storage.service';
+import {UserService} from '../../services/user.service';
+import {UserProfileDTO} from '../../admin/admin-user-manager/admin-user-manager.component';
+import {ProductInfor} from '../../products/product-update/product-update.component';
+import {Observable} from 'rxjs';
+
+export interface BuyerDTO {
+  idBuyer: number;
+  buyerName: string;
+  buyerEmail: string;
+  buyerAddress: string;
+  buyerPhoneNumber: string;
+}
+
+export interface ProductForBill {
+  productId: number;
+  productName: string;
+  price: number;
+  fee: number;
+  note: string;
+  paymentMethod: string;
+  sellerName: string;
+}
 
 @Component({
   selector: 'app-receive-product-info',
@@ -13,16 +36,25 @@ import {UserProduct} from '../user-check-out/user-check-out.component';
 })
 export class ReceiveProductInfoComponent implements OnInit {
   public formReceiver: FormGroup;
-  public formBuyer: FormGroup;
-  public check;
-  selectedProducts: UserProduct[];
-  paymentMethod = '';
+  public check = false;
+  public isHideButton =!this.check;
+  public selectedProducts: UserProduct[];
+  public paymentMethod = '';
+  public buyerDTO: BuyerDTO;
+  public productListForBill: ProductForBill[];
+  public productForBill: ProductForBill;
+  public customerInfo: BuyerDTO;
+  public address: string;
+  public sellerName: any;
 
   constructor(
-    public dialogRef: MatDialogRef<ReceiveProductInfoComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any,
+    // public dialogRef: MatDialogRef<ReceiveProductInfoComponent>,
+    // @Inject(MAT_DIALOG_DATA) public data: any,
+    //
     public formBuilder: FormBuilder,
     public  dialog: MatDialog,
+    public userService: UserService,
+    public cookieStorageService: CookieStorageService,
   ) {
   }
 
@@ -38,25 +70,71 @@ export class ReceiveProductInfoComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       phoneNumber: ['', [Validators.required]],
     });
-    this.formBuyer = this.formBuilder.group({
-      fullName: ['', [Validators.required]],
-      address: ['', [Validators.required]],
-      email: ['', [Validators.required, Validators.email]],
-      phoneNumber: ['', [Validators.required]]
+    const userName = this.cookieStorageService.getUsername();
+    this.userService.getInforUser(userName).subscribe(data => {
+      this.buyerDTO = data;
     });
-    this.selectedProducts = this.data.selectedProducts;
-    this.paymentMethod = this.data.paymentMethod;
-    console.log(this.paymentMethod);
-    console.log(this.selectedProducts);
+    // this.selectedProducts = this.data.selectedProducts;
+    // this.paymentMethod = this.data.paymentMethod;
+    // console.log(this.paymentMethod);
+    // console.log(this.selectedProducts);
+    // for (let product of this.selectedProducts){
+    //   this.sellerName = this.userService.getInfoUserNameByProductId(product.productId);
+    //   this.productForBill = { productId: product.productId,productName: product.productName,price: product.price,fee:product.fee,note: 'Đã thanh toán',paymentMethod: this.paymentMethod,sellerName:this.sellerName};
+    //   this.productListForBill.push(<ProductForBill> this.productForBill);
+    // }
+    this.sellerName = this.userService.getFullNameOfSellerByProductId(1);
+    console.log("Tên của người bán"+this.sellerName) ;
   }
 
   openConformPrint() {
+    console.log(this.check);
+    this.address = this.formReceiver.value.street + '-' + this.formReceiver.value.ward + '-' + this.formReceiver.value.village + '-' + this.formReceiver.value.district + '-' + this.formReceiver.value.province;
+    if (this.check == false) {
+      this.customerInfo = {
+        idBuyer: this.buyerDTO.idBuyer,
+        buyerName: this.formReceiver.value.fullName,
+        buyerEmail: this.formReceiver.value.email,
+        buyerAddress: this.address,
+        buyerPhoneNumber: this.formReceiver.value.phoneNumber
+      };
+    } else {
+      this.customerInfo = this.buyerDTO;
+    }
+    console.log(this.customerInfo.buyerName);
+    console.log(this.customerInfo.buyerAddress);
+    console.log(this.customerInfo.buyerPhoneNumber);
+    console.log(this.customerInfo.buyerEmail);
+
+    this.productListForBill = [{
+      productId: 1,
+      productName: 'oto',
+      price: 20000000,
+      fee: 5000,
+      note: 'Đã thanh toán',
+      paymentMethod: 'bẳng tài khoản',
+      sellerName: this.sellerName
+    },
+      {
+        productId: 2,
+        productName: 'iphone',
+        price: 1000000,
+        fee: 5000,
+        note: 'Đã thanh toán',
+        paymentMethod: 'bẳng tài khoản',
+        sellerName: 'Trần Việt Dũng'
+      }
+    ];
+    console.log(this.productListForBill[0]);
     const dialogRef = this.dialog.open(DialogConformExchangeComponent, {
       width: '450px',
       height: '200px',
-      data: {data1: 'Dialog'},
+      data: {productListForBill:this.productListForBill,customerInfo:this.customerInfo},
       disableClose: true
     });
+    dialogRef.afterClosed().subscribe(result => {
+    });
+
   }
 
 }
