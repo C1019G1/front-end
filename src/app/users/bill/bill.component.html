@@ -1,23 +1,23 @@
 <div class="container">
-  <div id="print-section" style="border: double 1px ">
+  <div class="mt-4" id="print-section" style="border: double 1px ">
     <div class="row d-flex justify-content-center mt-2">
       <h3 id="tile" #tile >HÓA ĐƠN MUA HÀNG</h3>
     </div>
     <div class="row mx-5">
-      <div id ="info" #info class="col-9">
-        <p>Khách hàng:{{customerInfo.buyerName}} </p>
-        <p>Mã khách hàng:{{customerInfo.idBuyer}}</p>
-        <p>Người bán:{{productListForBill[0].sellerName.valueOf()}}</p>
-        <p>Mặt hàng:{{productListForBill[0].productName}}</p>
-        <p>Mã hàng:{{productListForBill[0].productId}}</p>
+      <div id ="info" #info class="col-8">
+        <p>Khách hàng:&nbsp;{{customerInfo.buyerName}} </p>
+        <p>Mã khách hàng:&nbsp;{{customerInfo.idBuyer}}</p>
+        <p>Người bán:&nbsp;{{productListForBill[0].sellerName.valueOf()}}</p>
+        <p>Mặt hàng:&nbsp;{{productListForBill[0].productName}}</p>
+        <p>Mã hàng:&nbsp;{{productListForBill[0].productId}}</p>
         <p>Số tiền:&nbsp;{{money}}&nbsp;VNĐ</p>
         <p>Bằng chữ:&nbsp;{{stringMoney}}</p>
-        <p>Ghi chú:{{productListForBill[0].note}}</p>
+        <p>Ghi chú:&nbsp;{{productListForBill[0].note}}</p>
       </div>
-      <div id="code" #code class="col-3">
+      <div id="code" #code class="col-4">
         <p>Mã số:</p>
         <p>Ký hiệu:</p>
-        <p>Ngày lập:{{dayCompose}}</p>
+        <p>Ngày lập:{{dayCompose | date: 'dd/MM/yyyy'}}</p>
       </div>
     </div>
   </div>

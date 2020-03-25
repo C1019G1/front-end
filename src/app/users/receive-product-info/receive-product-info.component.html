@@ -100,7 +100,7 @@
     </div>
   </div>
   <div class="row d-flex justify-content-end mt-3" style="margin-right: 90px">
-    <button class="btn btn-outline-warning"  (click)="openConformPrint()">Hoàn tất và in hóa đơn</button>
+    <button class="btn btn-outline-warning" [disabled]="formReceiver.invalid&&!check" (click)="openConformPrint()">Hoàn tất và in hóa đơn</button>
     <button class="btn btn-outline-warning mx-3">Quay lại</button>
   </div>
 </div>

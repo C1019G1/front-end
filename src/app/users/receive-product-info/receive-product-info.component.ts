@@ -48,8 +48,8 @@ export class ReceiveProductInfoComponent implements OnInit {
   public sellerName: any;
 
   constructor(
-    public dialogRef: MatDialogRef<ReceiveProductInfoComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any,
+    // public dialogRef: MatDialogRef<ReceiveProductInfoComponent>,
+    // @Inject(MAT_DIALOG_DATA) public data: any,
 
     public formBuilder: FormBuilder,
     public  dialog: MatDialog,
@@ -75,17 +75,17 @@ export class ReceiveProductInfoComponent implements OnInit {
       this.buyerDTO = data;
     });
     //
-    this.selectedProducts = this.data.selectedProducts;
-    this.paymentMethod = this.data.paymentMethod;
-    console.log(this.paymentMethod);
-    console.log(this.selectedProducts);
-    for (let product of this.selectedProducts){
-      this.sellerName = this.userService.getFullNameOfSellerByProductId(product.productId);
-      this.productForBill = { productId: product.productId,productName: product.productName,price: product.price,fee:product.fee,note: 'Đã thanh toán',paymentMethod: this.paymentMethod,sellerName:this.sellerName};
-      this.productListForBill.push(<ProductForBill> this.productForBill);
-    }
-    //
-    // this.sellerName = this.userService.getFullNameOfSellerByProductId(1);
+    // this.selectedProducts = this.data.selectedProducts;
+    // this.paymentMethod = this.data.paymentMethod;
+    // console.log(this.paymentMethod);
+    // console.log(this.selectedProducts);
+    // for (let product of this.selectedProducts){
+    //   this.sellerName = this.userService.getFullNameOfSellerByProductId(product.productId);
+    //   this.productForBill = { productId: product.productId,productName: product.productName,price: product.price,fee:product.fee,note: 'Đã thanh toán',paymentMethod: this.paymentMethod,sellerName:this.sellerName};
+    //   this.productListForBill.push(<ProductForBill> this.productForBill);
+    // }
+
+    this.sellerName = this.userService.getFullNameOfSellerByProductId(1);
     console.log("Tên của người bán"+this.sellerName) ;
   }
 
@@ -108,25 +108,25 @@ export class ReceiveProductInfoComponent implements OnInit {
     console.log(this.customerInfo.buyerPhoneNumber);
     console.log(this.customerInfo.buyerEmail);
 
-    // this.productListForBill = [{
-    //   productId: 1,
-    //   productName: 'oto',
-    //   price: 20000000,
-    //   fee: 5000,
-    //   note: 'Đã thanh toán',
-    //   paymentMethod: 'bẳng tài khoản',
-    //   sellerName: this.sellerName
-    // },
-    //   {
-    //     productId: 2,
-    //     productName: 'iphone',
-    //     price: 1000000,
-    //     fee: 5000,
-    //     note: 'Đã thanh toán',
-    //     paymentMethod: 'bẳng tài khoản',
-    //     sellerName: 'Trần Việt Dũng'
-    //   }
-    // ];
+    this.productListForBill = [{
+      productId: 1,
+      productName: 'oto',
+      price: 20000000,
+      fee: 5000,
+      note: 'Đã thanh toán',
+      paymentMethod: 'bẳng tài khoản',
+      sellerName: this.sellerName
+    },
+      {
+        productId: 2,
+        productName: 'iphone',
+        price: 1000000,
+        fee: 5000,
+        note: 'Đã thanh toán',
+        paymentMethod: 'bẳng tài khoản',
+        sellerName: 'Trần Việt Dũng'
+      }
+    ];
     console.log(this.productListForBill[0]);
     const dialogRef = this.dialog.open(DialogConformExchangeComponent, {
       width: '450px',
