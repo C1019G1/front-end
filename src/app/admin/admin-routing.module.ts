@@ -19,6 +19,7 @@ import { AdminTransactionManagerComponent } from './admin-transaction-manager/ad
 import { MessageDeleteTransactionDialogComponent } from './message-delete-transaction-dialog/message-delete-transaction-dialog.component';
 import {ProductDetailInforComponent} from './product-detail-infor/product-detail-infor.component';
 
+
 const routes: Routes = [
   { path: 'user-manager', component: AdminUserManagerComponent , canActivate: [AdminGuard] },
   { path: 'product-manager', component: AdminProductManagerComponent, canActivate: [AdminGuard] },
@@ -46,7 +47,8 @@ const routes: Routes = [
     AdminUserLockComponent,
     DialogConformExchangeComponent,
     AdminTransactionManagerComponent,
-    MessageDeleteTransactionDialogComponent
+    MessageDeleteTransactionDialogComponent,
+    MessageSuccessfulTransactionDialogComponent
   ]
 })
 export class AdminRoutingModule { }

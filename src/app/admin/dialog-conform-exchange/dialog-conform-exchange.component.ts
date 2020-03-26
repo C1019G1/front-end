@@ -3,6 +3,7 @@ import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material/dialog
 import {BillComponent} from '../../users/bill/bill.component';
 import {BuyerDTO, ProductForBill} from '../../users/receive-product-info/receive-product-info.component';
 import {UserService} from '../../services/user.service';
+import {MessageSuccessfulTransactionDialogComponent} from '../message-successful-transaction-dialog/message-successful-transaction-dialog.component';
 
 @Component({
   selector: 'app-dialog-conform-exchange',
@@ -12,6 +13,8 @@ import {UserService} from '../../services/user.service';
 export class DialogConformExchangeComponent implements OnInit {
   public productListForBill: ProductForBill[];
   public customerInfo: BuyerDTO;
+  private money: number=0;
+  private productName: string ='';
   constructor(
     public  dialog: MatDialog,
     public userService: UserService,
@@ -23,26 +26,36 @@ export class DialogConformExchangeComponent implements OnInit {
   ngOnInit(): void {
     this.productListForBill = this.data.productListForBill;
     this.customerInfo = this.data.customerInfo;
-    console.log('namecustomer1111111:'+ this.customerInfo.buyerName);
+    console.log(this.data.productListForBill);
+    console.log(this.customerInfo);
   }
 
   openBill() {
     const dialogRef = this.dialog.open(BillComponent, {
-      width: '700px',
-      height: '500px',
       data: {productListForBill: this.productListForBill,customerInfo:this.customerInfo},
       disableClose: true
+    })
+    this.dialogRef.close();
+    dialogRef.afterClosed().subscribe(result => {
     });
+    this.sendEmailToCustomer()
+  }
+  sendEmailToCustomer() {
+    const email =this.customerInfo.buyerEmail;
+    for (let productForBill of this.productListForBill){
+      this.money += productForBill.price+productForBill.fee;
+      this.productName += productForBill.productName+', ';
+    }
+    if(email !==null){
+      this.userService.sendEmailtoSeller(email,this.productName,this.money).subscribe(result =>{});
+    }
+    const dialogRef = this.dialog.open(MessageSuccessfulTransactionDialogComponent, {
+      width: '400px',
+      height: '200px',
+      disableClose: true
+    })
     this.dialogRef.close();
   }
 
-  sendEmail() {
-    const email =this.customerInfo.buyerEmail;
-    const productname =this.productListForBill[0].productName;
-    const price = this.productListForBill[0].price;
-  this.userService.sendEmailtoSeller(email,productname,price).subscribe(result =>{
 
-  });
-    alert('Cảm ơn bạn đã thanh toán hóa đơn!Bạn kiểm tra email để biết thông tin của hóa đơn ');
-  }
 }
