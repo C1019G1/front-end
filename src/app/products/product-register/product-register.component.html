@@ -114,7 +114,7 @@
         <div class="uploadfilecontainer text-center" (click)="fileInput.click()" appDragDrop
              (onFileDropped)="uploadFile($event)">
           Kéo và thả ảnh tại đây
-          <input hidden type="file" #fileInput (change)="uploadFile($event)" accept="image/*">
+          <input hidden type="file" #fileInput (change)="uploadFile($event.target.files)" accept="image/*">
         </div>
         <div>
           <p>
