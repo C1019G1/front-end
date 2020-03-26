@@ -10,7 +10,7 @@ import {ReactiveFormsModule} from '@angular/forms';
 import {ProductAddComponent} from './product-add/product-add.component';
 import { MessageDialogeComponent } from './message-dialoge/message-dialoge.component';
 import { ProductRegisterComponent } from './product-register/product-register.component';
-import { ImageUploadComponent } from './product-register/image-upload/image-upload.component';
+import { ImageUploadComponent } from '../Common/image-upload/image-upload.component';
 import {DragDropDirective} from '../Common/dragdrop.directive';
 import {FirebaseModule} from '../Common/firebase.module';
 import {MaterialModule} from '../Common/material.module';
@@ -33,7 +33,7 @@ const routes: Routes = [
     MaterialModule,
     FirebaseModule
   ],
-  exports: [RouterModule],
+  exports: [RouterModule, ImageUploadComponent],
   declarations: [ProductListComponent,
     PoductDetailComponent,
     CountDownComponent,

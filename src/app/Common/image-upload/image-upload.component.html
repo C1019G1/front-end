@@ -1,0 +1,27 @@
+
+<div class="card border-dark mb-3" style="height: 10rem; width: 10rem">
+
+  <div *ngIf="snapshot | async as snap">
+    <img *ngIf="downloadURL as url"  [src]="url" class="img-responsive" alt="Cinque Terre" style="height: 10rem; width: 10rem">
+  </div>
+  <button type="button" class="btn btn-close btn-xs" (click)="deleteAttachment()">X</button>
+  <div class="progress mt-auto" *ngIf="percentage | async as pct">
+    <div class="progress-bar bg-success" role="progressbar" [ngStyle]="{'width': pct +'%'}" aria-valuenow="50"
+         aria-valuemin="0" aria-valuemax="100"></div>
+  </div>
+</div>
+
+
+<!--<mat-card class="example-card">-->
+
+<!--  <div class="row" *ngIf="percentage | async as pct">-->
+<!--    <mat-progress-bar [value]="pct" mode="determinate"></mat-progress-bar>-->
+<!--    {{ pct | number }}%-->
+<!--  </div>-->
+<!--  <div class="row" *ngIf="snapshot | async as snap">-->
+<!--    <img mat-card-image *ngIf="downloadURL as url"  [src]="url">-->
+<!--  </div>-->
+<!--  <button (click)="deleteAttachment()" mat-button><i class="material-icons" style="color: #9ecbec">-->
+<!--    delete-->
+<!--  </i></button>-->
+<!--</mat-card>-->
