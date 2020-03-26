@@ -5,19 +5,19 @@
     </div>
     <div class="row mx-5">
       <div id ="info" #info class="col-9">
-        <p>Khách hàng: </p>
-        <p>Mã khách hàng:</p>
-        <p>Người bán:</p>
-        <p>Mặt hàng:</p>
-        <p>Mã hàng:</p>
+        <p>Khách hàng:{{customerInfo.buyerName}} </p>
+        <p>Mã khách hàng:{{customerInfo.idBuyer}}</p>
+        <p>Người bán:{{productListForBill[0].sellerName.valueOf()}}</p>
+        <p>Mặt hàng:{{productListForBill[0].productName}}</p>
+        <p>Mã hàng:{{productListForBill[0].productId}}</p>
         <p>Số tiền:&nbsp;{{money}}&nbsp;VNĐ</p>
         <p>Bằng chữ:&nbsp;{{stringMoney}}</p>
-        <p>Ghi chú:</p>
+        <p>Ghi chú:{{productListForBill[0].note}}</p>
       </div>
       <div id="code" #code class="col-3">
         <p>Mã số:</p>
         <p>Ký hiệu:</p>
-        <p>Ngày lập:</p>
+        <p>Ngày lập:{{dayCompose}}</p>
       </div>
     </div>
   </div>
