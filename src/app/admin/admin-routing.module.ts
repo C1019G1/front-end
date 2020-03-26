@@ -17,15 +17,17 @@ import {ProductAddComponent} from './product-add/product-add.component';
 import {FirebaseModule} from '../Common/firebase.module';
 import { AdminTransactionManagerComponent } from './admin-transaction-manager/admin-transaction-manager.component';
 import { MessageDeleteTransactionDialogComponent } from './message-delete-transaction-dialog/message-delete-transaction-dialog.component';
-import { MessageSuccessfulTransactionDialogComponent } from './message-successful-transaction-dialog/message-successful-transaction-dialog.component';
+import {ProductDetailInforComponent} from './product-detail-infor/product-detail-infor.component';
+
 
 const routes: Routes = [
   { path: 'user-manager', component: AdminUserManagerComponent , canActivate: [AdminGuard] },
   { path: 'product-manager', component: AdminProductManagerComponent, canActivate: [AdminGuard] },
   { path: 'check-product', component: AdminCheckProductComponent, canActivate: [AdminGuard] },
-  { path: 'update-product', component: ProductUpdateComponent },
+  { path: 'update-product/:id', component: ProductUpdateComponent },
   { path: 'add-product', component: ProductAddComponent },
   { path: 'transaction-manager', component: AdminTransactionManagerComponent },
+  { path: 'product-detail-infor/:id', component: ProductDetailInforComponent },
   ];
 
 @NgModule({
