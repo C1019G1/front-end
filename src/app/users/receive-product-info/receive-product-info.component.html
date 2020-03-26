@@ -1,35 +1,31 @@
+
 <div class="container-fluid mt-4">
   <div class="row d-flex justify-content-center ">
     <h1 class="font-weight-bold"> Thông tin mua hàng</h1>
   </div>
   <div class="row">
-    <div class="col-6">
+    <div class="col-4">
       <div class="row d-flex justify-content-center ">
         <h3 class="font-weight-bold "> Thông tin người mua</h3>
       </div>
-
-      <fieldset [disabled]=true class="mt-4">
-        <form class="w-75 mx-auto" [formGroup]="formBuyer">
-          <div class="form-group mt-2">
-            <p>Họ và tên</p>
-            <input class="form-control" type="text" formControlName="fullName">
-          </div>
-          <div class="form-group mt-2">
-            <p>Số điện thoại</p>
-            <input class="form-control" type="text" formControlName="phoneNumber">
-          </div>
-          <div class="form-group mt-2">
-            <p>Địa chỉ</p>
-            <input class="form-control" type="text" formControlName="address">
-          </div>
-          <div class="form-group mt-2">
-            <p>Email</p>
-            <input class="form-control" type="text" formControlName="email">
-          </div>
-        </form>
-      </fieldset>
+        <div class="form-group mt-2">
+          <p>Họ và tên</p>
+          <div class="ml-0 row d-flex align-items-center" style="background: #dedede;height: 35px"><p class="mt-2 ml-3">{{buyerDTO.buyerName}}</p></div>
+        </div>
+        <div class="form-group mt-2">
+          <p>Số điện thoại</p>
+          <div class="ml-0 row d-flex align-items-center" style="background: #dedede;height: 35px"><p class="mt-2 ml-3">{{buyerDTO.buyerPhoneNumber}}</p></div>
+        </div>
+        <div class="form-group mt-2">
+          <p>Địa chỉ</p>
+          <div class="ml-0 row d-flex align-items-center" style="background: #dedede;height: 35px"><p class="mt-2 ml-3">{{buyerDTO.buyerAddress}}</p></div>
+        </div>
+        <div class="form-group mt-2">
+          <p>Email</p>
+          <div class="ml-0 row d-flex align-items-center" style="background: #dedede;height: 35px"><p class="mt-2 ml-3">{{buyerDTO.buyerEmail}}</p></div>
+        </div>
     </div>
-    <div class="col-6">
+    <div class="col-8">
       <div class="row d-flex justify-content-center ">
         <h3 class="font-weight-bold"> Thông tin nhận hàng</h3>
       </div>
@@ -66,18 +62,18 @@
           </div>
           <div class="form-group mt-2">
             <fieldset>Địa chỉ
-              <div class="ml-5 mt-2"style="width: 92%">
+              <div class="ml-5 mt-2" style="width: 92%">
                 <p>Đường</p>
                 <input class="form-control" type="text" formControlName="street">
               </div>
               <div class="row d-flex ml-5">
-                <div class=" mt-3"style="width: 47%">
+                <div class=" mt-3" style="width: 47%">
                   <p>Thôn/Xóm/Tổ(<span class="text-danger">*</span>)</p>
                   <input class="form-control" type="text" formControlName="village">
                   <p *ngIf="formReceiver.controls.address?.errors?.required&&formReceiver.controls.address?.touched"
                      class="text-danger"> Vui lòng nhập thôn/xóm/tổ!</p>
                 </div>
-                <div class="w-30 mt-3 mx-3"style="width: 47%">
+                <div class="w-30 mt-3 mx-3" style="width: 47%">
                   <p>Xã/Phường(<span class="text-danger">*</span>)</p>
                   <input class="form-control" type="text" formControlName="ward">
                   <p *ngIf="formReceiver.controls.address?.errors?.required&&formReceiver.controls.address?.touched"
@@ -85,7 +81,7 @@
                 </div>
               </div>
               <div class="row d-flex ml-5">
-                <div class="w-30 mt-3"style="width: 47%">
+                <div class="w-30 mt-3" style="width: 47%">
                   <p>Quận/Huyện(<span class="text-danger">*</span>)</p>
                   <input class="form-control" type="text" formControlName="district">
                   <p *ngIf="formReceiver.controls.address?.errors?.required&&formReceiver.controls.address?.touched"
@@ -104,7 +100,7 @@
     </div>
   </div>
   <div class="row d-flex justify-content-end mt-3" style="margin-right: 90px">
-    <button class="btn btn-outline-warning" (click)="openConformPrint()">Hoàn tất và in hóa đơn</button>
+    <button class="btn btn-outline-warning"  (click)="openConformPrint()">Hoàn tất và in hóa đơn</button>
     <button class="btn btn-outline-warning mx-3">Quay lại</button>
   </div>
 </div>

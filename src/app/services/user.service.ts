@@ -33,10 +33,18 @@ export class UserService {
     return this.http.post(this.API + 'save-product', productInfor);
   }
   getInforUser(userName): Observable<any> {
-    return this.http.post(this.API + 'get-infor-user', userName);
+    return this.http.get(this.API + 'user/get-infor-user?userName='+ userName);
   }
 
   getCart(username: string): Observable<any> {
     return this.http.get(this.API + 'cart?userName=' + username);
+  }
+  // Chánh
+  getFullNameOfSellerByProductId(productId: number): Observable<any>{
+    // @ts-ignore
+    return this.http.get(this.API + 'product/getUserName?productId=' + productId);
+  }
+  sendEmailtoSeller(email: string,productName: string, priceTotal: number): Observable<any>{
+    return this.http.get(this.API + 'user/sentEmail?email=' + email+'&productName='+productName+'&priceTotal='+priceTotal);
   }
 }

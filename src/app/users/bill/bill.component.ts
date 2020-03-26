@@ -1,6 +1,7 @@
 import {Component, Inject, OnInit, ElementRef, ViewChild, Injectable} from '@angular/core';
 import {ReadMoneyService} from '../../services/read-money.service';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import {BuyerDTO, ProductForBill} from '../receive-product-info/receive-product-info.component';
 declare const jsPDF: any;
 
 @Component({
@@ -10,9 +11,11 @@ declare const jsPDF: any;
 })
 
 export class BillComponent implements OnInit {
-
+  public dayCompose = new Date();
   public stringMoney;
-  public money;
+  public money = 0;
+  public productListForBill: ProductForBill[];
+  public customerInfo: BuyerDTO;
 
   constructor(
     public readMoney: ReadMoneyService,
@@ -26,8 +29,14 @@ export class BillComponent implements OnInit {
   @ViewChild('code') code: ElementRef;
 
   ngOnInit(): void {
-    this.money = 1230000;
+    this.productListForBill = this.data.productListForBill;
+    this.customerInfo = this.data.customerInfo;
+    for (let productForBill of this.productListForBill){
+      this.money += productForBill.price+productForBill.fee;
+    }
     this.stringMoney = this.readMoney.docso(this.money);
+    console.log('namecustomer2222222:'+ this.customerInfo.buyerName);
+
   }
 
   // print(): void {
