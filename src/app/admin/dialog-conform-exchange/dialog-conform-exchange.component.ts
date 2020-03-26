@@ -3,6 +3,7 @@ import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material/dialog
 import {BillComponent} from '../../users/bill/bill.component';
 import {BuyerDTO, ProductForBill} from '../../users/receive-product-info/receive-product-info.component';
 import {UserService} from '../../services/user.service';
+import {MessageSuccessfulTransactionDialogComponent} from '../message-successful-transaction-dialog/message-successful-transaction-dialog.component';
 
 @Component({
   selector: 'app-dialog-conform-exchange',
@@ -33,12 +34,13 @@ export class DialogConformExchangeComponent implements OnInit {
     const dialogRef = this.dialog.open(BillComponent, {
       data: {productListForBill: this.productListForBill,customerInfo:this.customerInfo},
       disableClose: true
-    });
+    })
+    this.dialogRef.close();
     dialogRef.afterClosed().subscribe(result => {
     });
+    this.sendEmailToCustomer()
   }
-
-  sendEmail() {
+  sendEmailToCustomer() {
     const email =this.customerInfo.buyerEmail;
     for (let productForBill of this.productListForBill){
       this.money += productForBill.price+productForBill.fee;
@@ -46,8 +48,14 @@ export class DialogConformExchangeComponent implements OnInit {
     }
     if(email !==null){
       this.userService.sendEmailtoSeller(email,this.productName,this.money).subscribe(result =>{});
-      alert('Cảm ơn bạn đã thanh toán hóa đơn!Bạn kiểm tra email để biết thông tin của hóa đơn '+email+typeof this.productName+typeof this.money);
     }
-
+    const dialogRef = this.dialog.open(MessageSuccessfulTransactionDialogComponent, {
+      width: '400px',
+      height: '200px',
+      disableClose: true
+    })
+    this.dialogRef.close();
   }
+
+
 }

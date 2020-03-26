@@ -71,7 +71,7 @@ export class BillComponent implements OnInit {
     doc.text(code.innerText, 150, 30);
     doc.autoPrint();
         doc.save('test.pdf');
-
+    this.dialogRef.close();
   }
 
 }

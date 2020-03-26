@@ -104,7 +104,8 @@ export class ReceiveProductInfoComponent implements OnInit {
       height: '200px',
       data: {productListForBill:this.productListForBill,customerInfo:this.customerInfo},
       disableClose: true
-    });
+    })
+    this.dialogRef.close();
     dialogRef.afterClosed().subscribe(result => {
     });
 
