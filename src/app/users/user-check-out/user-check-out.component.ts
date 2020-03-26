@@ -22,6 +22,7 @@ export interface UserProduct {
   contractAddress: string;
   warranty: string;
   productId: number;
+  seller: string;
 }
 
 /** Error when invalid control is dirty, touched, or submitted. */
@@ -60,6 +61,7 @@ export class UserCheckOutComponent implements OnInit {
     const userName = this.cookieStorageService.getUsername();
     this.userService.getCart(userName).subscribe(value => {
       this.data = value;
+      console.log(this.data);
     });
     this.paymentForm = this.formBuilder.group({
       paymentMethod: ['', [Validators.required]],
@@ -113,8 +115,7 @@ export class UserCheckOutComponent implements OnInit {
     }
     if (this.selection.selected.length !== 0) {
       const dialogRef = this.dialog.open(ReceiveProductInfoComponent, {
-        minWidth: '300px',
-        position: {top: '5%'},
+        width: '1000px',
         disableClose: true,
         data: {
           paymentMethod: this.paymentForm.controls.paymentMethod.value,

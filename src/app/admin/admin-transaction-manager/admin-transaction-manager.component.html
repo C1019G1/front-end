@@ -18,26 +18,26 @@
           <input type="text" class="form-control w-50" formControlName="productName" required>
         </div>
       </div>
-      <div class="form-row ml-4 row d-flex" style=" margin-left: 100px;">
-        <div class=" col-md-4 mb-3" >
-          <mat-form-field style="margin-left: 10px;">
+      <div class="form-row mr-4 row d-flex" style=" margin-left: 90px;">
+        <div class="row d-flex justify-content-center col-md-4 mb-3 mr-3" >
+          <mat-form-field >
             <input matInput [matDatepicker]="picker" placeholder="Chọn ngày kết thúc giao dịch"
                    formControlName="date">
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
           </mat-form-field>
         </div>
-        <div class=" row d-flex col-md-4 mb-3">
+        <div class=" row d-flex  col-md-4 mb-3 ml-3">
           <label class="mt-2">Trạng thái</label>
-          <select class="custom-select mr-sm-2 w-50 ml-2" id="inlineFormCustomSelect" formControlName="status">
+          <select class="custom-select mr-sm-2 ml-2" style="width: 54%" id="inlineFormCustomSelect" formControlName="status">
             <option value="">Tất cả</option>
             <option value="1">Thành công</option>
             <option value="0">Chưa thanh toán</option>
           </select>
         </div>
-        <div class="row d-flex justify-content-end col-md-4 mb-3">
+        <div class="row d-flex  col-md-4 mb-3 ">
           <label class="mt-2 mx-3"></label>
-          <button class="btn btn-outline-warning w-50" style="margin-right: 20px" type="submit" (click)="search()">Tìm kiếm</button>
+          <button class="btn btn-outline-warning " style="height:36px; width: 55%;margin-left:79px " type="submit" (click)="search()">Tìm kiếm</button>
         </div>
       </div>
     </form>
