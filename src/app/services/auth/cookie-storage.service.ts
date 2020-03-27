@@ -12,7 +12,9 @@ export class CookieStorageService {
 
   constructor( private cookieService: CookieService) { }
   signOut() {
-    this.cookieService.deleteAll();
+    this.cookieService.delete(TOKEN_KEY, '/', 'localhost:4200');
+    this.cookieService.delete(USERNAME_KEY, '/', 'localhost:4200');
+    this.cookieService.delete(TOKEN_ROLE_NAME, '/', 'localhost:4200');
   }
   public saveToken(token: string, cookieExpireTime: any) {
     this.cookieService.delete(TOKEN_KEY);

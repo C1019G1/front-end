@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {TokenStorageService} from '../../services/auth/token-storage.service';
 import {UserService} from '../../services/user.service';
+import {CookieStorageService} from '../../services/auth/cookie-storage.service';
 
 @Component({
   selector: 'app-login-history',
@@ -13,11 +14,11 @@ export class LoginHistoryComponent implements OnInit {
   public loginHistoryList: any;
 
   constructor(
-    private tokenStorage: TokenStorageService,
+    private cookieStorageService: CookieStorageService,
     private userService: UserService
   ) { }
   ngOnInit(): void {
-   this.username = this.tokenStorage.getUsername();
+   this.username = this.cookieStorageService.getUsername();
    this.userService.getLoginHistory(this.username).subscribe(data => {
      this.loginHistoryList = data;
      console.log(this.loginHistoryList);
