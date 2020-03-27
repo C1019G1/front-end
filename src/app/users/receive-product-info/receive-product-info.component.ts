@@ -20,6 +20,7 @@ export interface BuyerDTO {
 }
 
 export interface ProductForBill {
+  transactionId: number;
   productId: number;
   productName: string;
   price: number;
@@ -37,15 +38,13 @@ export interface ProductForBill {
 export class ReceiveProductInfoComponent implements OnInit {
   public formReceiver: FormGroup;
   public check = false;
-  public isHideButton =!this.check;
   public selectedProducts: UserProduct[];
   public paymentMethod = '';
   public buyerDTO: BuyerDTO;
-  public productListForBill: ProductForBill[];
+  public productListForBill: ProductForBill[]=[];
   public productForBill: ProductForBill;
   public customerInfo: BuyerDTO;
   public address: string;
-  public sellerName: any;
 
   constructor(
     public dialogRef: MatDialogRef<ReceiveProductInfoComponent>,
@@ -74,19 +73,15 @@ export class ReceiveProductInfoComponent implements OnInit {
     this.userService.getInforUser(userName).subscribe(data => {
       this.buyerDTO = data;
     });
-    //
+
     this.selectedProducts = this.data.selectedProducts;
     this.paymentMethod = this.data.paymentMethod;
     console.log(this.paymentMethod);
     console.log(this.selectedProducts);
     for (let product of this.selectedProducts){
-      this.sellerName = this.userService.getFullNameOfSellerByProductId(product.productId);
-      this.productForBill = { productId: product.productId,productName: product.productName,price: product.price,fee:product.fee,note: 'Đã thanh toán',paymentMethod: this.paymentMethod,sellerName:this.sellerName};
-      this.productListForBill.push(<ProductForBill> this.productForBill);
+      this.productForBill = {transactionId:product.id,productId: product.productId,productName: product.productName,price: product.price,fee:product.fee,note: 'Đã thanh toán',paymentMethod: this.paymentMethod, sellerName:product.seller};
+      this.productListForBill.push(this.productForBill);
     }
-    //
-    // this.sellerName = this.userService.getFullNameOfSellerByProductId(1);
-    console.log("Tên của người bán"+this.sellerName) ;
   }
 
   openConformPrint() {
@@ -103,37 +98,15 @@ export class ReceiveProductInfoComponent implements OnInit {
     } else {
       this.customerInfo = this.buyerDTO;
     }
-    console.log(this.customerInfo.buyerName);
-    console.log(this.customerInfo.buyerAddress);
-    console.log(this.customerInfo.buyerPhoneNumber);
-    console.log(this.customerInfo.buyerEmail);
-
-    // this.productListForBill = [{
-    //   productId: 1,
-    //   productName: 'oto',
-    //   price: 20000000,
-    //   fee: 5000,
-    //   note: 'Đã thanh toán',
-    //   paymentMethod: 'bẳng tài khoản',
-    //   sellerName: this.sellerName
-    // },
-    //   {
-    //     productId: 2,
-    //     productName: 'iphone',
-    //     price: 1000000,
-    //     fee: 5000,
-    //     note: 'Đã thanh toán',
-    //     paymentMethod: 'bẳng tài khoản',
-    //     sellerName: 'Trần Việt Dũng'
-    //   }
-    // ];
-    console.log(this.productListForBill[0]);
+    console.log(this.customerInfo);
+    console.log(this.productListForBill);
     const dialogRef = this.dialog.open(DialogConformExchangeComponent, {
       width: '450px',
       height: '200px',
       data: {productListForBill:this.productListForBill,customerInfo:this.customerInfo},
       disableClose: true
-    });
+    })
+    this.dialogRef.close();
     dialogRef.afterClosed().subscribe(result => {
     });
 

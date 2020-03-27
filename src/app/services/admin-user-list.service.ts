@@ -30,7 +30,25 @@ export class AdminUserListService {
   register(userDTO): Observable<any> {
     return this.http.post(this.API + 'user-register', userDTO, this.httpOptions);
   }
-  lockUsers(userList): Observable<any>{
+  lockUsers(userList): Observable<any> {
     return this.http.post(this.API + 'user-lock', userList, this.httpOptions);
+  }
+
+
+
+  // ProductManager
+
+
+  getProductManager(page: number, size: number): Observable<any> {
+    return this.http.get(this.API + 'prod-manager?page=' + 0 + '&size=' + 5);
+  }
+  searchByNameProductAndCatalogueAndUserNameAndPriceAndStatus(page: number, size: number, nameProduct: string, catalogue: string, userName: string, startPrice1: number, startPrice2: number, status: boolean): Observable<any> {
+    return this.http.get(this.API + 'prod-manager/search?' +
+      'page=' + page + '&size=' + size + '&nameProduct=' + nameProduct + '&catalogue=' + catalogue + '&userName=' + userName + '&startPrice1=' + startPrice1 + '&startPrice2=' + startPrice2 + '&status=' + status);
+    // http://localhost:8080/admin/prod-manager/search?page=0&size=5&nameProduct=Ôtô Camrry&catalogue=Dân dụng&userName=chanhtv&startPrice1=1&startPrice2=1000000000&status=True
+  }
+
+  getProductDetailById(productId: number): Observable<any> {
+    return this.http.get(this.API + 'prod-detail/' + productId);
   }
 }
