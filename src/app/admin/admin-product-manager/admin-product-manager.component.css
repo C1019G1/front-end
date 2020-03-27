@@ -71,7 +71,13 @@ th.mat-column-select,td.mat-column-select{
   height: 40px;
   width: 130px;
 }
-.search-input{
+.custom-select {
+  width: 120px;
+  margin: 10px;
+}
+.form-control {
   width: 200px;
-  margin:5px;
+}
+.btn {
+  width: 90px;
 }

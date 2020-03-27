@@ -16,7 +16,7 @@ import { DialogConformExchangeComponent } from './dialog-conform-exchange/dialog
 const routes: Routes = [
   { path: 'user-manager', component: AdminUserManagerComponent , canActivate: [AdminGuard] },
   { path: 'product-manager', component: AdminProductManagerComponent, canActivate: [AdminGuard] },
-  { path: 'check-product', component: AdminCheckProductComponent, canActivate: [AdminGuard] },
+  { path: 'check-product/:id', component: AdminCheckProductComponent, canActivate: [AdminGuard] },
   ];
 
 @NgModule({

@@ -4,75 +4,72 @@
       Duyệt sản phẩm
     </h1>
     <hr style="width: 100%">
-    <form class="w-75 mx-auto justify-content-center " [formGroup]="formUpdateInfo">
-      <div class="form-group">
-        <label>Tên sản phẩm</label>
-        <input disabled="true" class="form-control" type="text" formControlName="fullName" >
-      </div>
+    <div class="d-flex justify-content-center">
+    <div class="col-4">
+      <ul class="list-group">
+        <li class="list-group-item row d-flex justify-content-center mx-0 bg-light "><h2 class="m-0">Thông tin sản phẩm
+          đấu giá</h2></li>
+        <li class="list-group-item"> Tên sản phẩm <span
+          class="text-danger font-weight-bold">{{productDetail.nameProduct}}</span></li>
+        <li class="list-group-item"> Người đăng <span
+          class="text-danger font-weight-bold">{{productDetail.username}}</span></li>
+        <li class="list-group-item"> Email <span class="text-danger font-weight-bold">{{productDetail.email}}</span>
+        </li>
+        <li class="list-group-item"> Loại sản phẩm: <span
+          class="text-danger font-weight-bold">{{productDetail.catalogue}}</span></li>
+        <li class="list-group-item"> Giá khỏi điểm <span
+          class="text-danger font-weight-bold">{{productDetail.startPrice | currency: "VND"}}</span></li>
+        <li class="list-group-item"> Bước giá <span
+          class="text-danger font-weight-bold">{{productDetail.minBet | currency: "VND"}}</span></li>
+        <li class="list-group-item"> Bắt đầu đấu giá <span
+          class="text-danger font-weight-bold">{{productDetail.startDay|date:'short'}}</span></li>
+        <li class="list-group-item"> Kết thúc đấu giá <span
+          class="text-danger font-weight-bold">{{productDetail.endDay|date:'short'}}</span></li>
+        <li class="list-group-item"> Thông tin chi tiết sản phẩm <span
+          class="text-danger font-weight-bold">{{productDetail.productInfo}}</span></li>
+      </ul>
+    </div>
+    <div class="col-4 row">
+      <div class="bd-example" style="height: 250px;width: 90%">
+        <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
+          <ol class="carousel-indicators">
+            <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
+            <li data-target="#carouselExampleCaptions" data-slide-to="1"></li>
+            <li data-target="#carouselExampleCaptions" data-slide-to="2"></li>
+            <li data-target="#carouselExampleCaptions" data-slide-to="3"></li>
+          </ol>
 
-      <div class="form-group">
-        <label>Thông tin người đăng</label>
-        <input disabled="true" class="form-control" type="text" formControlName="email" >
-      </div>
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <img [src]="productDetail.img" class="d-block w-100" alt="..." style="height: 250px; width: 400px">
+            </div>
+            <div class="carousel-item">
+              <img [src]="productDetail.img" class="d-block w-100" alt="..." style="height: 250px; width: 400px">
+            </div>
+            <div class="carousel-item">
+              <img [src]="productDetail.img" class="d-block w-100" alt="..." style="height: 250px; width: 400px">
+            </div>
+            <div class="carousel-item">
+              <img [src]="productDetail.img" class="d-block w-100" alt="..." style="height: 250px; width: 400px">
+            </div>
+          </div>
 
-      <div class="form-group">
-        <label>Chủng loại</label>
-        <input disabled="true" class="form-control" type="text" formControlName="email" >
+          <a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+          </a>
+          <a class="carousel-control-next" href="#carouselExampleCaptions" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+          </a>
+        </div>
       </div>
-
-      <div class="form-group">
-        <label>Giá ban đầu</label>
-        <input disabled="true" class="form-control" type="text" formControlName="email">
-      </div>
-
-      <div class="form-group">
-        <label>Bước giá</label>
-        <input disabled="true" class="form-control" type="text" formControlName="email">
-      </div>
-
-
-      <div class="form-group ">
-        <label>Hình ảnh</label>
-        <input disabled="true"  class="form-control" type="text" formControlName="email">
-      </div>
-
-      <div class="form-group">
-        <label>Bắt đầu đấu giá lúc</label>
-        <input disabled="true" class="form-control" type="text" formControlName="email">
-      </div>
-
-      <div class="form-group">
-        <label>Kết thúc đấu giá lúc</label>
-        <input disabled="true" class="form-control" type="text" formControlName="email" >
-      </div>
-      <div class="form-group">
-        <label>Thông tin chi tiết</label>
-        <input disabled="true" class="form-control" type="text" formControlName="email">
-      </div>
-
-    </form>
-<!--    <div class="row justify-content-center">-->
-<!--      <button mat-dialog-close  class="btn btn-primary" (click)="editUserProfile()">-->
-<!--        Cập nhật-->
-<!--      </button>-->
-<!--      <button mat-dialog-close  class="btn btn-sm btn-danger">-->
-<!--        Hủy-->
-<!--      </button>-->
-<!--    </div>-->
+    </div>
   </div>
   <div class="d-flex justify-content-center button-container row">
-    <button mat-raised-button class="action-button" color="primary" >Duyệt
-      <i class="material-icons ml-2">
-        lock
-      </i></button>
-    <button mat-raised-button class="action-button" color="primary">Không duyệt
-      <i class="material-icons ml-2">
-        delete_forever
-      </i></button>
-    <button mat-raised-button class="action-button" color="primary">Quay lại
-      <i class="material-icons ml-2">
-        person_add
-      </i></button>
+    <button mat-raised-button class="action-button" color="primary">Duyệt</button>
+    <button mat-raised-button class="action-button" color="primary">Không duyệt</button>
+    <button mat-raised-button class="action-button" color="primary" [routerLink]="['/admin/product-manager']">Quay lại</button>
   </div>
 </div>
 
