@@ -5,6 +5,10 @@ import {Router} from '@angular/router';
 import {CookieStorageService} from '../../services/auth/cookie-storage.service';
 import {AngularFireStorage} from '@angular/fire/storage';
 
+export interface Image {
+  id: string;
+  url: string;
+}
 @Component({
   selector: 'app-product-add',
   templateUrl: './product-add.component.html',
@@ -17,6 +21,7 @@ export class ProductAddComponent implements OnInit {
   username: string;
   files: File[] = [];
   imgUrlList = [];
+  images: Image[];
   constructor(private fb: FormBuilder,
               private  adminService: AdminService,
               public router: Router,
@@ -44,6 +49,10 @@ export class ProductAddComponent implements OnInit {
       email: [''],
       phone: [''],
       imgUrlList: [''],
+      images: {
+        id: [''],
+        url: [''],
+      }
     });
     this.username = this.cookieStorageService.getUsername();
     this.adminService.getInforAdmin(this.username).subscribe(data1 => {
@@ -65,6 +74,7 @@ export class ProductAddComponent implements OnInit {
 
   add() {
     this.productInfor.controls.imgUrlList.setValue(this.imgUrlList);
+    this.productInfor.controls.images.setValue(this.images);
     this.adminService.saveProductInfor(this.productInfor.value).subscribe(data1 => {
         this.ngOnInit();
         this.productInfor.patchValue(data1);

@@ -7,14 +7,14 @@
       <div class="form-row">
         <div class="input-group col-md-6 mb-3">
           <div class="input-group-prepend">
-            <span class="input-group-text" id="name">Tên sản phẩm</span>
+            <span class="input-group-text" id="name">Tên sản phẩm (*)</span>
           </div>
           <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default"
                  formControlName="name">
         </div>
         <div class="input-group col-md-6 mb-3">
           <div class="input-group-prepend">
-            <label class="input-group-text" for="inputGroupSelect01">Loại sản phẩm</label>
+            <label class="input-group-text" for="inputGroupSelect01">Loại sản phẩm (*)</label>
           </div>
           <select class="custom-select" id="catalogue" formControlName="catalogue">
             <option selected>Chọn loại sản phẩm...</option>
@@ -39,17 +39,20 @@
         <tr>
           <td>
             <mat-form-field class="example-full-width" style="width: 90%">
-              <input class="form-control" formControlName="startDay" matInput [matDatepicker]="myDatepicker" placeholder="Chọn ngày bắt đầu">
+              <input class="form-control" formControlName="startDay" matInput [matDatepicker]="myDatepicker"
+                     placeholder="Chọn ngày bắt đầu">
               <mat-datepicker-toggle matSuffix [for]="myDatepicker"></mat-datepicker-toggle>
               <mat-datepicker #myDatepicker></mat-datepicker>
-              <mat-error *ngIf="productInfor.controls.startDay.errors?.required&&productInfor.controls.startDay.touched">
+              <mat-error
+                *ngIf="productInfor.controls.startDay.errors?.required&&productInfor.controls.startDay.touched">
                 Ngày bắt đầu <strong>không được để trống</strong>
               </mat-error>
             </mat-form-field>
           </td>
           <td>
             <mat-form-field class="example-full-width" style="width: 90%">
-              <input class="form-control" formControlName="endDay" matInput [matDatepicker]="myDatepicker1" placeholder="Chọn ngày bắt đầu">
+              <input class="form-control" formControlName="endDay" matInput [matDatepicker]="myDatepicker1"
+                     placeholder="Chọn ngày bắt đầu">
               <mat-datepicker-toggle matSuffix [for]="myDatepicker1"></mat-datepicker-toggle>
               <mat-datepicker #myDatepicker1></mat-datepicker>
               <mat-error *ngIf="productInfor.controls.endDay.errors?.required&&productInfor.controls.endDay.touched">
@@ -62,25 +65,25 @@
       <div class="form-row mt-3">
         <div class="input-group col-md-6 mb-3">
           <div class="input-group-prepend">
-            <span class="input-group-text" id="startPrice">Giá ban đầu</span>
+            <span class="input-group-text" id="startPrice">Giá ban đầu (*)</span>
           </div>
           <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default"
                  formControlName="startPrice">
         </div>
         <div class="input-group col-md-6 mb-3">
           <div class="input-group-prepend">
-            <span class="input-group-text" id="inputGroup-sizing-default">Giá ban đầu</span>
+            <span class="input-group-text" id="inputGroup-sizing-default">Bước giá (*)</span>
           </div>
           <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default"
-                 formControlName="startPrice">
+                 formControlName="minBet">
         </div>
       </div>
-      <p class="text-center">Thông tin chi tiết:</p>
+      <p class="text-center">Thông tin chi tiết: (*)</p>
       <hr class="mt-0">
       <div class="form-row">
         <div class="input-group col-md-5 mb-3">
           <div class="input-group-prepend">
-            <label class="input-group-text" for="inputGroupSelect01">Bảo hành</label>
+            <label class="input-group-text" for="inputGroupSelect01">Bảo hành (*)</label>
           </div>
           <select class="custom-select" id="inputGroupSelect01" formControlName="warranty">
             <option selected>Chọn thời hạn bảo hành</option>
@@ -91,33 +94,44 @@
         </div>
         <div class="input-group col-md-7 mb-3">
           <div class="input-group-prepend">
-            <span class="input-group-text" id="contractPhoneNumber">Số điện thoại liên hệ</span>
+            <span class="input-group-text" id="contractPhoneNumber">Số điện thoại liên hệ (*)</span>
           </div>
           <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default"
                  formControlName="contractPhoneNumber">
         </div>
       </div>
       <div class="form-row">
-      <div class="input-group col-md-12">
-        <div class="input-group-prepend">
-          <span class="input-group-text" id="contractAddress">Địa chỉ nhận hàng</span>
+        <div class="input-group col-md-12">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="contractAddress">Địa chỉ nhận hàng (*)</span>
+          </div>
+          <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default"
+                 formControlName="contractAddress">
         </div>
-        <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default"
-               formControlName="contractAddress">
-      </div>
         <div class="input-group col-md-12 mt-3">
           <div class="input-group-prepend">
-            <span class="input-group-text">Giới thiệu sản phẩm</span>
+            <span class="input-group-text">Giới thiệu sản phẩm (*)</span>
           </div>
           <textarea class="form-control" aria-label="With textarea" formControlName="productInfo"></textarea>
         </div>
       </div>
 
-      <label class="mt-3 mb-0">Hình ảnh sản phẩm</label><hr>
-      <div class="mb-3 p-2 pl-5" >
+      <label class="mt-3 mb-0">Hình ảnh sản phẩm (*)</label>
+      <hr>
+      <div class="mb-3 p-2 pl-5">
         <div class="row">
-          <div class="mx-2 my-2" *ngFor="let key of objectKeys(productInfor.value.images); let i = index">
-            <img [src]="productInfor.value.images[key].url" class="img-responsive" alt="Cinque Terre" style="height: 10rem; width: 10rem">
+          <!--          <div class="mx-2 my-2" *ngFor="let image of images; let i = index">-->
+          <!--            <div class="card border-dark mb-3" style="height: 10rem; width: 10rem">-->
+          <!--              <img src= {{img.url}} class="img-responsive" alt="Cinque Terre"-->
+          <!--                   style="height: 10rem; width: 10rem">-->
+          <!--              <button type="button" class="btn btn-close btn-xs" (click)="deleteImageInDatabase($event)">X</button>-->
+          <!--            </div>-->
+          <!--          </div>-->
+          <div class="mx-2 my-2" *ngFor="let img of images">
+            <div class="card border-dark mb-3" style="height: 10rem; width: 10rem">
+              <img src={{img.url}} style="height: 10rem; width: 10rem">
+              <button type="button" class="btn btn-close btn-xs" (click)="deleteImageInDatabase(img)">X</button>
+            </div>
           </div>
           <div class="mx-2 my-2" *ngFor="let file of files; let i = index">
             <app-image-upload [file]="file" [index]="i" class="mx-auto d-block" (deleteImage)="deleteAttachment($event)"
@@ -130,9 +144,9 @@
           Thêm hình ảnh</label>
       </div>
       <div class="row d-flex justify-content-center my-3">
-        <button class="btn btn-success mr-3" (click)="update()">Cập nhật</button>
-        <button class="btn btn-warning mr-3" (click)="ngOnInit()">Nhập lại</button>
-        <button class="btn btn-danger" (click)="cancel()">Hủy</button>
+        <button class="btn btn-success mr-3" (click)="update()" style="width: 100px">Cập nhật</button>
+        <button class="btn btn-warning mr-3" (click)="ngOnInit()" style="width: 100px">Nhập lại</button>
+        <button class="btn btn-danger" (click)="cancel()" style="width: 100px">Hủy</button>
       </div>
     </form>
   </div>

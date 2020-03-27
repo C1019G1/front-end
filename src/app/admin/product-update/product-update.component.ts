@@ -1,8 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {AdminService} from '../../services/admin.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AngularFireStorage} from '@angular/fire/storage';
+
+export interface Image {
+  id: string;
+  url: string;
+}
 
 @Component({
   selector: 'app-product-update',
@@ -17,11 +22,15 @@ export class ProductUpdateComponent implements OnInit {
   public id;
   files: File[] = [];
   imgUrlList = [];
+  images: Image[];
+  imageDeleteUrls: Array<string> = [];
+
   constructor(private fb: FormBuilder,
               private  adminService: AdminService,
               public router: Router,
               public activatedRoute: ActivatedRoute,
-              private storage: AngularFireStorage) { }
+              private storage: AngularFireStorage) {
+  }
 
   ngOnInit(): void {
     this.productInfor = this.fb.group({
@@ -54,24 +63,27 @@ export class ProductUpdateComponent implements OnInit {
     });
     this.adminService.getInforProduct(this.id).subscribe(data1 => {
       this.productInfor.patchValue(data1);
+      this.images = data1.images;
       this.productInfor.controls.startDay.setValue(new Date(data1.startDay));
       this.productInfor.controls.endDay.setValue(new Date(data1.endDay));
     });
   }
+
   onSubmit() {
   }
 
   cancel() {
-     this.router.navigateByUrl('/product/list');
+    this.router.navigateByUrl('/product/list');
   }
 
   update() {
+    this.deleteImageInFirebase();
     this.productInfor.controls.imgUrlList.setValue(this.imgUrlList);
     this.adminService.saveProductInfor(this.productInfor.value).subscribe(data1 => {
         this.router.navigateByUrl('/admin/product-detail-infor/' + this.id);
-    },
+      },
       error => {
-        alert(error.error) ;
+        alert(error.error);
       }
     );
   }
@@ -109,6 +121,22 @@ export class ProductUpdateComponent implements OnInit {
     // Đẩy URL link vào listURL sau khi output của image upload có emit event
     if (image) {
       this.imgUrlList.push(image.downloadURL);
+    }
+  }
+
+  deleteImageInDatabase(img) {
+    this.imageDeleteUrls.push(img.url);
+    const index: number = this.images.indexOf(img);
+    if (index !== -1) {
+      this.images.splice(index, 1);
+    }
+  }
+
+  deleteImageInFirebase() {
+    // tslint:disable-next-line:prefer-for-of
+    for (let i = 0; i < this.imageDeleteUrls.length; i++) {
+      this.storage.storage.refFromURL(this.imageDeleteUrls[i]).delete().then(r => {
+      });
     }
   }
 }

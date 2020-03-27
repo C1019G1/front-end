@@ -24,17 +24,17 @@ export class AppComponent {
   constructor(
               public  dialog: MatDialog,
               private cookieStorageService: CookieStorageService,
-              private tokenStorage: TokenStorageService,
+              // private tokenStorage: TokenStorageService,
   ) { }
   // tslint:disable-next-line:use-lifecycle-interface
   ngOnInit() {
-    this.getId();
+  //  this.getId();
     this.getUsername();
     this.getRoleName();
   }
 
   getId() {
-    this.id = this.tokenStorage.getId();
+  //  this.id = this.tokenStorage.getId();
     if (this.id) {
       this.showLoginBox = false;
     } else {
