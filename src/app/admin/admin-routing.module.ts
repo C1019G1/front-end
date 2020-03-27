@@ -48,7 +48,6 @@ const routes: Routes = [
     DialogConformExchangeComponent,
     AdminTransactionManagerComponent,
     MessageDeleteTransactionDialogComponent,
-    MessageSuccessfulTransactionDialogComponent
   ]
 })
 export class AdminRoutingModule { }
