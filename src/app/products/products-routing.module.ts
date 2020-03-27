@@ -9,28 +9,39 @@ import { CountDownComponent } from './count-down/count-down.component';
 import {ReactiveFormsModule} from '@angular/forms';
 import {ProductAddComponent} from './product-add/product-add.component';
 import { MessageDialogeComponent } from './message-dialoge/message-dialoge.component';
-
-
+import { ProductRegisterComponent } from './product-register/product-register.component';
+import { ImageUploadComponent } from '../Common/image-upload/image-upload.component';
+import {DragDropDirective} from '../Common/dragdrop.directive';
+import {FirebaseModule} from '../Common/firebase.module';
+import {MaterialModule} from '../Common/material.module';
+import { ProductCommentComponent } from './product-comment/product-comment.component';
 const routes: Routes = [
   {path: '', component: ProductsComponent},
   {path: 'list', component: ProductListComponent},
   {path: 'detail/:id', component: PoductDetailComponent},
   {path: 'list/:catalogue', component: ProductListComponent},
   {path: 'add', component: ProductAddComponent},
-  {path: 'update', component: ProductAddComponent}
+  {path: 'update', component: ProductAddComponent},
+  {path: 'register', component: ProductRegisterComponent}
 ];
 
 @NgModule({
-    imports: [
-        RouterModule.forChild(routes),
-        CommonModule,
-        ReactiveFormsModule,
-    ],
-  exports: [RouterModule],
+  imports: [
+    RouterModule.forChild(routes),
+    CommonModule,
+    ReactiveFormsModule,
+    MaterialModule,
+    FirebaseModule
+  ],
+  exports: [RouterModule, ImageUploadComponent],
   declarations: [ProductListComponent,
     PoductDetailComponent,
     CountDownComponent,
     MessageDialogeComponent,
+    ProductRegisterComponent,
+    ImageUploadComponent,
+    DragDropDirective,
+    ProductCommentComponent
     ]
 })
 export class ProductsRoutingModule {

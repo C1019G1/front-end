@@ -1,32 +1,38 @@
+
 <div class="container">
-  <div id="print-section">
-    <div class="row d-flex justify-content-center">
-      <h3>HÓA ĐƠN MUA HÀNG</h3>
+  <div class="mt-4" id="print-section" style="border: double 1px ">
+    <div class="row d-flex justify-content-center mt-2">
+      <h3 id="tile" #tile >HÓA ĐƠN MUA HÀNG</h3>
     </div>
     <div class="row mx-5">
-      <div class="col-9">
-        <p>Khách hàng: </p>
-        <p>Mã khách hàng:</p>
-        <p>Người bán:</p>
-        <p>Mặt hàng:</p>
-        <p>Mã hàng:</p>
-        <p>Số tiền:</p>
-        <p>Bằng chữ: {{money}}</p>
-        <p>Nghi chú:</p>
+      <div id ="info" #info class="col-8">
+        <p>Khách hàng:&nbsp;{{customerInfo.buyerName}} </p>
+        <p>Mã khách hàng:&nbsp;{{customerInfo.idBuyer}}</p>
+        <div>
+          <div *ngFor="let productForBill of productListForBill; index as i; first as isFirst">
+            <p>&nbsp;Sản phẩm số&nbsp; {{i+1}}</p>
+            <p>&nbsp;&nbsp;&nbsp;-Người bán:&nbsp; {{productForBill.sellerName}}</p>
+            <p>&nbsp;&nbsp;&nbsp;-Mặt hàng:&nbsp; {{productForBill.productName}}</p>
+            <p>&nbsp;&nbsp;&nbsp;-Mã hàng:&nbsp; {{productForBill.productId}}</p>
+            <p>&nbsp;&nbsp;&nbsp;-Giá sản phẩm:&nbsp; {{productForBill.price}}&nbsp;VNĐ</p>
+          </div>
+        </div>
+        <p>Tổng số tiền thanh toán:&nbsp;{{money}}&nbsp;VNĐ</p>
+        <p>Tiền bằng chữ:&nbsp;{{stringMoney}}</p>
+        <p>Ghi chú:&nbsp;{{productListForBill[0].note}}</p>
       </div>
-      <div class="col-3">
+      <div id="code" #code class="col-4">
         <p>Mã số:</p>
         <p>Ký hiệu:</p>
-        <p>Ngày lập:</p>
+        <p>Ngày lập:{{dayCompose | date: 'dd/MM/yyyy'}}</p>
       </div>
     </div>
   </div>
-  <div class ="row d-flex justify-content-center">
-    <button class="btn btn-outline-warning mx-4" style="width: 90px; height: 35px" (click)="print()">
+  <div class ="row d-flex justify-content-center mt-4">
+    <button class="btn btn-outline-warning mx-4" style="width: 90px; height: 35px" (click)="exportPDF1()">
       <i class="material-icons">print</i>
       Print
     </button>
     <button mat-dialog-close class="btn btn-outline-warning mr-4 " style="width: 90px;height: 35px;">Hủy bỏ </button>
   </div>
 </div>
-

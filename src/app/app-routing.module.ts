@@ -2,7 +2,6 @@ import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MaterialModule} from './Common/material.module';
-import {ProductListComponent} from './products/product-list/product-list.component';
 import {RejectAccessComponent} from './reject-access/reject-access.component';
 
 

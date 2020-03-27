@@ -1,0 +1,144 @@
+<h1 class="text-center mt-1">Danh sách mặt hàng chờ thanh toán</h1>
+<div class="px-5">
+  <div class="row mt-2">
+    <div class="col-xl-6 w-100">
+      <div class="table-container">
+        <table mat-table [dataSource]="data" class="mat-elevation-z8 table-striped">
+          <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef> Mã giao dịch</th>
+            <td mat-cell *matCellDef="let product"> {{product.id}} </td>
+            <td mat-footer-cell *matFooterCellDef> Tổng cộng</td>
+          </ng-container>
+          <!--  Column -->id
+          <ng-container matColumnDef="productName">
+            <th mat-header-cell *matHeaderCellDef> Tên sản phẩm</th>
+            <td mat-cell *matCellDef="let product"> {{product.productName| titlecase}} </td>
+            <td mat-footer-cell *matFooterCellDef></td>
+          </ng-container>
+          <!-- Cost Column -->
+          <ng-container matColumnDef="price">
+            <th mat-header-cell *matHeaderCellDef> Giá đấu được</th>
+            <td mat-cell *matCellDef="let product"> {{product.price }} </td>
+            <td mat-footer-cell *matFooterCellDef> {{getTotalCost() }} </td>
+          </ng-container>
+          <!-- Due day Column -->
+          <ng-container matColumnDef="period">
+            <th mat-header-cell *matHeaderCellDef>Hạn thanh toán</th>
+            <td mat-cell *matCellDef="let product">{{product.period|date:'short'}}  </td>
+            <td mat-footer-cell *matFooterCellDef></td>
+          </ng-container>
+          <!-- Checkbox Column -->
+          <ng-container matColumnDef="select">
+            <th mat-header-cell *matHeaderCellDef>
+              <mat-checkbox (change)="$event ? masterToggle() : null"
+                            [checked]="selection.hasValue() && isAllSelected()"
+                            [indeterminate]="selection.hasValue() && !isAllSelected()"
+                            [aria-label]="checkboxLabel()">
+              </mat-checkbox>
+            </th>
+            <td mat-cell *matCellDef="let row">
+              <mat-checkbox (click)="$event.stopPropagation()"
+                            (change)="$event ? selection.toggle(row) : null"
+                            [checked]="selection.isSelected(row)"
+                            [aria-label]="checkboxLabel(row)">
+              </mat-checkbox>
+            </td>
+            <td mat-footer-cell *matFooterCellDef></td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+              [ngClass]="{ 'selected': selection.isSelected(row)}"
+              (click)="selectEvent(row)"></tr>
+          <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
+        </table>
+      </div>
+      <div class="row ml-1 mt-4">
+        <mat-card>
+          <mat-card-header>
+            <mat-card-title>Phương thức thanh toán</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <mat-accordion>
+              <mat-expansion-panel (opened)="codPanel = true"
+                                   (closed)="codPanel = false">
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    Tiền mặt khi nhận hàng
+                  </mat-panel-title>
+                  <mat-panel-description>
+                    Chỉ áp dụng với mặt hàng công nghệ
+                  </mat-panel-description>
+                </mat-expansion-panel-header>
+                <div>
+                  *Phí dịch vụ cho mỗi sản phẩm là 5000 VND<br>
+                  *Phí vận chuyển đến địa chỉ nhận sẽ do đơn vị vận chuyển cung cấp
+                </div>
+                <mat-card-actions>
+                  <button mat-button mat-raised-button color="primary"
+                          [disabled]="this.selection.selected.length == 0||getStatus()"
+                          (click)="payment()">Thanh toán
+                  </button>
+                </mat-card-actions>
+              </mat-expansion-panel>
+              <mat-expansion-panel (opened)="transferPanel = true"
+                                   (closed)="transferPanel = false">
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    Chuyển khoản
+                  </mat-panel-title>
+                  <mat-panel-description>
+                    Chuyển tiền đến tài khoản ngân hàng của phòng giao dịch
+                  </mat-panel-description>
+                </mat-expansion-panel-header>
+                *Phí dịch vụ cho mỗi sản phẩm là 5000 VND<br>
+                *Sau khi có email xác nhận giao dịch. Mời bạn chuyển vào tài khoản của phòng giao dịch<br>
+                *Có thể phát sinh phí vận chuyển hàng cồng kềnh
+                <mat-card-actions>
+                  <button mat-button mat-raised-button color="primary"
+                          [disabled]="this.selection.selected.length == 0"
+                          (click)="payment()">Thanh toán
+                  </button>
+                </mat-card-actions>
+              </mat-expansion-panel>
+            </mat-accordion>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+
+    <div class="card-container col-xl-6">
+      <mat-card *ngIf="selectedProduct" class="example-card">
+        <mat-card-header>
+          <mat-card-title>
+            <a href="#"
+               [routerLink]="'/product/detail/'+this.selectedProduct.productId">{{selectedProduct.productName}}</a>
+          </mat-card-title>
+        </mat-card-header>
+        <img mat-card-image [src]="selectedProduct.imageURLs[0]">
+        <mat-card-content>
+          <div>
+            <mat-panel-title><b>Mã sản phẩm: {{selectedProduct.productId}}</b></mat-panel-title>
+          </div>
+          <div>
+            <mat-panel-title>Thông tin:</mat-panel-title>
+            <mat-panel-description class="ml-2">{{selectedProduct.productInfo}}</mat-panel-description>
+          </div>
+          <div>
+            <mat-panel-title>ĐT:</mat-panel-title>
+            <mat-panel-description class="ml-2">{{selectedProduct.contractPhoneNumber}}</mat-panel-description>
+          </div>
+          <mat-panel-title>Địa chỉ:</mat-panel-title>
+          <mat-panel-description class="ml-2">{{selectedProduct.contractAddress}}</mat-panel-description>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-button mat-raised-button color="primary" (click)="selection.select(this.selectedProduct)">Chọn
+          </button>
+          <button mat-button mat-raised-button color="primary" (click)="selection.deselect(this.selectedProduct)">Bỏ
+            chọn
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+  </div>
+</div>
