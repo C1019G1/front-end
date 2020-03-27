@@ -150,7 +150,7 @@ export class AdminTransactionManagerComponent implements OnInit, AfterViewInit {
       data: {transactionSelectedList: this.transactionSelectedList}
     });
     dialogRef.afterClosed().subscribe(result => {
-      this.ngOnInit();
+      this.ngAfterViewInit();
     });
 
   }

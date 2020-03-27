@@ -20,6 +20,7 @@ export interface BuyerDTO {
 }
 
 export interface ProductForBill {
+  transactionId: number;
   productId: number;
   productName: string;
   price: number;
@@ -78,7 +79,7 @@ export class ReceiveProductInfoComponent implements OnInit {
     console.log(this.paymentMethod);
     console.log(this.selectedProducts);
     for (let product of this.selectedProducts){
-      this.productForBill = { productId: product.productId,productName: product.productName,price: product.price,fee:product.fee,note: 'Đã thanh toán',paymentMethod: this.paymentMethod, sellerName:product.seller};
+      this.productForBill = {transactionId:product.id,productId: product.productId,productName: product.productName,price: product.price,fee:product.fee,note: 'Đã thanh toán',paymentMethod: this.paymentMethod, sellerName:product.seller};
       this.productListForBill.push(this.productForBill);
     }
   }
