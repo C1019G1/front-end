@@ -23,6 +23,7 @@ import {ProductDetailInforComponent} from './product-detail-infor/product-detail
 const routes: Routes = [
   { path: 'user-manager', component: AdminUserManagerComponent , canActivate: [AdminGuard] },
   { path: 'product-manager', component: AdminProductManagerComponent, canActivate: [AdminGuard] },
+  { path: 'check-product/:id', component: AdminCheckProductComponent, canActivate: [AdminGuard] },
   { path: 'check-product', component: AdminCheckProductComponent, canActivate: [AdminGuard] },
   { path: 'update-product/:id', component: ProductUpdateComponent },
   { path: 'add-product', component: ProductAddComponent },
