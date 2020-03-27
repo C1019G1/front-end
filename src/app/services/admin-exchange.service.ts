@@ -30,4 +30,8 @@ export class AdminExchangeService {
     console.log('serviceid:'+ id);
     return this.http.get(this.API1 + 'transaction-delete?id='+id);
   }
+  updateUserTransaction( id: number) : Observable<any>{
+    console.log('serviceid:'+ id);
+    return this.http.get(this.API1 + 'transaction-update?id='+id);
+  }
 }
